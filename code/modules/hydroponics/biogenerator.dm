@@ -154,6 +154,10 @@
 		to_chat(user, "<span class='warning'>You cannot put this in [src.name]!</span>")
 
 /obj/machinery/biogenerator/ui_interact(mob/user)
+	//don't show UI if attempting to put someone into the biogenerator while its emagged
+	if(EMAGGED && user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
+		if(iscarbon(user.pulling))
+			return
 	if(stat & BROKEN || panel_open)
 		return
 	. = ..()
@@ -331,3 +335,52 @@
 	else if(href_list["menu"])
 		menustat = "menu"
 		updateUsrDialog()
+
+//Code for stuff with the biogenerator being emagged
+/obj/machinery/biogenerator/attack_hand(mob/user)
+	. = ..()
+	if(.)
+		return
+	if(!EMAGGED)
+		return
+	if(stat & (NOPOWER|BROKEN))
+		return
+	if(processing)
+		to_chat(user, "<span class='danger'>It's locked and running.</span>")
+		return
+	if(!anchored)
+		to_chat(user, "<span class='notice'>[src] cannot be used unless bolted to the ground.</span>")
+		return
+	if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
+		var/mob/living/L = user.pulling
+		if(!iscarbon(L))
+			to_chat(user, "<span class='danger'>This item is not suitable for the biogenerator!</span>")
+			return
+		var/mob/living/carbon/C = L
+		if(C.buckled ||C.has_buckled_mobs())
+			to_chat(user, "<span class='warning'>[C] is attached to something!</span>")
+			return
+
+		for(var/obj/item/I in C.held_items + C.get_equipped_items())
+			if(!HAS_TRAIT(I, TRAIT_NODROP))
+				to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
+				return
+
+		user.visible_message("<span class='danger'>[user] starts to put [C] into the biogenerator!</span>")
+
+		add_fingerprint(user)
+
+		if(do_after(user, 40, target = src))
+			if(C && user.pulling == C && !C.buckled && !C.has_buckled_mobs() && !occupant)
+				user.visible_message("<span class='danger'>[user] stuffs [C] into the biogenerator!</span>")
+				C.forceMove(src)
+				occupant = C
+				update_icon()
+
+/obj/machinery/biogenerator/emag_act(mob/user)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return
+	obj_flags |= EMAGGED
+	to_chat(user, "<span class='notice'> The [src] shakes violently, and is now capable of processing bodies. </span>")
+	return TRUE
