@@ -185,6 +185,7 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = ""
 	bitesize = 2
+	var/original_item = null //stores the non-fried version of the item
 
 GLOBAL_VAR_INIT(frying_hardmode, TRUE)
 GLOBAL_VAR_INIT(frying_bad_chem_add_volume, TRUE)
@@ -220,7 +221,7 @@ GLOBAL_LIST_INIT(frying_bad_chems, list(
 		qdel(fried)
 	else
 		fried.forceMove(src)
-		trash = fried
+		original_item = fried
 		if(!istype(fried, /obj/item/reagent_containers/food) && GLOB.frying_hardmode && GLOB.frying_bad_chems.len)
 			var/R = rand(1, GLOB.frying_bad_chems.len)
 			var/bad_chem = GLOB.frying_bad_chems[R]
