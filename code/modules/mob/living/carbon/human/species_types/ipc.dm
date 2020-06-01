@@ -27,11 +27,19 @@
 	if(isipcperson(C) && !screen)
 		screen = new
 		screen.Grant(C)
+	for(var/X in C.bodyparts)
+		var/obj/item/bodypart/O = X
+		O.change_bodypart_status(BODYPART_ROBOTIC, FALSE, TRUE)
+		O.render_like_organic = TRUE
 	..()
 
 /datum/species/ipc/on_species_loss(mob/living/carbon/human/C)
 	if(screen)
 		screen.Remove(C)
+	for(var/X in C.bodyparts)
+		var/obj/item/bodypart/O = X
+		O.change_bodypart_status(BODYPART_ORGANIC, FALSE, TRUE)
+		O.render_like_organic = FALSE
 	..()
 
 /datum/action/innate/monitor_change

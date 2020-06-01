@@ -50,3 +50,17 @@
 		mutant_bodyparts["mam_tail"] = mutant_bodyparts["mam_waggingtail"]
 		mutant_bodyparts -= "mam_waggingtail"
 	H.update_body()
+
+/datum/species/ipc/on_species_gain(mob/living/carbon/human/C)
+	for(var/X in C.bodyparts)
+		var/obj/item/bodypart/O = X
+		O.change_bodypart_status(BODYPART_ROBOTIC, FALSE, TRUE)
+		O.render_like_organic = TRUE
+	..()
+
+/datum/species/ipc/on_species_loss(mob/living/carbon/human/C)
+	for(var/X in C.bodyparts)
+		var/obj/item/bodypart/O = X
+		O.change_bodypart_status(BODYPART_ORGANIC, FALSE, TRUE)
+		O.render_like_organic = FALSE
+	..()
