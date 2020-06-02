@@ -10,13 +10,16 @@
 	mutant_bodyparts = list("ipc_antenna" = "Synthetic Lizard - Antennae","mam_tail" = "Synthetic Lizard", "mam_snouts" = "Synthetic Lizard - Snout", "legs" = "Digitigrade", "mam_body_markings" = "Synthetic Lizard - Plates", "taur" = "None")
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/ipc
 	gib_types = list(/obj/effect/gibspawner/ipc, /obj/effect/gibspawner/ipc/bodypartless)
-	mutanttongue = /obj/item/organ/tongue/robot/ipc
 	//Just robo looking parts.
 	mutant_heart = /obj/item/organ/heart/ipc
 	mutantlungs = /obj/item/organ/lungs/ipc
 	mutantliver = /obj/item/organ/liver/ipc
 	mutantstomach = /obj/item/organ/stomach/ipc
 	mutanteyes = /obj/item/organ/eyes/ipc
+	mutantears = /obj/item/organ/ears/ipc
+	mutanttongue = /obj/item/organ/tongue/robot/ipc
+	mutant_brain = /obj/item/organ/brain/ipc
+
 
 	exotic_bloodtype = "S"
 

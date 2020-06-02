@@ -6,7 +6,8 @@
 	icon_limbs = DEFAULT_BODYPART_ICON_CITADEL
 	blacklisted = 0
 	sexes = 0
-	species_traits = list(MUTCOLORS,NOEYES,NOTRANSSTING,TRAIT_EASYDISMEMBER,TRAIT_LIMBATTACHMENT)
+	species_traits = list(MUTCOLORS,NOEYES,NOTRANSSTING)
+	inherent_traits = list(TRAIT_EASYDISMEMBER,TRAIT_LIMBATTACHMENT)
 	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID
 	mutant_bodyparts = list("ipc_screen" = "Blank", "ipc_antenna" = "None")
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/ipc
@@ -17,6 +18,7 @@
 	mutantliver = /obj/item/organ/liver/ipc
 	mutantstomach = /obj/item/organ/stomach/ipc
 	mutanteyes = /obj/item/organ/eyes/ipc
+	mutantears = /obj/item/organ/ears/ipc
 	mutanttongue = /obj/item/organ/tongue/robot/ipc
 	mutant_brain = /obj/item/organ/brain/ipc
 
@@ -61,6 +63,6 @@
 /obj/item/organ/brain/ipc
 	name = "positronic brain"
 	status = ORGAN_ROBOTIC
-	desc = "A positronic brain, typically housed within the metal casing of an IPC or synth."
+	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. It is usually slotted into the head of synthetic crewmembers."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "posibrain-ipc"
