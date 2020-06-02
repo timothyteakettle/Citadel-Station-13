@@ -12,7 +12,7 @@
 	mutant_bodyparts = list("ipc_screen" = "Blank", "ipc_antenna" = "None")
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/ipc
 	gib_types = list(/obj/effect/gibspawner/ipc, /obj/effect/gibspawner/ipc/bodypartless)
-//Just robo looking parts.
+	//Just robo looking parts.
 	mutant_heart = /obj/item/organ/heart/ipc
 	mutantlungs = /obj/item/organ/lungs/ipc
 	mutantliver = /obj/item/organ/liver/ipc
@@ -21,6 +21,9 @@
 	mutantears = /obj/item/organ/ears/ipc
 	mutanttongue = /obj/item/organ/tongue/robot/ipc
 	mutant_brain = /obj/item/organ/brain/ipc
+
+	//special cybernetic organ for getting power from apcs
+	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
 
 	exotic_bloodtype = "HF"
 
