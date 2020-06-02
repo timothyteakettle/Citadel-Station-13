@@ -3,6 +3,9 @@
 
 
 /datum/surgery/robot_healing
+	name = "Repair robotic limbs (basic)"
+	desc = "A surgical procedure that provides repairs and maintenance to robotic limbs. Is slightly more efficient when the patient is severely damaged."
+
 	steps = list(/datum/surgery_step/mechanic_open,
 				/datum/surgery_step/pry_off_plating,
 				/datum/surgery_step/cut_wires,
@@ -13,8 +16,8 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 	requires_bodypart_type = BODYPART_ROBOTIC
 	ignore_clothes = TRUE
-	var/healing_step_type
 	var/antispam = FALSE
+	var/healing_step_type = /datum/surgery_step/robot_heal/basic
 
 /datum/surgery/robot_healing/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
@@ -114,13 +117,6 @@
 
 	target.take_bodypart_damage(urdamageamt_brute, urdamageamt_burn)
 	return FALSE
-
-/***************************TYPES***************************/
-
-/datum/surgery/robot_healing/basic
-	name = "Repair robotic limbs (basic)"
-	healing_step_type = /datum/surgery_step/robot_heal/basic
-	desc = "A surgical procedure that provides repairs and maintenance to robotic limbs. Is slightly more efficient when the patient is severely damaged."
 
 /***************************STEPS***************************/
 

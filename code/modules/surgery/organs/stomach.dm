@@ -100,6 +100,7 @@
 /obj/item/organ/stomach/ipc
 	name = "ipc stomach"
 	icon_state = "stomach-ipc"
+	status = ORGAN_ROBOTIC
 
 /obj/item/organ/stomach/ipc/emp_act(severity)
 	. = ..()

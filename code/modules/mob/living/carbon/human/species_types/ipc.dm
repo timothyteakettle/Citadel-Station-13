@@ -65,7 +65,6 @@
 //ipc snowflake organs
 /obj/item/organ/brain/ipc
 	name = "positronic brain"
-	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. It is usually slotted into the head of synthetic crewmembers."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "posibrain-ipc"
