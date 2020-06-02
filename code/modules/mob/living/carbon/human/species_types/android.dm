@@ -16,9 +16,11 @@
 	for(var/X in C.bodyparts)
 		var/obj/item/bodypart/O = X
 		O.change_bodypart_status(BODYPART_ROBOTIC, FALSE, TRUE)
+		O.render_like_organic = TRUE
 
 /datum/species/android/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	for(var/X in C.bodyparts)
 		var/obj/item/bodypart/O = X
 		O.change_bodypart_status(BODYPART_ORGANIC,FALSE, TRUE)
+		O.render_like_organic = FALSE

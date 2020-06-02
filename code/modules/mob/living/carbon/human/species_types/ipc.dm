@@ -6,18 +6,19 @@
 	icon_limbs = DEFAULT_BODYPART_ICON_CITADEL
 	blacklisted = 0
 	sexes = 0
-	species_traits = list(MUTCOLORS,NOEYES,NOTRANSSTING)
+	species_traits = list(MUTCOLORS,NOEYES,NOTRANSSTING,TRAIT_EASYDISMEMBER,TRAIT_LIMBATTACHMENT)
 	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID
 	mutant_bodyparts = list("ipc_screen" = "Blank", "ipc_antenna" = "None")
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/ipc
 	gib_types = list(/obj/effect/gibspawner/ipc, /obj/effect/gibspawner/ipc/bodypartless)
-	mutanttongue = /obj/item/organ/tongue/robot/ipc
 //Just robo looking parts.
 	mutant_heart = /obj/item/organ/heart/ipc
 	mutantlungs = /obj/item/organ/lungs/ipc
 	mutantliver = /obj/item/organ/liver/ipc
 	mutantstomach = /obj/item/organ/stomach/ipc
 	mutanteyes = /obj/item/organ/eyes/ipc
+	mutanttongue = /obj/item/organ/tongue/robot/ipc
+	mutant_brain = /obj/item/organ/brain/ipc
 
 	exotic_bloodtype = "HF"
 
@@ -55,3 +56,11 @@
 		return
 	H.dna.features["ipc_screen"] = new_ipc_screen
 	H.update_body()
+
+//ipc snowflake organs
+/obj/item/organ/brain/ipc
+	name = "positronic brain"
+	status = ORGAN_ROBOTIC
+	desc = "A positronic brain, typically housed within the metal casing of an IPC or synth."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "posibrain-ipc"

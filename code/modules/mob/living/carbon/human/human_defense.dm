@@ -398,11 +398,22 @@
 				informed = TRUE
 			switch(severity)
 				if(1)
-					L.receive_damage(0,10)
 					Stun(200)
+					if(!isrobotic(src))
+						L.receive_damage(0,10)
+					else
+						// robotic species take 2.5x less damage, and roll to have their parts fly off on a heavy emp
+						L.receive_damage(0,4)
+						if(!(L.body_part == CHEST || L.body_part == HEAD)) // only dismember legs/arms
+							if(prob(20))
+								L.dismember()
 				if(2)
-					L.receive_damage(0,5)
 					Stun(100)
+					if(!isrobotic(src))
+						L.receive_damage(0,5)
+					else
+						L.receive_damage(0,2)
+
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit)
 	var/list/damaged = list()
