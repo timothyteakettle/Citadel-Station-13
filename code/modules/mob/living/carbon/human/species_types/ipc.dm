@@ -6,8 +6,8 @@
 	icon_limbs = DEFAULT_BODYPART_ICON_CITADEL
 	blacklisted = 0
 	sexes = 0
-	species_traits = list(MUTCOLORS,NOEYES,NOTRANSSTING)
-	inherent_traits = list(TRAIT_EASYDISMEMBER,TRAIT_LIMBATTACHMENT)
+	species_traits = list(MUTCOLORS,NOEYES,NOTRANSSTING,ROBOTIC_LIMBS)
+	inherent_traits = list(TRAIT_EASYDISMEMBER,TRAIT_LIMBATTACHMENT,TRAIT_NO_PROCESS_FOOD)
 	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID
 	mutant_bodyparts = list("ipc_screen" = "Blank", "ipc_antenna" = "None")
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/ipc
@@ -33,19 +33,11 @@
 	if(isipcperson(C) && !screen)
 		screen = new
 		screen.Grant(C)
-	for(var/X in C.bodyparts)
-		var/obj/item/bodypart/O = X
-		O.change_bodypart_status(BODYPART_ROBOTIC, FALSE, TRUE)
-		O.render_like_organic = TRUE
 	..()
 
 /datum/species/ipc/on_species_loss(mob/living/carbon/human/C)
 	if(screen)
 		screen.Remove(C)
-	for(var/X in C.bodyparts)
-		var/obj/item/bodypart/O = X
-		O.change_bodypart_status(BODYPART_ORGANIC, FALSE, TRUE)
-		O.render_like_organic = FALSE
 	..()
 
 /datum/action/innate/monitor_change

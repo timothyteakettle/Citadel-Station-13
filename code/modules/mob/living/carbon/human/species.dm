@@ -333,6 +333,11 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 	C.add_movespeed_modifier(MOVESPEED_ID_SPECIES, TRUE, 100, override=TRUE, multiplicative_slowdown=speedmod, movetypes=(~FLYING))
 
+	if(ROBOTIC_LIMBS in species_traits)
+		for(var/obj/item/bodypart/B in C.bodyparts)
+			B.change_bodypart_status(BODYPART_ROBOTIC, FALSE, TRUE) // Makes all Bodyparts robotic.
+			B.render_like_organic = TRUE
+
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
 
 
@@ -363,6 +368,11 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		var/location = C.dna.mutation_index.Find(inert_mutation)
 		C.dna.mutation_index[location] = new_species.inert_mutation
 		C.dna.mutation_index[new_species.inert_mutation] = create_sequence(new_species.inert_mutation)
+
+	if(ROBOTIC_LIMBS in species_traits)
+		for(var/obj/item/bodypart/B in C.bodyparts)
+			B.change_bodypart_status(BODYPART_ORGANIC, FALSE, TRUE)
+			B.render_like_organic = FALSE
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
 

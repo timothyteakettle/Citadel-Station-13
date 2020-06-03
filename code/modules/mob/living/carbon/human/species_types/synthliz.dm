@@ -4,8 +4,8 @@
 	icon_limbs = DEFAULT_BODYPART_ICON_CITADEL
 	say_mod = "beeps"
 	default_color = "00FF00"
-	species_traits = list(MUTCOLORS,NOTRANSSTING,EYECOLOR,LIPS,HAIR)
-	inherent_traits = list(TRAIT_EASYDISMEMBER,TRAIT_LIMBATTACHMENT)
+	species_traits = list(MUTCOLORS,NOTRANSSTING,EYECOLOR,LIPS,HAIR,ROBOTIC_LIMBS)
+	inherent_traits = list(TRAIT_EASYDISMEMBER,TRAIT_LIMBATTACHMENT,TRAIT_NO_PROCESS_FOOD)
 	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID
 	mutant_bodyparts = list("ipc_antenna" = "Synthetic Lizard - Antennae","mam_tail" = "Synthetic Lizard", "mam_snouts" = "Synthetic Lizard - Snout", "legs" = "Digitigrade", "mam_body_markings" = "Synthetic Lizard - Plates", "taur" = "None")
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/ipc
@@ -56,17 +56,3 @@
 		mutant_bodyparts["mam_tail"] = mutant_bodyparts["mam_waggingtail"]
 		mutant_bodyparts -= "mam_waggingtail"
 	H.update_body()
-
-/datum/species/ipc/on_species_gain(mob/living/carbon/human/C)
-	for(var/X in C.bodyparts)
-		var/obj/item/bodypart/O = X
-		O.change_bodypart_status(BODYPART_ROBOTIC, FALSE, TRUE)
-		O.render_like_organic = TRUE
-	..()
-
-/datum/species/ipc/on_species_loss(mob/living/carbon/human/C)
-	for(var/X in C.bodyparts)
-		var/obj/item/bodypart/O = X
-		O.change_bodypart_status(BODYPART_ORGANIC, FALSE, TRUE)
-		O.render_like_organic = FALSE
-	..()

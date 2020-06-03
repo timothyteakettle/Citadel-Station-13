@@ -134,6 +134,7 @@
 #define SKINTONE		23	//uses skin tones
 #define HORNCOLOR		24
 #define WINGCOLOR		25
+#define ROBOTIC_LIMBS	26 //has robotic limbs that render like organic ones
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"
