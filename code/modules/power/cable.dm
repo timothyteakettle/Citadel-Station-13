@@ -533,7 +533,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(affecting && affecting.status == BODYPART_ROBOTIC)
 		if(user == H)
 			user.visible_message("<span class='notice'>[user] starts to fix some of the wires in [H]'s [affecting.name].</span>", "<span class='notice'>You start fixing some of the wires in [H]'s [affecting.name].</span>")
-			if(!do_after(user, H, 50))
+			if(!do_mob(user, H, 50))
 				return
 		if(item_heal_robotic(H, user, 0, 15))
 			use(1)
@@ -563,7 +563,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		amount -= 15
 		var/obj/item/restraints/handcuffs/cable/result = new(get_turf(user))
 		user.put_in_hands(result)
-		result.color = color 
+		result.color = color
 		to_chat(user, "<span class='notice'>You make some restraints out of cable</span>")
 		return
 	to_chat(user, "<span class='notice'>You fail to make cable restraints, you need to stand still while doing so.</span>")
@@ -854,4 +854,3 @@ By design, d1 is the smallest direction and d2 is the highest
 	. = ..()
 	var/list/cable_colors = GLOB.cable_colors
 	color = pick(cable_colors)
-	
