@@ -79,7 +79,8 @@
 				construction_state = PA_CONSTRUCTION_UNSECURED
 				did_something = TRUE
 			else if(istype(W, /obj/item/stack/cable_coil))
-				if(W.use_tool(src, user, 0, 1))
+				var/obj/item/stack/cable_coil/CC = W
+				if(CC.use(1))
 					user.visible_message("[user.name] adds wires to the [name].", \
 						"You add some wires.")
 					construction_state = PA_CONSTRUCTION_PANEL_OPEN

@@ -29,8 +29,9 @@
 	health = 800
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	attack_verb_continuous = "preaches to"
-	attack_verb_simple = "preach to"
+	attacktext = "preaches to"
+	/*attack_verb_continuous = "preaches to"
+	attack_verb_simple = "preach to"*/
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	throw_message = "doesn't affect the purity of"
 	speed = 4
@@ -217,7 +218,7 @@
 	icon_state= "chronobolt"
 	damage = 15
 	armour_penetration = 60
-	pixels_per_second = TILES_TO_PIXELS(5)
+	speed = 2
 	eyeblur = 0
 	damage_type = BRUTE
 	pass_flags = PASSTABLE

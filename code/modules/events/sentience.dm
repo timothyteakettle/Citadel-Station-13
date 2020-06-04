@@ -9,8 +9,6 @@
 	role_name = "random animal"
 	var/animals = 1
 	var/one = "one"
-	/// Blacklisted mob_biotypes - Hey can we like, not have player controlled megafauna?
-	var/blacklisted_biotypes = MOB_EPIC
 	fakeable = TRUE
 
 /datum/round_event/ghost_role/sentience/announce(fake)
@@ -35,8 +33,6 @@
 		var/turf/T = get_turf(L)
 		if(!T || !is_station_level(T.z))
 			continue
-		if(L.mob_biotypes & blacklisted_biotypes)		//hey can you don't
-			continue
 		if(!(L in GLOB.player_list) && !L.mind)
 			potential += L
 
@@ -54,7 +50,7 @@
 
 		SG.transfer_ckey(SA, FALSE)
 
-		SA.grant_all_languages(TRUE, FALSE, FALSE)
+		SA.grant_all_languages(TRUE)
 
 		SA.sentience_act()
 

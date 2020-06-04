@@ -80,12 +80,12 @@
 	var/oldloc = mob.loc
 
 	if(L.confused)
-		var/newdir = NONE
-		if((L.confused > 50) && prob(min(L.confused * 0.5, 50)))
+		var/newdir = 0
+		if(L.confused > 40)
 			newdir = pick(GLOB.alldirs)
-		else if(prob(L.confused))
+		else if(prob(L.confused * 1.5))
 			newdir = angle2dir(dir2angle(direction) + pick(90, -90))
-		else if(prob(L.confused * 2))
+		else if(prob(L.confused * 3))
 			newdir = angle2dir(dir2angle(direction) + pick(45, -45))
 		if(newdir)
 			direction = newdir
@@ -100,17 +100,15 @@
 		if(mob.throwing)
 			mob.throwing.finalize(FALSE)
 
-	var/atom/movable/AM = L.pulling
-	if(AM && AM.density && !SEND_SIGNAL(L, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_ACTIVE) && !ismob(AM))
-		L.setDir(turn(L.dir, 180))
+	var/atom/movable/P = mob.pulling
+	if(P && !ismob(P) && P.density)
+		mob.setDir(turn(mob.dir, 180))
 
-	SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOVE, src, direction, n, oldloc, add_delay)
+	SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOVE, src, direction, n, oldloc)
 
 /// Process_Grab(): checks for grab, attempts to break if so. Return TRUE to prevent movement.
 /client/proc/Process_Grab()
 	if(mob.pulledby)
-		if((mob.pulledby == mob.pulling) && (mob.pulledby.grab_state == GRAB_PASSIVE))			//Don't autoresist passive grabs if we're grabbing them too.
-			return
 		if(mob.incapacitated(ignore_restraints = 1))
 			move_delay = world.time + 10
 			return TRUE
@@ -253,9 +251,9 @@
 /mob/proc/update_gravity(has_gravity, override=FALSE)
 	var/speed_change = max(0, has_gravity - STANDARD_GRAVITY)
 	if(!speed_change)
-		remove_movespeed_modifier(/datum/movespeed_modifier/gravity)
+		remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAVITY, update=TRUE)
 	else
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/gravity, multiplicative_slowdown = speed_change)
+		add_movespeed_modifier(MOVESPEED_ID_MOB_GRAVITY, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=speed_change, blacklisted_movetypes=FLOATING)
 
 //bodypart selection - Cyberboss
 //8 toggles through head - eyes - mouth
@@ -355,7 +353,7 @@
 	if(m_intent == MOVE_INTENT_RUN)
 		m_intent = MOVE_INTENT_WALK
 	else
-		if (HAS_TRAIT(src,TRAIT_NORUNNING))
+		if (HAS_TRAIT(src,TRAIT_NORUNNING))	// FULPSTATION 7/10/19 So you can't run during fortitude.
 			to_chat(src, "You find yourself unable to run.")
 			return FALSE
 		m_intent = MOVE_INTENT_RUN

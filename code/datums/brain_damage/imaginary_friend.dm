@@ -91,6 +91,7 @@
 
 	trauma = _trauma
 	owner = trauma.owner
+	copy_known_languages_from(owner, TRUE)
 
 	setup_friend()
 
@@ -149,8 +150,6 @@
 	friend_talk(message)
 
 /mob/camera/imaginary_friend/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode, atom/movable/source)
-	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
-		create_chat_message(speaker, message_language, raw_message, spans, message_mode)
 	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode, FALSE, source))
 
 /mob/camera/imaginary_friend/proc/friend_talk(message)

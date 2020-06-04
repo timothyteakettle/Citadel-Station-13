@@ -13,17 +13,13 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 4)
-	response_help_continuous  = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	faction = list("neutral")
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	attack_same = 1
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
+	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 40
 	maxHealth = 40
@@ -34,7 +30,7 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
 
-	footstep_type = FOOTSTEP_MOB_SHOE
+	do_footstep = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/goat/Initialize()
 	udder = new()
@@ -125,14 +121,10 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 6)
-	response_help_continuous  = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
+	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	maxHealth = 50
@@ -140,7 +132,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 
-	footstep_type = FOOTSTEP_MOB_SHOE
+	do_footstep = TRUE
 
 /mob/living/simple_animal/cow/Initialize()
 	udder = new()
@@ -206,14 +198,10 @@
 	speak_chance = 2
 	turns_per_move = 2
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/chicken = 1)
-	response_help_continuous  = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
+	attacktext = "kicks"
 	health = 3
 	maxHealth = 3
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -222,7 +210,7 @@
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = FRIENDLY_SPAWN
 
-	footstep_type = FOOTSTEP_MOB_CLAW
+	do_footstep = TRUE
 
 /mob/living/simple_animal/chick/Initialize()
 	. = ..()
@@ -261,14 +249,10 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/chicken = 2)
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
 	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
-	response_help_continuous  = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
+	attacktext = "kicks"
 	health = 15
 	maxHealth = 15
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -284,7 +268,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/static/chicken_count = 0
 
-	footstep_type = FOOTSTEP_MOB_CLAW
+	do_footstep = TRUE
 
 /mob/living/simple_animal/chicken/Initialize()
 	. = ..()
@@ -358,14 +342,10 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 3)
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg/kiwiEgg
 	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
-	response_help_continuous  = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
+	attacktext = "kicks"
 	health = 25
 	maxHealth = 25
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -377,8 +357,6 @@
 	var/list/layMessage = list("lays an egg.","squats down and croons.","begins making a huge racket.","begins chirping raucously.")
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/static/kiwi_count = 0
-
-	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/kiwi/Destroy()
 	--kiwi_count
@@ -440,14 +418,10 @@
 	speak_chance = 2
 	turns_per_move = 2
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
+	attacktext = "kicks"
 	health = 10
 	maxHealth = 10
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -455,8 +429,6 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = FRIENDLY_SPAWN
-
-	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/babyKiwi/Initialize()
 	. = ..()
@@ -500,33 +472,3 @@
 		user.visible_message("[user] milks [src] using \the [O].", "<span class='notice'>You milk [src] using \the [O].</span>")
 	else
 		to_chat(user, "<span class='danger'>The udder is dry. Wait a bit longer...</span>")
-
-/mob/living/simple_animal/deer
-	name = "doe"
-	desc = "A gentle, peaceful forest animal. How did this get into space?"
-	icon_state = "deer-doe"
-	icon_living = "deer-doe"
-	icon_dead = "deer-doe-dead"
-	gender = FEMALE
-	mob_biotypes = MOB_ORGANIC|MOB_BEAST
-	speak = list("Weeeeeeee?","Weeee","WEOOOOOOOOOO")
-	speak_emote = list("grunts","grunts lowly")
-	emote_hear = list("brays.")
-	emote_see = list("shakes its head.")
-	speak_chance = 1
-	turns_per_move = 5
-	see_in_dark = 6
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 3)
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently nudges"
-	response_disarm_simple = "gently nudge"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "bucks"
-	attack_verb_simple = "buck"
-	attack_sound = 'sound/weapons/punch1.ogg'
-	health = 75
-	maxHealth = 75
-	blood_volume = BLOOD_VOLUME_NORMAL
-	footstep_type = FOOTSTEP_MOB_SHOE

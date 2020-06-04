@@ -49,7 +49,7 @@
 /datum/design/multitool
 	name = "Multitool"
 	id = "multitool"
-	build_type = AUTOLATHE | PROTOLATHE | NO_PUBLIC_LATHE
+	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 50, /datum/material/glass = 20)
 	build_path = /obj/item/multitool
 	category = list("initial","Tools","Tool Designs")
@@ -75,7 +75,7 @@
 /datum/design/weldingtool
 	name = "Welding Tool"
 	id = "welding_tool"
-	build_type = AUTOLATHE | NO_PUBLIC_LATHE
+	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 70, /datum/material/glass = 20)
 	build_path = /obj/item/weldingtool
 	category = list("initial","Tools","Tool Designs")
@@ -97,7 +97,6 @@
 	build_path = /obj/item/screwdriver
 	category = list("initial","Tools","Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
-
 /datum/design/wirecutters
 	name = "Wirecutters"
 	id = "wirecutters"
@@ -139,7 +138,7 @@
 	id = "tool_box"
 	build_type = AUTOLATHE
 	materials = list(MAT_CATEGORY_RIGID = 500)
-	build_path = /obj/item/storage/toolbox/greyscale
+	build_path = /obj/item/storage/toolbox
 	category = list("initial","Tools")
 
 /datum/design/spraycan
@@ -156,12 +155,4 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 150, /datum/material/glass = 150)
 	build_path = /obj/item/geiger_counter
-	category = list("initial", "Tools")
-
-/datum/design/saw
-	name = "Hand Saw"
-	id = "handsaw"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 500)
-	build_path = /obj/item/hatchet/saw
 	category = list("initial", "Tools")

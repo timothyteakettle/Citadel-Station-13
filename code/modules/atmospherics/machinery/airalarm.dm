@@ -36,7 +36,6 @@
 /obj/item/electronics/airalarm
 	name = "air alarm electronics"
 	icon_state = "airalarm_electronics"
-	custom_price = 50
 
 /obj/item/wallframe/airalarm
 	name = "air alarm frame"
@@ -67,7 +66,6 @@
 	desc = "A machine that monitors atmosphere levels. Goes off if the area is dangerous."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm0"
-	plane = ABOVE_WALL_PLANE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
@@ -788,8 +786,9 @@
 					return
 				user.visible_message("[user.name] wires the air alarm.", \
 									"<span class='notice'>You start wiring the air alarm...</span>")
-				if (W.use_tool(src, user, 20, 5))
-					if (buildstage == 1)
+				if (do_after(user, 20, target = src))
+					if (cable.get_amount() >= 5 && buildstage == 1)
+						cable.use(5)
 						to_chat(user, "<span class='notice'>You wire the air alarm.</span>")
 						wires.repair()
 						aidisabled = 0

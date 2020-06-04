@@ -1,7 +1,6 @@
 /datum/wires/vending
 	holder_type = /obj/machinery/vending
 	proper_name = "Vending Unit"
-	req_knowledge = JOB_SKILL_EXPERT
 
 /datum/wires/vending/New(atom/holder)
 	wires = list(

@@ -5,7 +5,6 @@
 /datum/sprite_accessory/screen
 	icon = 'modular_citadel/icons/mob/ipc_screens.dmi'
 	color_src = null
-	relevant_layers = list(BODY_ADJ_LAYER)
 
 /datum/sprite_accessory/screen/blank
 	name = "Blank"
@@ -133,7 +132,6 @@
 /datum/sprite_accessory/antenna
 	icon = 'modular_citadel/icons/mob/ipc_antennas.dmi'
 	color_src = MUTCOLORS2
-	relevant_layers = list(BODY_ADJ_LAYER)
 	recommended_species = list("ipc")
 
 /datum/sprite_accessory/antenna/none

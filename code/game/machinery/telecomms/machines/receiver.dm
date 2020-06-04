@@ -15,11 +15,6 @@
 	idle_power_usage = 30
 	circuit = /obj/item/circuitboard/machine/telecomms/receiver
 
-/obj/machinery/telecomms/receiver/RefreshParts()
-	idle_power_usage = 30
-	for(var/obj/item/stock_parts/manipulator/P in component_parts)
-		idle_power_usage -= (P.rating * 1.5) //Has 2 manipulators
-
 /obj/machinery/telecomms/receiver/receive_signal(datum/signal/subspace/signal)
 	if(!on || !istype(signal) || !check_receive_level(signal) || signal.transmission_method != TRANSMISSION_SUBSPACE)
 		return

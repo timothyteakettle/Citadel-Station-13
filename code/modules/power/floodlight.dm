@@ -15,7 +15,8 @@
 		state = FLOODLIGHT_NEEDS_WIRES
 		desc = "A bare metal frame looking vaguely like a floodlight. Requires wiring."
 	else if(istype(O, /obj/item/stack/cable_coil) && (state == FLOODLIGHT_NEEDS_WIRES))
-		if(O.use_tool(src, user, 0, 5))
+		var/obj/item/stack/S = O
+		if(S.use(5))
 			to_chat(user, "<span class='notice'>You wire [src].</span>")
 			name = "wired [name]"
 			desc = "A bare metal frame looking vaguely like a floodlight. Requires securing with a screwdriver."

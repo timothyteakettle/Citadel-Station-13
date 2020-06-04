@@ -241,9 +241,16 @@
 	using.hud = src
 	hotkeybuttons += using
 
-	using = new /obj/screen/rest()
-	using.icon = ui_style
+	//CIT CHANGES - rest and combat mode buttons
+	using = new /obj/screen/restbutton()
+	using.icon = tg_ui_icon_to_cit_ui(ui_style)
 	using.screen_loc = ui_pull_resist
+	using.hud = src
+	static_inventory += using
+
+	using = new /obj/screen/combattoggle()
+	using.icon = tg_ui_icon_to_cit_ui(ui_style)
+	using.screen_loc = ui_combat_toggle
 	using.hud = src
 	static_inventory += using
 	//END OF CIT CHANGES
@@ -360,7 +367,7 @@
 	blood_display.hud = src
 	infodisplay += blood_display
 
-	vamprank_display = new /obj/screen/bloodsucker/rank_counter	// Bloodsucker Rank
+	vamprank_display = new /obj/screen/bloodsucker/rank_counter	// Vampire Rank
 	vamprank_display.hud = src
 	infodisplay += vamprank_display
 

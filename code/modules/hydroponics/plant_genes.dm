@@ -216,10 +216,6 @@
 	name = "Liquid Contents"
 	examine_line = "<span class='info'>It has a lot of liquid contents inside.</span>"
 
-/datum/plant_gene/trait/squash/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
-	// Squash the plant on slip.
-	G.squash(C)
-
 /datum/plant_gene/trait/slip
 	// Makes plant slippery, unless it has a grown-type trash. Then the trash gets slippery.
 	// Applies other trait effects (teleporting, etc) to the target by on_slip.
@@ -368,6 +364,20 @@
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 		qdel(G)
 
+
+/datum/plant_gene/trait/noreact
+	// Makes plant reagents not react until squashed.
+	name = "Separated Chemicals"
+
+/datum/plant_gene/trait/noreact/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+	..()
+	ENABLE_BITFIELD(G.reagents.reagents_holder_flags, NO_REACT)
+
+/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+	DISABLE_BITFIELD(G.reagents.reagents_holder_flags, NO_REACT)
+	G.reagents.handle_reactions()
+
+
 /datum/plant_gene/trait/maxchem
 	// 2x to max reagents volume.
 	name = "Densified Chemicals"
@@ -392,7 +402,8 @@
 
 /datum/plant_gene/trait/battery/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/cable_coil))
-		if(I.use_tool(src, user, 0, 5, max_level = JOB_SKILL_EXPERT))
+		var/obj/item/stack/cable_coil/C = I
+		if(C.use(5))
 			to_chat(user, "<span class='notice'>You add some cable to [G] and slide it inside the battery encasing.</span>")
 			var/obj/item/stock_parts/cell/potato/pocell = new /obj/item/stock_parts/cell/potato(user.loc)
 			pocell.icon_state = G.icon_state

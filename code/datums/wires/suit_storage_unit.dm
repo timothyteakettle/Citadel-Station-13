@@ -1,8 +1,6 @@
 /datum/wires/suit_storage_unit
 	holder_type = /obj/machinery/suit_storage_unit
 	proper_name = "Suit Storage Unit"
-	req_knowledge = JOB_SKILL_TRAINED
-	req_skill = JOB_SKILL_UNTRAINED
 
 /datum/wires/suit_storage_unit/New(atom/holder)
 	wires = list(

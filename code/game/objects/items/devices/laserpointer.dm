@@ -18,6 +18,7 @@
 	var/recharge_locked = FALSE
 	var/obj/item/stock_parts/micro_laser/diode //used for upgrading!
 
+
 /obj/item/laser_pointer/red
 	pointer_icon_state = "red_laser"
 /obj/item/laser_pointer/green
@@ -26,9 +27,6 @@
 	pointer_icon_state = "blue_laser"
 /obj/item/laser_pointer/purple
 	pointer_icon_state = "purple_laser"
-
-/obj/item/laser_pointer/blue/handmade
-	diode = null
 
 /obj/item/laser_pointer/New()
 	..()
@@ -135,8 +133,7 @@
 			outmsg = "<span class='warning'>You miss the lens of [C] with [src]!</span>"
 
 	//catpeople
-	var/list/viewers = fov_viewers(1,targloc)
-	for(var/mob/living/carbon/human/H in viewers)
+	for(var/mob/living/carbon/human/H in view(1,targloc))
 		if(!iscatperson(H) || H.incapacitated() || H.eye_blind )
 			continue
 		if(!H.lying)
@@ -151,7 +148,7 @@
 			H.visible_message("<span class='notice'>[H] stares at the light</span>","<span class = 'warning'> You stare at the light... </span>")
 
 	//cats!
-	for(var/mob/living/simple_animal/pet/cat/C in viewers)
+	for(var/mob/living/simple_animal/pet/cat/C in view(1,targloc))
 		if(prob(50))
 			C.visible_message("<span class='notice'>[C] pounces on the light!</span>","<span class='warning'>LIGHT!</span>")
 			C.Move(targloc)

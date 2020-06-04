@@ -1,7 +1,6 @@
 /datum/wires/rnd
 	holder_type = /obj/machinery/rnd
 	randomize = TRUE
-	req_knowledge = JOB_SKILL_EXPERT
 
 /datum/wires/rnd/New(atom/holder)
 	wires = list(

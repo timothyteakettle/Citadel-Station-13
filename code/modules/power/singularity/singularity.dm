@@ -119,12 +119,13 @@
 
 
 /obj/singularity/Bump(atom/A)
-	set waitfor = FALSE
 	consume(A)
+	return
+
 
 /obj/singularity/Bumped(atom/movable/AM)
-	set waitfor = FALSE
 	consume(AM)
+
 
 /obj/singularity/process()
 	if(current_size >= STAGE_TWO)
@@ -267,7 +268,6 @@
 
 
 /obj/singularity/proc/eat()
-	set waitfor = FALSE
 	for(var/tile in spiral_range_turfs(grav_pull, src))
 		var/turf/T = tile
 		if(!T || !isturf(loc))
@@ -284,6 +284,8 @@
 				else
 					consume(X)
 			CHECK_TICK
+	return
+
 
 /obj/singularity/proc/consume(atom/A)
 	var/gain = A.singularity_act(current_size, src)
@@ -293,6 +295,8 @@
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1
 		set_light(10)
+	return
+
 
 /obj/singularity/proc/move(force_move = 0)
 	if(!move_self)

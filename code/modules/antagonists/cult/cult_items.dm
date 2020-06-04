@@ -6,21 +6,6 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/tome/traitor
-	var/spent = FALSE
-
-/obj/item/tome/traitor/check_uplink_validity()
-	return !spent
-
-/obj/item/tome/traitor/attack_self(mob/living/user)
-	if(!iscultist(user) && !spent)
-		to_chat(user, "<span class='userdanger'>You press your hand onto [src], sinister tendrils of corrupted magic swirling around you. Was this the best of ideas?</span>")
-		if(user.mind.add_antag_datum(/datum/antagonist/cult/neutered/traitor))
-			spent = TRUE
-		else
-			to_chat(user, "<span class='userdanger'>[src] falls dark. It appears you weren't worthy.</span>")
-	return ..()
-
 /obj/item/melee/cultblade/dagger
 	name = "ritual dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
@@ -222,7 +207,7 @@
 	phasein = /obj/effect/temp_visual/dir_setting/cult/phase
 	phaseout = /obj/effect/temp_visual/dir_setting/cult/phase/out
 
-/datum/action/innate/dash/cult/IsAvailable(silent = FALSE)
+/datum/action/innate/dash/cult/IsAvailable()
 	if(iscultist(holder) && current_charges)
 		return TRUE
 	else
@@ -242,7 +227,7 @@
 	sword = bastard
 	holder = user
 
-/datum/action/innate/cult/spin2win/IsAvailable(silent = FALSE)
+/datum/action/innate/cult/spin2win/IsAvailable()
 	if(iscultist(holder) && cooldown <= world.time)
 		return TRUE
 	else
@@ -451,8 +436,8 @@
 		return BLOCK_SUCCESS | BLOCK_PHYSICAL_EXTERNAL
 	return BLOCK_NONE
 
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/worn_overlays(isinhands, icon_file, used_state, style_flags = NONE)
-	. = ..()
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/worn_overlays(isinhands, icon_file, style_flags = NONE)
+	. = list()
 	if(!isinhands && current_charges)
 		. += mutable_appearance('icons/effects/cult_effects.dmi', "shield-cult", MOB_LAYER + 0.01)
 
@@ -524,7 +509,7 @@
 	var/static/curselimit = 0
 
 /obj/item/shuttle_curse/attack_self(mob/living/user)
-	if(!iscultist(user, TRUE))
+	if(!iscultist(user))
 		user.dropItemToGround(src, TRUE)
 		user.DefaultCombatKnockdown(100)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
@@ -539,7 +524,7 @@
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 1800
 		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
-		var/security_num = SECLEVEL2NUM(NUM2SECLEVEL(GLOB.security_level))
+		var/security_num = seclevel2num(get_security_level())
 		var/set_coefficient = 1
 		switch(security_num)
 			if(SEC_LEVEL_GREEN)
@@ -731,7 +716,7 @@
 			if(!L.anti_magic_check())
 				if(is_servant_of_ratvar(L))
 					to_chat(L, "<span class='cultlarge'>\"Kneel for me, scum\"</span>")
-					L.confused += clamp(10 - L.confused, 0, 5) //confuses and lightly knockdowns + damages hostile cultists instead of hardstunning like before
+					L.confused += CLAMP(10 - L.confused, 0, 5) //confuses and lightly knockdowns + damages hostile cultists instead of hardstunning like before
 					L.DefaultCombatKnockdown(15)
 					L.adjustBruteLoss(10)
 				else

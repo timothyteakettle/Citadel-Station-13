@@ -27,14 +27,12 @@ Difficulty: Very Hard
 	threat = 40
 	health = 2500
 	maxHealth = 2500
-	attack_verb_continuous = "judges"
-	attack_verb_simple = "judge"
+	attacktext = "judges"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	icon_state = "eva"
 	icon_living = "eva"
 	icon_dead = "dragon_dead"
-	friendly_verb_continuous = "stares down"
-	friendly_verb_simple = "stare down"
+	friendly = "stares down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("roars")
 	armour_penetration = 40
@@ -58,7 +56,7 @@ Difficulty: Very Hard
 	L.dust()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
-	anger_modifier = clamp(((maxHealth - health)/50),0,20)
+	anger_modifier = CLAMP(((maxHealth - health)/50),0,20)
 	ranged_cooldown = world.time + 120
 
 	if(enrage(target))
@@ -212,7 +210,7 @@ Difficulty: Very Hard
 	icon_state= "chronobolt"
 	damage = 25
 	armour_penetration = 100
-	pixels_per_second = TILES_TO_PIXELS(5)
+	speed = 2
 	eyeblur = 0
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
@@ -608,18 +606,14 @@ Difficulty: Very Hard
 	icon_dead = "butterfly_dead"
 	threat = -0.7
 	turns_per_move = 1
-	response_help_continuous = "waves away"
-	response_help_simple = "wave away"
-	response_disarm_continuous = "brushes aside"
-	response_disarm_simple = "brush aside"
-	response_harm_continuous = "disrupts"
-	response_harm_simple = "disrupt"
+	response_help = "waves away"
+	response_disarm = "brushes aside"
+	response_harm = "disrupts"
 	speak_emote = list("oscillates")
 	maxHealth = 2
 	health = 2
 	harm_intent_damage = 1
-	friendly_verb_continuous = "mends"
-	friendly_verb_simple = "mend"
+	friendly = "mends"
 	density = FALSE
 	movement_type = FLYING
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB

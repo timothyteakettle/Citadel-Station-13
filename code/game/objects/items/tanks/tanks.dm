@@ -60,18 +60,13 @@
 	H.update_action_buttons_icon()
 
 
-/obj/item/tank/Initialize()
-	. = ..()
+/obj/item/tank/New()
+	..()
 
 	air_contents = new(volume) //liters
 	air_contents.temperature = T20C
 
-	populate_gas()
-
 	START_PROCESSING(SSobj, src)
-
-/obj/item/tank/proc/populate_gas()
-	return
 
 /obj/item/tank/Destroy()
 	if(air_contents)
@@ -83,9 +78,9 @@
 /obj/item/tank/examine(mob/user)
 	var/obj/icon = src
 	. = ..()
-	if(istype(src.loc, /obj/item/assembly))
+	if (istype(src.loc, /obj/item/assembly))
 		icon = src.loc
-	if(!in_range(src, user) && !isobserver(user))
+	if(!in_range(src, user))
 		if (icon == src)
 			. += "<span class='notice'>If you want any more information you'll need to get closer.</span>"
 		return
@@ -209,7 +204,7 @@
 				pressure = text2num(pressure)
 				. = TRUE
 			if(.)
-				distribute_pressure = clamp(round(pressure), TANK_MIN_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
+				distribute_pressure = CLAMP(round(pressure), TANK_MIN_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
 
 /obj/item/tank/remove_air(amount)
 	return air_contents.remove(amount)

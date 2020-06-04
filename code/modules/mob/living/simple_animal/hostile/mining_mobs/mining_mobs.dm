@@ -8,8 +8,9 @@
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	response_harm_continuous = "strikes"
-	response_harm_simple = "strike"
+	response_help = "pokes"
+	response_disarm = "shoves"
+	response_harm = "strikes"
 	status_flags = 0
 	a_intent = INTENT_HARM
 	var/crusher_loot
@@ -27,7 +28,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/Aggro()
 	..()
-	if(vision_range == aggro_vision_range && icon_aggro)
+	if(vision_range != aggro_vision_range)
 		icon_state = icon_aggro
 
 /mob/living/simple_animal/hostile/asteroid/LoseAggro()
@@ -62,7 +63,7 @@
 	..(gibbed)
 
 /mob/living/simple_animal/hostile/asteroid/proc/spawn_crusher_loot()
-	LAZYSET(butcher_results, crusher_loot, 1)
+	butcher_results[crusher_loot] = 1
 
 /mob/living/simple_animal/hostile/asteroid/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)

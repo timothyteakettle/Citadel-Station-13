@@ -19,11 +19,6 @@
 /obj/machinery/telecomms/server/Initialize()
 	. = ..()
 
-/obj/machinery/telecomms/server/RefreshParts()
-	idle_power_usage = 15
-	for(var/obj/item/stock_parts/manipulator/P in component_parts)
-		idle_power_usage -= (P.rating) //has 2 manipulators
-
 /obj/machinery/telecomms/server/receive_information(datum/signal/subspace/vocal/signal, obj/machinery/telecomms/machine_from)
 	// can't log non-vocal signals
 	if(!istype(signal) || !signal.data["message"] || !is_freq_listening(signal))
@@ -33,7 +28,7 @@
 		totaltraffic += traffic // add current traffic to total traffic
 
 	// Delete particularly old logs
-	if(LAZYLEN(log_entries) >= 400) //[list].len is not safe
+	if (log_entries.len >= 400)
 		log_entries.Cut(1, 2)
 
 	var/datum/comm_log_entry/log = new

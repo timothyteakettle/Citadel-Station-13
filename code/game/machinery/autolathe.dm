@@ -17,6 +17,7 @@
 	var/list/L = list()
 	var/list/LL = list()
 	var/hacked = FALSE
+	var/hackable = TRUE
 	var/disabled = 0
 	var/shocked = FALSE
 	var/hack_wire
@@ -27,13 +28,11 @@
 	var/prod_coeff = 1
 
 	var/datum/design/being_built
+	var/datum/techweb/stored_research
 	var/list/datum/design/matching_designs
 	var/selected_category
 	var/screen = 1
-	var/base_price = 25
-	var/hacked_price = 50
 
-	var/datum/techweb/specialized/autounlocking/stored_research = /datum/techweb/specialized/autounlocking/autolathe
 	var/list/categories = list(
 							"Tools",
 							"Electronics",
@@ -46,7 +45,9 @@
 							"Dinnerware",
 							"Imported"
 							)
-	var/list/allowed_materials = list(
+
+/obj/machinery/autolathe/Initialize()
+	var/static/list/allowed_types = list(
 		/datum/material/iron,
 		/datum/material/glass,
 		/datum/material/gold,
@@ -60,18 +61,12 @@
 		/datum/material/runite,
 		/datum/material/plastic,
 		/datum/material/adamantine,
-		/datum/material/mythril,
-		/datum/material/wood
+		/datum/material/mythril
 		)
-
-	/// Base print speed
-	var/base_print_speed = 10
-
-/obj/machinery/autolathe/Initialize()
-	AddComponent(/datum/component/material_container, allowed_materials, _show_on_examine=TRUE, _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
+	AddComponent(/datum/component/material_container, allowed_types, _show_on_examine=TRUE, _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
 	. = ..()
 	wires = new /datum/wires/autolathe(src)
-	stored_research = new stored_research
+	stored_research = new /datum/techweb/specialized/autounlocking/autolathe
 	matching_designs = list()
 
 /obj/machinery/autolathe/Destroy()
@@ -96,7 +91,7 @@
 		if(AUTOLATHE_SEARCH_MENU)
 			dat = search_win(user)
 
-	var/datum/browser/popup = new(user, name, name, 400, 500)
+	var/datum/browser/popup = new(user, "autolathe", name, 400, 500)
 	popup.set_content(dat)
 	popup.open()
 
@@ -174,7 +169,7 @@
 
 			var/multiplier = text2num(href_list["multiplier"])
 			var/is_stack = ispath(being_built.build_path, /obj/item/stack)
-			multiplier = clamp(multiplier,1,50)
+			multiplier = CLAMP(multiplier,1,50)
 
 			/////////////////
 
@@ -211,7 +206,7 @@
 				busy = TRUE
 				use_power(power)
 				icon_state = "autolathe_n"
-				var/time = is_stack ? 10 : base_print_speed * coeff * multiplier
+				var/time = is_stack ? 32 : 32*coeff*multiplier
 				addtimer(CALLBACK(src, .proc/make_item, power, materials_used, custom_materials, multiplier, coeff, is_stack), time)
 			else
 				to_chat(usr, "<span class=\"alert\">Not enough materials for this operation.</span>")
@@ -259,12 +254,10 @@
 		T += MB.rating*75000
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = T
-	var/manips = 0
-	var/total_manip_rating = 0
+	T=1.2
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		total_manip_rating += M.rating
-		manips++
-	prod_coeff = STANDARD_PART_LEVEL_LATHE_COEFFICIENT(total_manip_rating / (manips? manips : 1))
+		T -= M.rating*0.2
+	prod_coeff = min(1,max(0,T)) // Coeff going 1 -> 0,8 -> 0,6 -> 0,4
 
 /obj/machinery/autolathe/examine(mob/user)
 	. += ..()
@@ -427,11 +420,11 @@
 
 /obj/machinery/autolathe/proc/adjust_hacked(state)
 	hacked = state
+	if(!hackable && hacked)
+		return
 	for(var/id in SSresearch.techweb_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(id)
-		if(D.build_type & stored_research.design_autounlock_skip_types)
-			continue
-		if((D.build_type & stored_research.design_autounlock_buildtypes) && ("hacked" in D.category))
+		if((D.build_type & AUTOLATHE) && ("hacked" in D.category))
 			if(hacked)
 				stored_research.add_design(D)
 			else
@@ -443,35 +436,11 @@
 
 /obj/machinery/autolathe/secure
 	name = "secured autolathe"
-	desc = "It produces items using metal and glass. This model was reprogrammed without some of the more hazardous designs."
+	desc = "An autolathe reprogrammed with security protocols to prevent hacking."
+	hackable = FALSE
 	circuit = /obj/item/circuitboard/machine/autolathe/secure
-	stored_research = /datum/techweb/specialized/autounlocking/autolathe/public
-	base_print_speed = 20
 
-/obj/machinery/autolathe/toy
-	name = "autoylathe"
-	desc = "It produces toys using plastic, metal and glass."
-	circuit = /obj/item/circuitboard/machine/autolathe/toy
-
-	stored_research = /datum/techweb/specialized/autounlocking/autolathe/toy
-	categories = list(
-					"Toys",
-					"Figurines",
-					"Pistols",
-					"Rifles",
-					"Heavy",
-					"Melee",
-					"Armor",
-					"Adult",
-					"Misc",
-					"Imported"
-					)
-	allowed_materials = list(
-		/datum/material/iron,
-		/datum/material/glass,
-		/datum/material/plastic
-		)
-
-/obj/machinery/autolathe/toy/hacked/Initialize()
-	. = ..()
-	adjust_hacked(TRUE)
+//Called when the object is constructed by an autolathe
+//Has a reference to the autolathe so you can do !!FUN!! things with hacked lathes
+/obj/item/proc/autolathe_crafted(obj/machinery/autolathe/A)
+	return

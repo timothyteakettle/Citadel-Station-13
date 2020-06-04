@@ -1,8 +1,6 @@
 /datum/wires/robot
 	holder_type = /mob/living/silicon/robot
 	randomize = TRUE
-	req_knowledge = JOB_SKILL_MASTER
-	req_skill = JOB_SKILL_TRAINED
 
 /datum/wires/robot/New(atom/holder)
 	wires = list(

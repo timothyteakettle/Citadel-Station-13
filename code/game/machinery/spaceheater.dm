@@ -115,8 +115,8 @@
 		return PROCESS_KILL
 
 /obj/machinery/space_heater/RefreshParts()
-	var/laser = 2
-	var/cap = 1
+	var/laser = 0
+	var/cap = 0
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		laser += M.rating
 	for(var/obj/item/stock_parts/capacitor/M in component_parts)
@@ -127,7 +127,7 @@
 	settableTemperatureRange = cap * 30
 	efficiency = (cap + 1) * 10000
 
-	targetTemperature = clamp(targetTemperature,
+	targetTemperature = CLAMP(targetTemperature,
 		max(settableTemperatureMedian - settableTemperatureRange, TCMB),
 		settableTemperatureMedian + settableTemperatureRange)
 
@@ -165,11 +165,6 @@
 		return
 	else
 		return ..()
-
-/obj/machinery/space_heater/wrench_act(mob/living/user, obj/item/I)
-	..()
-	default_unfasten_wrench(user, I, 5)
-	return TRUE
 
 /obj/machinery/space_heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
 										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
@@ -235,7 +230,7 @@
 				target= text2num(target) + T0C
 				. = TRUE
 			if(.)
-				targetTemperature = clamp(round(target),
+				targetTemperature = CLAMP(round(target),
 					max(settableTemperatureMedian - settableTemperatureRange, TCMB),
 					settableTemperatureMedian + settableTemperatureRange)
 		if("eject")

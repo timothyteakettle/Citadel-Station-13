@@ -160,7 +160,10 @@
 			to_chat(user, "<span class='warning'>You need one length of cable to repair [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin to replace the wires...</span>")
-		if(W.use_tool(src, user, 30, 1))
+		if(do_after(user, 30, target = src))
+			if(coil.get_amount() < 1)
+				return
+			coil.use(1)
 			obj_integrity = max_integrity
 			stat &= ~BROKEN
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
@@ -267,7 +270,7 @@
 	use_stored_power(50)
 
 /obj/machinery/shieldwallgen/proc/use_stored_power(amount)
-	power = clamp(power - amount, 0, maximum_stored_power)
+	power = CLAMP(power - amount, 0, maximum_stored_power)
 	update_activity()
 
 /obj/machinery/shieldwallgen/proc/update_activity()

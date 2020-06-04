@@ -45,7 +45,6 @@
 /mob/living/carbon/monkey/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/mob_holder, worn_state = "monkey", inv_slots = ITEM_SLOT_HEAD)
-	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_BAREFOOT, 1, 2)
 
 
 /mob/living/carbon/monkey/Destroy()
@@ -66,20 +65,20 @@
 
 /mob/living/carbon/monkey/on_reagent_change()
 	. = ..()
+	remove_movespeed_modifier(MOVESPEED_ID_MONKEY_REAGENT_SPEEDMOD, TRUE)
 	var/amount
 	if(reagents.has_reagent(/datum/reagent/medicine/morphine))
 		amount = -1
 	if(amount)
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_reagent_speedmod, TRUE, amount)
+		add_movespeed_modifier(MOVESPEED_ID_MONKEY_REAGENT_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = amount)
 
 /mob/living/carbon/monkey/updatehealth()
 	. = ..()
 	var/slow = 0
-	if(!HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
-		var/health_deficiency = (maxHealth - health)
-		if(health_deficiency >= 45)
-			slow += (health_deficiency / 25)
-	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_health_speedmod, TRUE, slow)
+	var/health_deficiency = (100 - health)
+	if(health_deficiency >= 45)
+		slow += (health_deficiency / 25)
+	add_movespeed_modifier(MOVESPEED_ID_MONKEY_HEALTH_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = slow)
 
 /mob/living/carbon/monkey/adjust_bodytemperature(amount)
 	. = ..()
@@ -88,7 +87,7 @@
 		slow += (283.222 - bodytemperature) / 10 * 1.75
 	if(slow <= 0)
 		return
-	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_temperature_speedmod, TRUE, slow)
+	add_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = amount)
 
 /mob/living/carbon/monkey/Stat()
 	..()
@@ -100,6 +99,7 @@
 			if(changeling)
 				stat("Chemical Storage", "[changeling.chem_charges]/[changeling.chem_storage]")
 				stat("Absorbed DNA", changeling.absorbedcount)
+	return
 
 
 /mob/living/carbon/monkey/verb/removeinternal()

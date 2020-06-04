@@ -29,14 +29,12 @@ Difficulty: Hard
 	threat = 35
 	health = 2500
 	maxHealth = 2500
-	attack_verb_continuous = "rends"
-	attack_verb_simple = "rend"
+	attacktext = "rends"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	icon_state = "bubblegum"
 	icon_living = "bubblegum"
 	icon_dead = ""
-	friendly_verb_continuous = "stares down"
-	friendly_verb_simple = "stare down"
+	friendly = "stares down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("gurgles")
 	armour_penetration = 40
@@ -57,7 +55,7 @@ Difficulty: Hard
 	deathmessage = "sinks into a pool of blood, fleeing the battle. You've won, for now... "
 	death_sound = 'sound/magic/enter_blood.ogg'
 
-	footstep_type = FOOTSTEP_MOB_HEAVY
+	do_footstep = TRUE
 
 /obj/item/gps/internal/bubblegum
 	icon_state = null
@@ -67,10 +65,10 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Life()
 	..()
-	move_to_delay = clamp(round((health/maxHealth) * 10), 3, 10)
+	move_to_delay = CLAMP(round((health/maxHealth) * 10), 3, 10)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire()
-	anger_modifier = clamp(((maxHealth - health)/50),0,20)
+	anger_modifier = CLAMP(((maxHealth - health)/50),0,20)
 	if(charging)
 		return
 	ranged_cooldown = world.time + ranged_cooldown_time
@@ -105,7 +103,7 @@ Difficulty: Hard
 	if(.)
 		SSshuttle.shuttle_purchase_requirements_met |= "bubblegum"
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/do_attack_animation(atom/A)
 	if(charging)
 		return
 	..()
@@ -229,13 +227,11 @@ Difficulty: Hard
 	icon_state = "bloodbrood"
 	icon_living = "bloodbrood"
 	icon_aggro = "bloodbrood"
-	attack_verb_continuous = "pierces"
-	attack_verb_simple = "pierce"
+	attacktext = "pierces"
 	color = "#C80000"
 	density = FALSE
 	faction = list("mining", "boss")
 	weather_immunities = list("lava","ash")
-	has_field_of_vision = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/slaughter/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum))

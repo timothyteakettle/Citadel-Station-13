@@ -23,9 +23,6 @@
 /datum/round_event/wormholes/start()
 	for(var/turf/open/floor/T in world)
 		if(is_station_level(T.z))
-			var/area/A = get_area(T)
-			if(A.outdoors)
-				continue
 			pick_turfs += T
 
 	for(var/i = 1, i <= number_of_wormholes, i++)
@@ -60,7 +57,7 @@
 		if(!(ismecha(M) && mech_sized))
 			return
 
-	if(ismovable(M))
+	if(ismovableatom(M))
 		if(GLOB.portals.len)
 			var/obj/effect/portal/P = pick(GLOB.portals)
 			if(P && isturf(P.loc))

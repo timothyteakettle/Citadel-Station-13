@@ -226,11 +226,7 @@
 
 /datum/spellbook_entry/lightningbolt/Buy(mob/living/carbon/human/user,obj/item/spellbook/book) //return 1 on success
 	. = ..()
-	ADD_TRAIT(user, TRAIT_TESLA_SHOCKIMMUNE, "lightning_bolt_spell")
-
-/datum/spellbook_entry/lightningbolt/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_TESLA_SHOCKIMMUNE, "lightning_bolt_spell")
+	user.flags_1 |= TESLA_IGNORE_1
 
 /datum/spellbook_entry/infinite_guns
 	name = "Lesser Summon Guns"
@@ -298,7 +294,7 @@
 	name = "Staff of Change"
 	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself."
 	item_path = /obj/item/gun/magic/staff/change
-	dynamic_requirement = 200
+	dynamic_requirement = 60
 
 /datum/spellbook_entry/item/staffanimation
 	name = "Staff of Animation"
@@ -365,7 +361,7 @@
 	desc = "A collection of wands that allow for a wide variety of utility. Wands have a limited number of charges, so be conservative in use. Comes in a handy belt."
 	item_path = /obj/item/storage/belt/wands/full
 	category = "Defensive"
-	dynamic_requirement = 200
+	dynamic_requirement = 60
 
 /datum/spellbook_entry/item/armor
 	name = "Mastercrafted Armor Set"
@@ -390,7 +386,7 @@
 	name = "Plasma Fist"
 	desc = "A forbidden martial art designed on the surging power of plasma. Use it to harness the ancient power."
 	item_path = /obj/item/book/granter/martial/plasma_fist
-	cost = 2
+	cost = 3
 
 /datum/spellbook_entry/item/guardian
 	name = "Guardian Deck"

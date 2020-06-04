@@ -12,9 +12,9 @@
 		return 0
 	return ..()
 
-/mob/living/carbon/could_speak_language(datum/language/language)
+/mob/living/carbon/could_speak_in_language(datum/language/dt)
 	var/obj/item/organ/tongue/T = getorganslot(ORGAN_SLOT_TONGUE)
 	if(T)
-		return T.could_speak_language(language)
+		. = T.could_speak_in_language(dt)
 	else
-		return initial(language.flags) & TONGUELESS_SPEECH
+		. = initial(dt.flags) & TONGUELESS_SPEECH

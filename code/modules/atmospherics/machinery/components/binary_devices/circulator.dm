@@ -7,7 +7,6 @@
 	name = "circulator/heat exchanger"
 	desc = "A gas circulator pump and heat exchanger."
 	icon_state = "circ-off-0"
-	plane = GAME_PLANE
 
 	var/active = FALSE
 
@@ -117,7 +116,7 @@
 		if(node2)
 			node2.atmosinit()
 			node2.addMember(src)
-		SSair.add_to_rebuild_queue(src)
+		build_network()
 
 	return TRUE
 

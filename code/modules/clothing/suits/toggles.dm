@@ -6,7 +6,7 @@
 	var/hoodtype = /obj/item/clothing/head/hooded/winterhood //so the chaplain hoodie or other hoodies can override this
 
 /obj/item/clothing/suit/hooded/New()
-	hood = MakeHelmet()
+	MakeHood()
 	..()
 
 /obj/item/clothing/suit/hooded/Destroy()
@@ -14,15 +14,11 @@
 	qdel(hood)
 	hood = null
 
-/obj/item/clothing/suit/proc/MakeHelmet(obj/item/clothing/head/H)
-	SEND_SIGNAL(src, COMSIG_SUIT_MADE_HELMET, H)
-	return H
-
-/obj/item/clothing/suit/hooded/MakeHelmet(obj/item/clothing/head/hooded/H)
+/obj/item/clothing/suit/hooded/proc/MakeHood()
 	if(!hood)
-		H = new hoodtype(src)
-		H.suit = src
-		return ..()
+		var/obj/item/clothing/head/hooded/W = new hoodtype(src)
+		W.suit = src
+		hood = W
 
 /obj/item/clothing/suit/hooded/ui_action_click()
 	ToggleHood()
@@ -37,6 +33,7 @@
 	..()
 
 /obj/item/clothing/suit/hooded/proc/RemoveHood()
+	src.icon_state = "[initial(icon_state)]"
 	suittoggled = FALSE
 	if(ishuman(hood.loc))
 		var/mob/living/carbon/H = hood.loc
@@ -44,14 +41,9 @@
 		H.update_inv_wear_suit()
 	else
 		hood.forceMove(src)
-	update_icon()
-
-/obj/item/clothing/suit/hooded/update_icon_state()
-	icon_state = "[initial(icon_state)]"
-	if(ishuman(hood.loc))
-		var/mob/living/carbon/human/H = hood.loc
-		if(H.head == hood)
-			icon_state += "_t"
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/hooded/dropped(mob/user)
 	..()
@@ -69,8 +61,11 @@
 				return
 			else if(H.equip_to_slot_if_possible(hood,SLOT_HEAD,0,0,1))
 				suittoggled = TRUE
-				update_icon()
+				src.icon_state = "[initial(icon_state)]_t"
 				H.update_inv_wear_suit()
+				for(var/X in actions)
+					var/datum/action/A = X
+					A.UpdateButtonIcon()
 	else
 		RemoveHood()
 
@@ -130,7 +125,7 @@
 
 //Hardsuit toggle code
 /obj/item/clothing/suit/space/hardsuit/Initialize()
-	helmet = MakeHelmet()
+	MakeHelmet()
 	. = ..()
 
 /obj/item/clothing/suit/space/hardsuit/Destroy()
@@ -145,13 +140,13 @@
 		suit.helmet = null
 	return ..()
 
-/obj/item/clothing/suit/space/hardsuit/MakeHelmet(obj/item/clothing/head/helmet/space/hardsuit/H)
+/obj/item/clothing/suit/space/hardsuit/proc/MakeHelmet()
 	if(!helmettype)
 		return
 	if(!helmet)
-		H = new helmettype(src)
-		H.suit = src
-		return ..()
+		var/obj/item/clothing/head/helmet/space/hardsuit/W = new helmettype(src)
+		W.suit = src
+		helmet = W
 
 /obj/item/clothing/suit/space/hardsuit/ui_action_click()
 	..()

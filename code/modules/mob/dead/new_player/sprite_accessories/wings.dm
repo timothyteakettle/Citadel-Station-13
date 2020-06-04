@@ -3,11 +3,9 @@
 /datum/sprite_accessory/wings/none
 	name = "None"
 	icon_state = "none"
-	relevant_layers = null
 
 /datum/sprite_accessory/wings_open
 	icon = 'icons/mob/wings.dmi'
-	relevant_layers = list(BODY_BEHIND_LAYER, BODY_ADJ_LAYER, BODY_FRONT_LAYER)
 
 /datum/sprite_accessory/wings_open/angel
 	name = "Angel"
@@ -19,7 +17,6 @@
 
 /datum/sprite_accessory/wings
 	icon = 'icons/mob/wings.dmi'
-	relevant_layers = list(BODY_BEHIND_LAYER, BODY_ADJ_LAYER, BODY_FRONT_LAYER)
 
 /datum/sprite_accessory/wings/angel
 	name = "Angel"
@@ -35,13 +32,10 @@
 /datum/sprite_accessory/deco_wings
 	icon = 'icons/mob/wings.dmi'
 	color_src = WINGCOLOR
-	mutant_part_string = "insect_wings"
-	relevant_layers = list(BODY_BEHIND_LAYER, BODY_FRONT_LAYER)
 
 /datum/sprite_accessory/deco_wings/none
 	name = "None"
 	icon_state = "none"
-	relevant_layers = null
 
 /datum/sprite_accessory/deco_wings/angel
 	name = "Angel"
@@ -50,7 +44,6 @@
 	dimension_x = 46
 	center = TRUE
 	dimension_y = 34
-	relevant_layers = list(BODY_BEHIND_LAYER, BODY_ADJ_LAYER, BODY_FRONT_LAYER)
 
 /datum/sprite_accessory/deco_wings/bat
 	name = "Bat"
@@ -137,12 +130,10 @@
 /datum/sprite_accessory/insect_wings
 	icon = 'icons/mob/wings.dmi'
 	color_src = WINGCOLOR
-	relevant_layers = list(BODY_BEHIND_LAYER, BODY_FRONT_LAYER)
 
 /datum/sprite_accessory/insect_wings/none
 	name = "None"
 	icon_state = "none"
-	relevant_layers = null
 
 /datum/sprite_accessory/insect_wings/bat
 	name = "Bat"
@@ -240,12 +231,10 @@
 /datum/sprite_accessory/insect_markings // Extra markings for insects ported from tg.
 	icon = 'icons/mob/insect_markings.dmi'
 	color_src = null
-	relevant_layers = list(BODY_ADJ_LAYER)
 
 /datum/sprite_accessory/insect_markings/none
 	name = "None"
 	icon_state = "none"
-	relevant_layers = null
 
 /datum/sprite_accessory/insect_markings/reddish
 	name = "Reddish"

@@ -48,7 +48,7 @@
 	objectives += vassal_objective
 	objectives_given += vassal_objective
 	give_thrall_eyes()
-	owner.current.grant_language(/datum/language/vampiric, TRUE, TRUE, LANGUAGE_VASSAL)
+	owner.current.grant_language(/datum/language/vampiric)
 	// Add Antag HUD
 	update_vassal_icons_added(owner.current, "vassal")
 	. = ..()
@@ -81,7 +81,7 @@
 		qdel(O)
 	objectives_given = list()
 	remove_thrall_eyes()
-	owner.current.remove_language(/datum/language/vampiric, TRUE, TRUE, LANGUAGE_VASSAL)
+	owner.current.remove_language(/datum/language/vampiric)
 	// Clear Antag HUD
 	update_vassal_icons_removed(owner.current)
 

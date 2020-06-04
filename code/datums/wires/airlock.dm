@@ -1,7 +1,6 @@
 /datum/wires/airlock
 	holder_type = /obj/machinery/door/airlock
 	proper_name = "Generic Airlock"
-	req_skill = JOB_SKILL_UNTRAINED //Training wheel, as per request.
 	var/wiretype
 
 /datum/wires/airlock/secure
@@ -53,11 +52,10 @@
 
 /datum/wires/airlock/interactable(mob/user)
 	var/obj/machinery/door/airlock/A = holder
-	if(!A.panel_open)
-		return FALSE
 	if(!A.hasSiliconAccessInArea(user) && A.isElectrified() && A.shock(user, 100))
 		return FALSE
-	return TRUE
+	if(A.panel_open)
+		return TRUE
 
 /datum/wires/airlock/get_status()
 	var/obj/machinery/door/airlock/A = holder

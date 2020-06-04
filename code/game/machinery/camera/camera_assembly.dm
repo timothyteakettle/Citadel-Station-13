@@ -48,7 +48,8 @@
 		if(2)
 			// State 2
 			if(istype(W, /obj/item/stack/cable_coil))
-				if(W.use_tool(src, user, 0, 2))
+				var/obj/item/stack/cable_coil/C = W
+				if(C.use(2))
 					to_chat(user, "<span class='notice'>You add wires to the assembly.</span>")
 					state = 3
 				else
