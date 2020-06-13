@@ -676,15 +676,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	grind_results = list(/datum/reagent/iron = 1, /datum/reagent/fuel = 5, /datum/reagent/medicine/pyroxadone = 5)
 
 
-
-/obj/item/lighter/cold
-	name = "frost lighter"
-	desc = "A specialty zippo made from the ignition of frost oil, to produce a cold flame."
-	icon_state = "slighter"
-	heat = -100 //Cold!
-	light_color = LIGHT_COLOR_LBLUE
-	grind_results = list(/datum/reagent/iron = 1, /datum/reagent/fuel = 5, /datum/reagent/medicine/frostoil = 5)
-
 ///////////
 //ROLLING//
 ///////////
