@@ -22,6 +22,7 @@
 	var/occupant_weight = 0
 	var/max_occupants = 3 //Hard-cap so you can't have infinite mice or something in one carrier
 	var/max_occupant_weight = MOB_SIZE_SMALL //This is calculated from the mob sizes of occupants
+	var/load_time = 30 //How long it takes to load something into the carrier.
 
 /obj/item/pet_carrier/Destroy()
 	if(occupants.len)
@@ -170,7 +171,7 @@
 	user.visible_message("<span class='notice'>[user] starts loading [target] into [src].</span>", \
 	"<span class='notice'>You start loading [target] into [src]...</span>", null, null, target)
 	to_chat(target, "<span class='userdanger'>[user] starts loading you into [user.p_their()] [name]!</span>")
-	if(!do_mob(user, target, 30))
+	if(!do_mob(user, target, load_time))
 		return
 	if(target in occupants)
 		return
@@ -196,5 +197,18 @@
 	occupants -= occupant
 	occupant_weight -= occupant.mob_size
 	occupant.setDir(SOUTH)
+
+//Bluespace pet carrier
+/obj/item/pet_carrier/bluespace
+	name = "bluespace pet carrier"
+	desc = "A pet carrier utilizing bluespace technology to fit even larger creatures inside."
+	max_occupants = 5
+	max_occupant_weight = MOB_SIZE_HUMAN //It can fit people!
+	load_time = 200 //The drawback to using a bluespace pet carrier is that it's harder to load things into!
+
+/obj/item/pet_carrier/bluespace/Initialize()
+	. = ..()
+	add_atom_colour("#4db4f9", FIXED_COLOUR_PRIORITY) //We colour it a nice shade of blue, because it's BLUEspace.
+
 
 #undef pet_carrier_full
