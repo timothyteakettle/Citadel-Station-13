@@ -2476,8 +2476,68 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		M.adjust_disgust(25)
 	return ..()
 
+/datum/reagent/consumable/ethanol/orange_potion
+	name = "Orange Potion"
+	color = "CB6C2B" //(203, 108, 43)
+	description = "A orange potion."
+	boozepwr = 0
+	taste_description = "orange"
+	glass_icon_state = "orange_potion"
+	glass_name = "Orange Potion"
+	glass_desc "A orange potion."
+
+/datum/reagent/consumable/ethanol/blue_potion
+	name = "Blue Potion"
+	color = "78D7FF" //(120, 215, 255)
+	description = "A blue potion."
+	boozepwr = 0
+	taste_description = "blue"
+	glass_icon_state = "blue_potion"
+	glass_name = "Blue Potion"
+	glass_desc "A blue potion."
+
+/datum/reagent/consumable/ethanol/green_potion
+	name = "Green Potion"
+	color = "1FC773" //(31, 199, 115)
+	description = "A green potion."
+	boozepwr = 0
+	taste_description = "green"
+	glass_icon_state = "green_potion"
+	glass_name = "Green Potion"
+	glass_desc "A green potion."
+
+/datum/reagent/consumable/ethanol/yellow_potion
+	name = "Yellow Potion"
+	color = "FFB84A" //(255, 184, 74)
+	description = "A yellow potion."
+	boozepwr = 0
+	taste_description = "yellow"
+	glass_icon_state = "yellow_potion"
+	glass_name = "Yellow Potion"
+	glass_desc "A yellow potion."
+
+/datum/reagent/consumable/ethanol/purple_potion
+	name = "Purple Potion"
+	color = "64004C" //(100, 0, 76)
+	description = "A purple potion."
+	boozepwr = 0
+	taste_description = "purple"
+	glass_icon_state = "purple_potion"
+	glass_name = "Purple Potion"
+	glass_desc "A purple potion."
+
+/datum/reagent/consumable/ethanol/grey_potion
+	name = "Grey Potion"
+	color = "2F2A2A" //(47, 42, 42)
+	description = "A grey potion."
+	boozepwr = 0
+	taste_description = "grey"
+	glass_icon_state = "grey_potion"
+	glass_name = "Grey Potion"
+	glass_desc "A grey potion."
+
 ///////////////
-//Barrle Wine//
+//Barrel Wine//
 ///////////////
 
 /datum/reagent/consumable/ethanol/fruit_wine
