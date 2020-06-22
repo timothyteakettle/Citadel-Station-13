@@ -608,3 +608,129 @@
 	HIonRelease 	= 0.01
 	RateUpLim 		= 15
 	FermiChem 		= TRUE
+
+//////////////////////
+//Fermichem Alcohols//
+//////////////////////
+
+//these are all difficult to brew, requiring various alcohols and sometimes other reagents
+
+/datum/chemical_reaction/fermi/fire_potion
+	name = "Essence of Fire"
+	id = /datum/reagent/consumable/ethanol/fire_potion
+	results = list(/datum/reagent/consumable/ethanol/fire_potion = 2)
+	required_reagents = list(datum/reagent/clf3 = 3, /datum/reagent/consumable/ethanol/tequila_sunrise = 2, /datum/reagent/consumable/ethanol/toxins_special = 3, /datum/reagent/consumable/ethanol/mauna_loa = 4)
+	//FermiChem vars:
+	OptimalTempMin 	= 780
+	OptimalTempMax 	= 850
+	ExplodeTemp 	= 900
+	OptimalpHMin 	= 2.0
+	OptimalpHMax 	= 3.0
+	ReactpHLim 		= 2.0
+	//CatalystFact 	= 0
+	CurveSharpT 	= 5
+	CurveSharppH 	= 5
+	ThermicConstant = 15
+	HIonRelease 	= 0.05
+	RateUpLim 		= 2
+	FermiChem 		= TRUE
+
+/datum/chemical_reaction/fermi/healing_potion
+	name = "???"
+	id = /datum/reagent/consumable/ethanol/healing_potion
+	results = list(/datum/reagent/consumable/ethanol/healing_potion = 2)
+	required_reagents = list(/datum/reagent/consumable/ethanol/beepsky_smash = 3, /datum/reagent/consumable/doctor_delight = 3, /datum/reagent/consumable/ethanol/between_the_sheets = 3, datum/reagent/consumable/ethanol/trappist = 3)
+	//FermiChem vars:
+	OptimalTempMin 	= -200
+	OptimalTempMax 	= -100
+	ExplodeTemp 	= -250
+	OptimalpHMin 	= 7.0
+	OptimalpHMax 	= 7.5
+	ReactpHLim 		= 7.0
+	//CatalystFact 	= 0
+	CurveSharpT 	= 3
+	CurveSharppH 	= 3
+	ThermicConstant = -5
+	HIonRelease 	= 0.025
+	RateUpLim 		= 2
+	FermiChem 		= TRUE
+
+/datum/chemical_reaction/fermi/gravity_potion
+	name = "Essence of Gravity"
+	id = /datum/reagent/consumable/ethanol/gravity_potion
+	results = list(/datum/reagent/consumable/ethanol/gravity_potion = 2)
+	required_reagents = list(/datum/reagent/consumable/ethanol/fetching_fizz = 3, /datum/reagent/consumable/gibbfloats = 4, /datum/reagent/sorium = 2)
+	//FermiChem vars:
+	OptimalTempMin 	= 200
+	OptimalTempMax 	= 300
+	ExplodeTemp 	= 350
+	OptimalpHMin 	= 4.0
+	OptimalpHMax 	= 4.5
+	ReactpHLim 		= 4.0
+	//CatalystFact 	= 0
+	CurveSharpT 	= 4
+	CurveSharppH 	= 4
+	ThermicConstant = 10
+	HIonRelease 	= 0.04
+	RateUpLim 		= 2
+	FermiChem 		= TRUE
+
+/datum/chemical_reaction/fermi/rat_potion
+	name = "Essence of Cheese"
+	id = /datum/reagent/consumable/ethanol/rat_potion
+	results = list(/datum/reagent/consumable/ethanol/rat_potion = 2)
+	required_reagents = list(/datum/reagent/medicine/strange_reagent = 3, /datum/reagent/consumable/ethanol/bilk = 4, /datum/reagent/consumable/ethanol/irish_cream = 2, /datum/reagent/consumable/ethanol/white_russian = 4, /datum/reagent/consumable/ethanol/goldschlager = 5)
+	//FermiChem vars:
+	OptimalTempMin 	= 274
+	OptimalTempMax 	= 325
+	ExplodeTemp 	= 375
+	OptimalpHMin 	= 10.0
+	OptimalpHMax 	= 12.0
+	ReactpHLim 		= 10.0
+	//CatalystFact 	= 0
+	CurveSharpT 	= 4
+	CurveSharppH 	= 4.5
+	ThermicConstant = 10
+	HIonRelease 	= 0.03
+	RateUpLim 		= 2
+	FermiChem 		= TRUE
+
+/datum/chemical_reaction/fermi/party_potion //the most difficult to create potion
+	name = "Essence of Evil"
+	id = /datum/reagent/consumable/ethanol/party_potion
+	results = list(/datum/reagent/consumable/ethanol/party_potion = 2)
+	required_reagents = list(/datum/reagent/consumable/red_queen = 3, /datum/reagent/consumable/nuka_cola = 2, /datum/reagent/consumable/ethanol/wizz_fizz = 4, /datum/reagent/consumable/ethanol/narsour = 2, /datum/reagent/consumable/ethanol/cogchamp = 2)
+	//FermiChem vars:
+	OptimalTempMin 	= 420
+	OptimalTempMax 	= 450
+	ExplodeTemp 	= 451
+	OptimalpHMin 	= 7.0
+	OptimalpHMax 	= 7.5
+	ReactpHLim 		= 7.0
+	//CatalystFact 	= 0
+	CurveSharpT 	= 5
+	CurveSharppH 	= 5
+	ThermicConstant = 10
+	HIonRelease 	= 0.05
+	RateUpLim 		= 2
+	FermiChem 		= TRUE
+
+/datum/chemical_reaction/fermi/petrification_potion
+	name = "Essence of Stone"
+	id = /datum/reagent/consumable/ethanol/petrification_potion
+	results = list(/datum/reagent/consumable/ethanol/petrification_potion = 2)
+	required_reagents = list(/datum/reagent/iron = 5, /datum/reagent/consumable/ethanol/bacchus_blessing = 5, datum/reagent/consumable/ethanol/moonshine = 5)
+	//FermiChem vars:
+	OptimalTempMin 	= 273
+	OptimalTempMax 	= 313
+	ExplodeTemp 	= 350
+	OptimalpHMin 	= 5.0
+	OptimalpHMax 	= 6.0
+	ReactpHLim 		= 6.0
+	//CatalystFact 	= 0
+	CurveSharpT 	= 3
+	CurveSharppH 	= 5
+	ThermicConstant = 7
+	HIonRelease 	= 0.05
+	RateUpLim 		= 2
+	FermiChem 		= TRUE

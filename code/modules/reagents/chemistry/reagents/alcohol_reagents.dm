@@ -2492,65 +2492,71 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		M.adjust_disgust(25)
 	return ..()
 
-/datum/reagent/consumable/ethanol/orange_potion
-	name = "Orange Potion"
+//////////////////////
+//Fermichem Alcohols//
+//////////////////////
+
+/datum/reagent/consumable/ethanol/fire_potion //you set on fire but don't actually burn from it
+	name = "Essence of Fire"
 	color = "CB6C2B" //(203, 108, 43)
-	description = "A orange potion."
-	boozepwr = 0
-	taste_description = "orange"
+	description = "Its mere presence burns your soul."
+	boozepwr = 100
+	taste_description = "molten lava"
 	glass_icon_state = "orange_potion"
-	glass_name = "Orange Potion"
-	glass_desc = "A orange potion."
+	glass_name = "Infernal Tincture"
+	glass_desc = "You gaze into the everburning liquid flames caged within the bottle."
 
-/datum/reagent/consumable/ethanol/blue_potion
-	name = "Blue Potion"
+/datum/reagent/consumable/ethanol/healing_potion //heals damage depending on how drunk you are
+	name = "Essence of Rejuvenation"
 	color = "78D7FF" //(120, 215, 255)
-	description = "A blue potion."
-	boozepwr = 0
-	taste_description = "blue"
+	description = "A refreshing liquid that seems surprisingly alcoholic."
+	boozepwr = 100 //hurts your liver but heals your body
+	taste_description = "forgiveness"
 	glass_icon_state = "blue_potion"
-	glass_name = "Blue Potion"
-	glass_desc = "A blue potion."
+	glass_name = "Rejuvenation Elixir"
+	glass_desc = "The very alcoholic answer to medication."
 
-/datum/reagent/consumable/ethanol/green_potion
-	name = "Green Potion"
+/datum/reagent/consumable/ethanol/gravity_potion //makes the user have antigravity while it's in their system as long as the purity is above 0.8
+	name = "Essence of Gravity"
 	color = "1FC773" //(31, 199, 115)
-	description = "A green potion."
-	boozepwr = 0
-	taste_description = "green"
+	description = "This seems almost weightless."
+	boozepwr = 90
+	taste_description = "the feeling of space"
 	glass_icon_state = "green_potion"
-	glass_name = "Green Potion"
-	glass_desc = "A green potion."
+	glass_name = "Gravitational Elixir"
+	glass_desc = "A strange green elixir."
 
-/datum/reagent/consumable/ethanol/yellow_potion
-	name = "Yellow Potion"
+/datum/reagent/consumable/ethanol/rat_potion //spawns a maximum of 3 rats around the user which despawn after 5 seconds, and adds the user to the rat faction
+	//essentially, an alcoholic weaker rat based version of beesplosion!
+	name = "Essence of Cheese"
 	color = "FFB84A" //(255, 184, 74)
-	description = "A yellow potion."
-	boozepwr = 0
-	taste_description = "yellow"
+	description = "A strange liquid cheese, smelling extremely potent. "
+	boozepwr = 42 //those mice are up to something.
+	taste_description = "cheesey"
 	glass_icon_state = "yellow_potion"
-	glass_name = "Yellow Potion"
-	glass_desc = "A yellow potion."
+	glass_name = "Cheesey Brew"
+	glass_desc = "A strange potion, containing .. cheese?"
 
-/datum/reagent/consumable/ethanol/purple_potion
-	name = "Purple Potion"
+/datum/reagent/consumable/ethanol/party_potion //it metabolises random alcohols in your body, while healing your liver (off purity) and reducing your drunkeness!
+	name = "Essence of Evil"
 	color = "64004C" //(100, 0, 76)
-	description = "A purple potion."
-	boozepwr = 0
-	taste_description = "purple"
+	description = "The very embodiment of pure and utter evil."
+	boozepwr = 0 //it will constantly reduce your drunkeness anyway
+	taste_description = "pure evil"
 	glass_icon_state = "purple_potion"
-	glass_name = "Purple Potion"
-	glass_desc = "A purple potion."
+	glass_name = "Evil Concoction"
+	glass_desc = "No sane bartender would ever brew such an evil looking concoction.."
 
-/datum/reagent/consumable/ethanol/grey_potion
-	name = "Grey Potion"
+/datum/reagent/consumable/ethanol/petrification_potion //slowly turns the consumer into a stone statue, cureable through drinking iron which purges it
+	// the time it takes to petrify them depends on the purity, but it's generally VERY long
+	name = "Essence of Stone"
 	color = "2F2A2A" //(47, 42, 42)
-	description = "A grey potion."
-	boozepwr = 0
-	taste_description = "grey"
+	description = "Stone, in a liquidated form."
+	boozepwr = 50
+	taste_description = "rocky" //.. because it's stone.
 	glass_icon_state = "grey_potion"
-	glass_name = "Grey Potion"
-	glass_desc = "A grey potion."
+	glass_name = "Stoneheart Brew"
+	glass_desc = "A strange grey elixir, seeming as heavy as a bag of stones."
 
 ///////////////
 //Barrel Wine//
