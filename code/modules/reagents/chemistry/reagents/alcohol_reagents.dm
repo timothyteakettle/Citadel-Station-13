@@ -2496,7 +2496,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 //Fermichem Alcohols//
 //////////////////////
 
-/datum/reagent/consumable/ethanol/molten_tequila //you set on fire but don't actually burn from it
+/datum/reagent/consumable/ethanol/molten_tequila //you set on fire but don't actually burn from it for the duration
 	name = "Molten Tequila"
 	color = "CB6C2B" //(203, 108, 43)
 	description = "Its mere presence burns your soul."
@@ -2505,19 +2505,71 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "orange_potion"
 	glass_name = "Infernal Tincture"
 	glass_desc = "You gaze into the everburning liquid flames caged within the bottle."
+	pH = 3.5
 
-/datum/reagent/consumable/ethanol/healing_potion //heals damage depending on how drunk you are
-	name = "Essence of Rejuvenation"
+/datum/reagent/consumable/ethanol/molten_tequila/on_mob_life(mob/living/M)
+	M.adjust_fire_stacks(-M.fire_stacks + 20 * src.purity)
+	if(!M.on_fire)
+		M.IgniteMob()
+
+/datum/reagent/consumable/ethanol/molten_tequila/on_mob_metabolize(mob/living/M)
+	ADD_TRAIT(M, TRAIT_RESISTHEAT, "fire_potion")
+
+/datum/reagent/consumable/ethanol/molten_tequila/on_mob_end_metabolize(mob/living/M)
+	M.ExtinguishMob()
+	REMOVE_TRAIT(M, TRAIT_RESISTHEAT, "fire_potion")
+
+/datum/reagent/consumable/ethanol/molten_tequila/reaction_turf(turf/T, reac_volume) //splashing it makes fire and heat
+	T.burn_tile()
+	for(var/turf/turf in range(1,T))
+		if(!locate(/obj/effect/hotspot) in turf)
+			new /obj/effect/hotspot(turf)
+
+/datum/reagent/consumable/ethanol/molten_tequila/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	if(istype(M))
+		if(method != INGEST && method != INJECT)
+			M.adjust_fire_stacks(reac_volume*2*src.purity)
+			M.IgniteMob()
+			if(!locate(/obj/effect/hotspot) in M.loc)
+				new /obj/effect/hotspot(M.loc)
+
+/datum/reagent/consumable/ethanol/frozen_coffee //gives cold resist and makes you freeze the surrounding area by spawning freezing air
+	name = "Frozen Coffee"
 	color = "78D7FF" //(120, 215, 255)
-	description = "A refreshing liquid that seems surprisingly alcoholic."
-	boozepwr = 100 //hurts your liver but heals your body
-	taste_description = "forgiveness"
+	description = "Taking iced coffee a step further."
+	boozepwr = 0 //coffee is not alcoholic
+	taste_description = "freezing sensation"
 	glass_icon_state = "blue_potion"
-	glass_name = "Rejuvenation Elixir"
-	glass_desc = "The very alcoholic answer to medication."
+	glass_name = "Frozen Tonic"
+	glass_desc = "The glass itself seems to be frozen by the liquid inside."
+	pH = 5
 
-/datum/reagent/consumable/ethanol/gravity_potion //makes the user have antigravity while it's in their system as long as the purity is above 0.8
-	name = "Essence of Gravity"
+/datum/reagent/consumable/ethanol/frozen_coffee/on_mob_metabolize(mob/living/M)
+	ADD_TRAIT(M, TRAIT_RESISTCOLD, "ice_potion")
+
+/datum/reagent/consumable/ethanol/frozen_coffee/on_mob_end_metabolize(mob/living/M)
+	REMOVE_TRAIT(M, TRAIT_RESISTCOLD, "ice_potion")
+
+/datum/reagent/consumable/ethanol/frozen_coffee/on_mob_life(mob/living/M)
+	var/turf/open/T = get_turf(M)
+	if(istype(T))
+		for(var/turf/open/turf in RANGE_TURFS(1, T))
+			turf.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=10*src.purity, wet_time_to_add=10*src.purity SECONDS)
+			turf.air.temperature -= MOLES_CELLSTANDARD*500*src.purity/turf.air.heat_capacity() //this is equivalent to 5u of frost oil at 1 purity
+
+/datum/reagent/consumable/ethanol/frozen_coffee/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	if(istype(M))
+		if(method != INGEST && method != INJECT)
+			M.adjust_fire_stacks(-M.fire_stacks)
+
+/datum/reagent/consumable/ethanol/frozen_coffee/reaction_turf(turf/T, reac_volume)
+	var/turf/open/OT = T
+	if(istype(OT))
+		OT.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=20*src.purity, wet_time_to_add=reac_volume*5*src.purity SECONDS) // 1 purity means 1u is equal to 5u of frost oil
+		OT.air.temperature -= MOLES_CELLSTANDARD*500*reac_volume*src.purity/OT.air.heat_capacity()
+
+/datum/reagent/consumable/ethanol/gravity_beer //makes the user have antigravity while it's in their system as long as the purity is above 0.75
+	name = "Unusually Light Beer"
 	color = "1FC773" //(31, 199, 115)
 	description = "This seems almost weightless."
 	boozepwr = 90
@@ -2525,10 +2577,21 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "green_potion"
 	glass_name = "Gravitational Elixir"
 	glass_desc = "A strange green elixir."
+	pH = 4
 
-/datum/reagent/consumable/ethanol/rat_potion //spawns a maximum of 3 rats around the user which despawn after 5 seconds, and adds the user to the rat faction
-	//essentially, an alcoholic weaker rat based version of beesplosion!
-	name = "Essence of Cheese"
+datum/reagent/consumable/ethanol/gravity_beer/reaction_obj(obj/O, volume)
+	O.AddElement(/datum/element/forced_gravity, 0)
+	addtimer(CALLBACK(O, .proc/_RemoveElement, list(/datum/element/forced_gravity, 0)), volume * purity * 180) // at purity 1, 3 minutes per unit
+
+datum/reagent/consumable/ethanol/gravity_beer/on_mob_add(mob/living/M)
+	M.AddElement(/datum/element/forced_gravity, 0) //0 is the gravity, and in this case weightless
+
+datum/reagent/consumable/ethanol/gravity_beer/on_mob_end_metabolize(mob/living/M)
+	M.RemoveElement(/datum/element/forced_gravity, 0)
+
+/datum/reagent/consumable/ethanol/rat_ale //spawns a maximum of 3 rats around the user which despawn after 5 seconds, and adds the user to the rat faction
+	//essentially, an alcoholic rat based version of beesplosion!
+	name = "Rat Ale"
 	color = "FFB84A" //(255, 184, 74)
 	description = "A strange liquid cheese, smelling extremely potent. "
 	boozepwr = 42 //those mice are up to something.
@@ -2536,20 +2599,22 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "yellow_potion"
 	glass_name = "Cheesey Brew"
 	glass_desc = "A strange potion, containing .. cheese?"
+	pH = 4
 
-/datum/reagent/consumable/ethanol/evil_potion //
-	name = "Essence of Evil"
+/datum/reagent/consumable/ethanol/void_kiss //this continously metabolises random alcohols into you
+	name = "Void Cola"
 	color = "64004C" //(100, 0, 76)
-	description = "The very embodiment of pure and utter evil."
-	boozepwr = 0 //it will constantly reduce your drunkeness anyway
-	taste_description = "pure evil"
+	description = "A potent concoction of pure and utter evil."
+	boozepwr = -300 //the polar opposite of bacchus blessing, for good reason!
+	taste_description = "imminent regret"
 	glass_icon_state = "purple_potion"
-	glass_name = "Evil Concoction"
+	glass_name = "Voids Kiss"
 	glass_desc = "You stare into the void. It stares back."
+	pH = 3
 
-/datum/reagent/consumable/ethanol/petrification_potion //slowly turns the consumer into a stone statue, cureable through drinking iron which purges it
+/datum/reagent/consumable/ethanol/moonstone //slowly turns the consumer into a stone statue, cureable through drinking iron which purges it
 	// the time it takes to petrify them depends on the purity, but it's generally VERY long
-	name = ""
+	name = "Moonstone"
 	color = "2F2A2A" //(47, 42, 42)
 	description = "Stone, in a liquidated form."
 	boozepwr = 50
@@ -2557,6 +2622,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "grey_potion"
 	glass_name = "Stoneheart Brew"
 	glass_desc = "A strange grey elixir, seeming as heavy as stone."
+	pH = 11
 
 ///////////////
 //Barrel Wine//

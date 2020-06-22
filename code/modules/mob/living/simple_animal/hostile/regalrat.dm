@@ -237,3 +237,12 @@
 				visible_message("<span class='warning'>[src] chews through the [C]. It looks unharmed!</span>")
 				playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
 				C.deconstruct()
+
+//rat subtypes
+/mob/living/simple_animal/hostile/rat/alcohol //essentially the power of three rats, made by failing the rat potion recipe
+	name = "alcohol infused rat"
+	desc = "A rodent imbued with large quantities of alcohol."
+	melee_damage_lower = 9 //3x the damage of a regular rat
+	melee_damage_upper = 15
+	maxHealth = 45 //3x the health of a regular rat
+	health = 45

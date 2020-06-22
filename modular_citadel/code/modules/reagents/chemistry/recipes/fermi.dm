@@ -480,12 +480,11 @@
 	RateUpLim 		= 15
 	FermiChem 		= TRUE
 
-/datum/chemical_reaction/fermi/plushmium // done
+/datum/chemical_reaction/fermi/plushmium
 	name = "Plushification serum"
 	id = /datum/reagent/fermi/plushmium
 	results = list(/datum/reagent/fermi/plushmium = 5)
 	required_reagents = list(/datum/reagent/medicine/strange_reagent = 5, /datum/reagent/drug/happiness = 3, /datum/reagent/blood = 10, /datum/reagent/consumable/laughter = 5, /datum/reagent/toxin/bad_food = 6)
-	//mix_message = ""
 	//FermiChem vars:
 	OptimalTempMin 	= 400
 	OptimalTempMax 	= 666
@@ -619,7 +618,7 @@
 	name = "Molten Tequila"
 	id = /datum/reagent/consumable/ethanol/molten_tequila
 	results = list(/datum/reagent/consumable/ethanol/molten_tequila = 2)
-	required_reagents = list(datum/reagent/clf3 = 3, /datum/reagent/consumable/ethanol/tequila_sunrise = 2, /datum/reagent/consumable/ethanol/toxins_special = 3, /datum/reagent/consumable/ethanol/mauna_loa = 4)
+	required_reagents = list(/datum/reagent/clf3 = 3, /datum/reagent/consumable/ethanol/tequila_sunrise = 2, /datum/reagent/consumable/ethanol/toxins_special = 3, /datum/reagent/consumable/ethanol/mauna_loa = 4)
 	//FermiChem vars:
 	OptimalTempMin 	= 780
 	OptimalTempMax 	= 850
@@ -635,11 +634,17 @@
 	RateUpLim 		= 2
 	FermiChem 		= TRUE
 
-/datum/chemical_reaction/fermi/healing_potion
-	name = "???"
-	id = /datum/reagent/consumable/ethanol/healing_potion
-	results = list(/datum/reagent/consumable/ethanol/healing_potion = 2)
-	required_reagents = list(/datum/reagent/consumable/ethanol/beepsky_smash = 3, /datum/reagent/consumable/doctor_delight = 3, /datum/reagent/consumable/ethanol/between_the_sheets = 3, datum/reagent/consumable/ethanol/trappist = 3)
+/datum/chemical_reaction/fermi/molten_tequila/FermiExplode(datum/reagents, var/atom/my_atom, volume, temp, pH)
+	my_atom.reagents.clear_reagents()
+	var/turf/open/T = get_turf(my_atom)
+	if(istype(T))
+		T.atmos_spawn_air("plasma=25;TEMP=1000") //spawns the spicy air because you fucked up, equivalent to 25u phlogiston
+
+/datum/chemical_reaction/fermi/frozen_coffee
+	name = "Liquid Ice"
+	id = /datum/reagent/consumable/ethanol/frozen_coffee
+	results = list(/datum/reagent/consumable/ethanol/frozen_coffee = 2)
+	required_reagents = list(/datum/reagent/consumable/icecoffee = 5, /datum/reagent/consumable/ethanol/snowwhite = 3, /datum/reagent/consumable/ethanol/turbo = 3,  /datum/reagent/consumable/frostoil = 4)
 	//FermiChem vars:
 	OptimalTempMin 	= -200
 	OptimalTempMax 	= -100
@@ -655,11 +660,18 @@
 	RateUpLim 		= 2
 	FermiChem 		= TRUE
 
-/datum/chemical_reaction/fermi/gravity_potion
-	name = "Essence of Gravity"
-	id = /datum/reagent/consumable/ethanol/gravity_potion
-	results = list(/datum/reagent/consumable/ethanol/gravity_potion = 2)
-	required_reagents = list(/datum/reagent/consumable/ethanol/fetching_fizz = 3, /datum/reagent/consumable/gibbfloats = 4, /datum/reagent/sorium = 2)
+/datum/chemical_reaction/fermi/frozen_coffee/FermiExplode(datum/reagents, var/atom/my_atom, volume, temp, pH)
+	// same effect as splashing 25u frost oil on the turf
+	my_atom.reagents.clear_reagents()
+	var/turf/open/T = get_turf(my_atom)
+	T.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=100, wet_time_to_add=25 SECONDS)
+	T.air.temperature -= MOLES_CELLSTANDARD*2500/T.air.heat_capacity()
+
+/datum/chemical_reaction/fermi/gravity_beer
+	name = "Unusually Light Beer"
+	id = /datum/reagent/consumable/ethanol/gravity_beer
+	results = list(/datum/reagent/consumable/ethanol/gravity_beer = 2)
+	required_reagents = list(/datum/reagent/consumable/ethanol/fetching_fizz = 3, /datum/reagent/consumable/gibbfloats = 4, /datum/reagent/sorium = 2, /datum/reagent/consumable/ethanol/beer = 3)
 	//FermiChem vars:
 	OptimalTempMin 	= 200
 	OptimalTempMax 	= 300
@@ -675,11 +687,11 @@
 	RateUpLim 		= 2
 	FermiChem 		= TRUE
 
-/datum/chemical_reaction/fermi/rat_potion
-	name = "Essence of Cheese"
-	id = /datum/reagent/consumable/ethanol/rat_potion
-	results = list(/datum/reagent/consumable/ethanol/rat_potion = 2)
-	required_reagents = list(/datum/reagent/medicine/strange_reagent = 3, /datum/reagent/consumable/ethanol/bilk = 4, /datum/reagent/consumable/ethanol/irish_cream = 2, /datum/reagent/consumable/ethanol/white_russian = 4, /datum/reagent/consumable/ethanol/goldschlager = 5)
+/datum/chemical_reaction/fermi/rat_ale
+	name = "Rat Ale"
+	id = /datum/reagent/consumable/ethanol/rat_ale
+	results = list(/datum/reagent/consumable/ethanol/rat_ale = 2)
+	required_reagents = list(/datum/reagent/medicine/strange_reagent = 3, /datum/reagent/consumable/ethanol/bilk = 4, /datum/reagent/consumable/ethanol/white_russian = 4, /datum/reagent/consumable/ethanol/goldschlager = 5, )
 	//FermiChem vars:
 	OptimalTempMin 	= 274
 	OptimalTempMax 	= 325
@@ -695,10 +707,15 @@
 	RateUpLim 		= 2
 	FermiChem 		= TRUE
 
-/datum/chemical_reaction/fermi/party_potion //the most difficult to create potion
-	name = "Essence of Evil"
-	id = /datum/reagent/consumable/ethanol/party_potion
-	results = list(/datum/reagent/consumable/ethanol/party_potion = 2)
+/datum/chemical_reaction/fermi/rat_ale/FermiExplode(datum/reagents, var/atom/my_atom, volume, temp, pH)
+	//summons an angry, alcohol infused rat to punish you for your mistakes
+	my_atom.reagents.clear_reagents()
+	new /mob/living/simple_animal/hostile/rat/alcohol(get_turf(my_atom))
+
+/datum/chemical_reaction/fermi/void_kiss
+	name = "Void Cola"
+	id = /datum/reagent/consumable/ethanol/void_kiss
+	results = list(/datum/reagent/consumable/ethanol/void_kiss = 2)
 	required_reagents = list(/datum/reagent/consumable/red_queen = 3, /datum/reagent/consumable/nuka_cola = 2, /datum/reagent/consumable/ethanol/wizz_fizz = 4, /datum/reagent/consumable/ethanol/narsour = 2, /datum/reagent/consumable/ethanol/cogchamp = 2)
 	//FermiChem vars:
 	OptimalTempMin 	= 420
@@ -715,11 +732,18 @@
 	RateUpLim 		= 2
 	FermiChem 		= TRUE
 
-/datum/chemical_reaction/fermi/petrification_potion
-	name = "Essence of Stone"
-	id = /datum/reagent/consumable/ethanol/petrification_potion
-	results = list(/datum/reagent/consumable/ethanol/petrification_potion = 2)
-	required_reagents = list(/datum/reagent/iron = 5, /datum/reagent/consumable/ethanol/bacchus_blessing = 5, datum/reagent/consumable/ethanol/moonshine = 5)
+/datum/chemical_reaction/fermi/void_kiss/FermiExplode(datum/reagents, var/atom/my_atom, volume, temp, pH)
+	//50% chance for default explosion, 50% chance for spawning a void puppy!
+	if(prob(50))
+		..(reagents, my_atom, volume, temp, pH)
+	else
+		new /mob/living/simple_animal/pet/dog/corgi/puppy/void(get_turf(my_atom))
+
+/datum/chemical_reaction/fermi/moonstone
+	name = "Moonstone"
+	id = /datum/reagent/consumable/ethanol/moonstone
+	results = list(/datum/reagent/consumable/ethanol/moonstone = 2)
+	required_reagents = list(/datum/reagent/iron = 5, /datum/reagent/consumable/ethanol/bacchus_blessing = 5, /datum/reagent/consumable/ethanol/moonshine = 5, /datum/reagent/consumable/ethanol/old_timer = 3)
 	//FermiChem vars:
 	OptimalTempMin 	= 273
 	OptimalTempMax 	= 313
