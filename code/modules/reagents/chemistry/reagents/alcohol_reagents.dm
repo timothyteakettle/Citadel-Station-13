@@ -2508,22 +2508,26 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	pH = 3.5
 
 /datum/reagent/consumable/ethanol/molten_tequila/on_mob_life(mob/living/M)
-	M.adjust_fire_stacks(-M.fire_stacks + 20 * src.purity)
+	M.adjust_fire_stacks(-M.fire_stacks + 20 * src.purity) //forcibly adjust stacks to 20 * purity
 	if(!M.on_fire)
 		M.IgniteMob()
+	..()
 
 /datum/reagent/consumable/ethanol/molten_tequila/on_mob_metabolize(mob/living/M)
 	ADD_TRAIT(M, TRAIT_RESISTHEAT, "fire_potion")
+	..()
 
 /datum/reagent/consumable/ethanol/molten_tequila/on_mob_end_metabolize(mob/living/M)
 	M.ExtinguishMob()
 	REMOVE_TRAIT(M, TRAIT_RESISTHEAT, "fire_potion")
+	..()
 
 /datum/reagent/consumable/ethanol/molten_tequila/reaction_turf(turf/T, reac_volume) //splashing it makes fire and heat
 	T.burn_tile()
 	for(var/turf/turf in range(1,T))
 		if(!locate(/obj/effect/hotspot) in turf)
 			new /obj/effect/hotspot(turf)
+	..(T, reac_volume)
 
 /datum/reagent/consumable/ethanol/molten_tequila/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(istype(M))
@@ -2532,6 +2536,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			M.IgniteMob()
 			if(!locate(/obj/effect/hotspot) in M.loc)
 				new /obj/effect/hotspot(M.loc)
+	..()
 
 /datum/reagent/consumable/ethanol/frozen_coffee //gives cold resist and makes you freeze the surrounding area by spawning freezing air
 	name = "Frozen Coffee"
@@ -2556,17 +2561,20 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		for(var/turf/open/turf in RANGE_TURFS(1, T))
 			turf.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=10*src.purity, wet_time_to_add=10*src.purity SECONDS)
 			turf.air.temperature -= MOLES_CELLSTANDARD*500*src.purity/turf.air.heat_capacity() //this is equivalent to 5u of frost oil at 1 purity
+	..()
 
 /datum/reagent/consumable/ethanol/frozen_coffee/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(istype(M))
 		if(method != INGEST && method != INJECT)
 			M.adjust_fire_stacks(-M.fire_stacks)
+	..()
 
 /datum/reagent/consumable/ethanol/frozen_coffee/reaction_turf(turf/T, reac_volume)
 	var/turf/open/OT = T
 	if(istype(OT))
 		OT.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=20*src.purity, wet_time_to_add=reac_volume*5*src.purity SECONDS) // 1 purity means 1u is equal to 5u of frost oil
 		OT.air.temperature -= MOLES_CELLSTANDARD*500*reac_volume*src.purity/OT.air.heat_capacity()
+	..()
 
 /datum/reagent/consumable/ethanol/gravity_beer //makes the user have antigravity while it's in their system as long as the purity is above 0.75
 	name = "Unusually Light Beer"
@@ -2582,12 +2590,15 @@ All effects don't start immediately, but rather get worse over time; the rate is
 datum/reagent/consumable/ethanol/gravity_beer/reaction_obj(obj/O, volume)
 	O.AddElement(/datum/element/forced_gravity, 0)
 	addtimer(CALLBACK(O, .proc/_RemoveElement, list(/datum/element/forced_gravity, 0)), volume * purity * 180) // at purity 1, 3 minutes per unit
+	..()
 
 datum/reagent/consumable/ethanol/gravity_beer/on_mob_add(mob/living/M)
 	M.AddElement(/datum/element/forced_gravity, 0) //0 is the gravity, and in this case weightless
+	..()
 
 datum/reagent/consumable/ethanol/gravity_beer/on_mob_end_metabolize(mob/living/M)
 	M.RemoveElement(/datum/element/forced_gravity, 0)
+	..()
 
 /datum/reagent/consumable/ethanol/rat_ale //spawns a maximum of 3 rats around the user which despawn after 5 seconds, and adds the user to the rat faction
 	//essentially, an alcoholic rat based version of beesplosion!
