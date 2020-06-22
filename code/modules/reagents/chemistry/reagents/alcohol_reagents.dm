@@ -2496,8 +2496,8 @@ All effects don't start immediately, but rather get worse over time; the rate is
 //Fermichem Alcohols//
 //////////////////////
 
-/datum/reagent/consumable/ethanol/fire_potion //you set on fire but don't actually burn from it
-	name = "Essence of Fire"
+/datum/reagent/consumable/ethanol/molten_tequila //you set on fire but don't actually burn from it
+	name = "Molten Tequila"
 	color = "CB6C2B" //(203, 108, 43)
 	description = "Its mere presence burns your soul."
 	boozepwr = 100
@@ -2537,7 +2537,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_name = "Cheesey Brew"
 	glass_desc = "A strange potion, containing .. cheese?"
 
-/datum/reagent/consumable/ethanol/party_potion //it metabolises random alcohols in your body, while healing your liver (off purity) and reducing your drunkeness!
+/datum/reagent/consumable/ethanol/evil_potion //
 	name = "Essence of Evil"
 	color = "64004C" //(100, 0, 76)
 	description = "The very embodiment of pure and utter evil."
@@ -2545,18 +2545,18 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	taste_description = "pure evil"
 	glass_icon_state = "purple_potion"
 	glass_name = "Evil Concoction"
-	glass_desc = "No sane bartender would ever brew such an evil looking concoction.."
+	glass_desc = "You stare into the void. It stares back."
 
 /datum/reagent/consumable/ethanol/petrification_potion //slowly turns the consumer into a stone statue, cureable through drinking iron which purges it
 	// the time it takes to petrify them depends on the purity, but it's generally VERY long
-	name = "Essence of Stone"
+	name = ""
 	color = "2F2A2A" //(47, 42, 42)
 	description = "Stone, in a liquidated form."
 	boozepwr = 50
 	taste_description = "rocky" //.. because it's stone.
 	glass_icon_state = "grey_potion"
 	glass_name = "Stoneheart Brew"
-	glass_desc = "A strange grey elixir, seeming as heavy as a bag of stones."
+	glass_desc = "A strange grey elixir, seeming as heavy as stone."
 
 ///////////////
 //Barrel Wine//

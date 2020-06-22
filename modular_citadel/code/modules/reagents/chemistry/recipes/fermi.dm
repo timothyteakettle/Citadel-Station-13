@@ -615,10 +615,10 @@
 
 //these are all difficult to brew, requiring various alcohols and sometimes other reagents
 
-/datum/chemical_reaction/fermi/fire_potion
-	name = "Essence of Fire"
-	id = /datum/reagent/consumable/ethanol/fire_potion
-	results = list(/datum/reagent/consumable/ethanol/fire_potion = 2)
+/datum/chemical_reaction/fermi/molten_tequila
+	name = "Molten Tequila"
+	id = /datum/reagent/consumable/ethanol/molten_tequila
+	results = list(/datum/reagent/consumable/ethanol/molten_tequila = 2)
 	required_reagents = list(datum/reagent/clf3 = 3, /datum/reagent/consumable/ethanol/tequila_sunrise = 2, /datum/reagent/consumable/ethanol/toxins_special = 3, /datum/reagent/consumable/ethanol/mauna_loa = 4)
 	//FermiChem vars:
 	OptimalTempMin 	= 780
