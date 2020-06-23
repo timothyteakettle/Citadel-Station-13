@@ -72,7 +72,7 @@
 		var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
 		B.Remove()
 		B.forceMove(new_plushie)
-		user.dust(drop_items = TRUE)
+		//user.dust(drop_items = TRUE)
 		qdel(src)
 
 //low regen over time
@@ -85,7 +85,7 @@
 //return the brain when it dies
 /mob/living/simple_animal/pet/plushie/death()
 	var/obj/item/organ/brain/B = locate(/obj/item/organ/brain) in contents
-	if(B)
-		src.mind.transfer_to(B)
+	if(B && src.mind)
+		src.mind.transfer_to(B.brainmob)
 		B.forceMove(get_turf(src))
 	..()

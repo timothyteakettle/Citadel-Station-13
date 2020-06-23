@@ -297,8 +297,8 @@
 	for(var/i in 1 to 3)
 		new /obj/item/reagent_containers/food/snacks/cakeslice/birthday(src.loc)
 	var/obj/item/organ/brain/B = locate(/obj/item/organ/brain) in contents
-	if(B)
-		src.mind.transfer_to(B)
+	if(B && src.mind)
+		src.mind.transfer_to(B.brainmob)
 		B.forceMove(get_turf(src))
 	..()
 
