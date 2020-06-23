@@ -254,9 +254,10 @@
 	response_harm_continuous = "takes a bite out of"
 	response_harm_simple = "take a bite out of"
 	attacked_sound = 'sound/items/eatfood.ogg'
-	deathmessage = "loses its false life and collapses!"
+	deathmessage = "loses its false life and collapses into several slices of cake!"
 	death_sound = "bodyfall"
 	held_icon = "cak"
+	del_on_death = TRUE
 
 /mob/living/simple_animal/pet/cat/cak/CheckParts(list/parts)
 	..()
@@ -290,6 +291,16 @@
 	if(L.a_intent == INTENT_HARM && L.reagents && !stat)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment, 0.4)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.4)
+
+//when it dies, it turns into a few slices of cake, and a brain
+/mob/living/simple_animal/pet/cat/cak/death()
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/food/snacks/cakeslice/birthday(src.loc)
+	var/obj/item/organ/brain/B = locate(/obj/item/organ/brain) in contents
+	if(B)
+		src.mind.transfer_to(B)
+		B.forceMove(get_turf(src))
+	..()
 
 //Cat made
 /mob/living/simple_animal/pet/cat/custom_cat

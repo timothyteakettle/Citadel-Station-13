@@ -119,11 +119,12 @@ mob/living/simple_animal/hostile/bear/butter //The mighty companion to Cak. Seve
 	response_harm_continuous = "takes a bite out of"
 	response_harm_simple = "take a bite out of"
 	attacked_sound = 'sound/items/eatfood.ogg'
-	deathmessage = "loses its false life and collapses!"
+	deathmessage = "loses its false life and collapses into several chunks of butter!"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/butter = 6, /obj/item/reagent_containers/food/snacks/meat/slab = 3, /obj/item/organ/brain = 1, /obj/item/organ/heart = 1)
 	attack_sound = 'sound/weapons/slap.ogg'
 	attack_verb_continuous = "slaps"
 	attack_verb_simple = "slap"
+	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/bear/butter/BiologicalLife(seconds, times_fired) //Heals butter bear really fast when he takes damage.
 	if(stat)
@@ -159,22 +160,12 @@ mob/living/simple_animal/hostile/bear/butter/AttackingTarget() //Makes some atta
 			playsound(loc, 'sound/misc/slip.ogg', 15)
 			L.visible_message("<span class='danger'>[L] slips on butter!</span>")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//when it dies, it turns back into several pieces of butter, and a brain
+/mob/living/simple_animal/hostile/bear/butter/death()
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/food/snacks/butter(src.loc)
+	var/obj/item/organ/brain/B = locate(/obj/item/organ/brain) in contents
+	if(B)
+		src.mind.transfer_to(B)
+		B.forceMove(get_turf(src))
+	..()

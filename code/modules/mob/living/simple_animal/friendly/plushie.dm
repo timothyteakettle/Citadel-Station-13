@@ -24,11 +24,12 @@
 	melee_damage_upper = 1
 	attack_verb_continuous = "squeaks"
 	attack_verb_simple = "squeak"
-	deathmessage = "lets out a faint squeak as the glint in its eyes disappears"
+	deathmessage = "lets out a faint squeak as it collapses in on itself."
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	pressure_resistance = 200
+	del_on_death = TRUE
 
 /mob/living/simple_animal/pet/plushie/ComponentInitialize()
 	. = ..()
@@ -43,7 +44,7 @@
 	var/obj/item/toy/plush/stored_plush = null
 
 //attacking yourself transfers your mind into the plush!
-/obj/item/toy/plushie_shell/attack_self(mob/user)
+/obj/item/toy/plushie_shell/attack_self(mob/living/carbon/user)
 	if(user.mind)
 		var/safety = alert(user, "The plushie is staring back at you intensely, it seems cursed! (Permanently become a plushie)", "Hugging this is a bad idea.", "Hug it!", "Cancel")
 		if(safety == "Cancel" || !in_range(src, user))
@@ -68,6 +69,9 @@
 			new_plushie.attacked_sound = stored_plush.squeak_override[1]
 
 		//take care of the user's old body and the old shell
+		var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
+		B.Remove()
+		B.forceMove(new_plushie)
 		user.dust(drop_items = TRUE)
 		qdel(src)
 
@@ -77,3 +81,11 @@
 		return
 	if(health < maxHealth)
 		heal_overall_damage(5) //Decent life regen, they're not able to hurt anyone so this shouldn't be an issue (butterbear for reference has 10 regen)
+
+//return the brain when it dies
+/mob/living/simple_animal/pet/plushie/death()
+	var/obj/item/organ/brain/B = locate(/obj/item/organ/brain) in contents
+	if(B)
+		src.mind.transfer_to(B)
+		B.forceMove(get_turf(src))
+	..()
