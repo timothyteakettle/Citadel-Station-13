@@ -1,0 +1,29 @@
+"a" = (/turf/open/space/basic,/area/space)
+"j" = (/turf/closed/wall/mineral/snow,/area/ruin/space)
+"k" = (/turf/open/floor/plating/asteroid/snow/ice,/area/ruin/space)
+"o" = (/turf/open/floor/grass/snow,/area/ruin/space)
+"q" = (/obj/item/clothing/suit/snowman,/turf/open/floor/plating/asteroid/snow/ice,/area/ruin/space)
+"u" = (/turf/open/floor/plating/ice/colder,/area/ruin/space)
+"E" = (/obj/item/clothing/head/snowman,/turf/open/floor/plating/asteroid/snow/ice,/area/ruin/space)
+"K" = (/mob/living/simple_animal/hostile/bear/snow,/turf/open/floor/plating/asteroid/snow/ice,/area/ruin/space)
+"L" = (/mob/living/simple_animal/hostile/asteroid/hivelord/legion/snow,/turf/open/floor/plating/asteroid/snow/ice,/area/ruin/space)
+"N" = (/obj/effect/light_emitter,/turf/open/floor/plating/ice/colder,/area/ruin/space)
+"P" = (/obj/effect/light_emitter,/turf/open/floor/plating/asteroid/snow/ice,/area/ruin/space)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaa
+aaaooooooooooaa
+aaaojjjjjjjjooo
+aaaojuNukkkjjjo
+aaaojjuukkPkkjo
+aoooojkkkKkuujo
+aojjjjkPkkkNujo
+aojkkkkkLkkuujo
+oojkPKkkkPkkkjo
+ojjEkkkkkkkjjjo
+ojkqkkPjjjjjooo
+ojjPuuujoooooaa
+oojjjjjjoaaaaaa
+aooooooooaaaaaa
+aaaaaaaaaaaaaaa
+"}

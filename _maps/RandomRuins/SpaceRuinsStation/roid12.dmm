@@ -1,0 +1,48 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/obj/effect/decal/cleanable/blood/gibs,/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"c" = (/obj/effect/decal/cleanable/blood/gibs,/obj/item/reagent_containers/food/snacks/meat/slab/pug,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"d" = (/mob/living/simple_animal/cockroach,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"e" = (/obj/effect/decal/cleanable/blood/gibs/synth,/obj/item/reagent_containers/food/snacks/meat/slab/killertomato,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"h" = (/obj/effect/decal/cleanable/blood/gibs/xeno/torso,/obj/effect/decal/cleanable/blood/gibs,/obj/item/reagent_containers/food/snacks/meat/slab/spider,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"i" = (/obj/effect/decal/cleanable/blood/gibs,/obj/effect/decal/cleanable/blood/gibs,/obj/item/reagent_containers/food/snacks/meat/slab/corgi,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"j" = (/obj/effect/decal/cleanable/blood/gibs,/obj/effect/decal/cleanable/blood/gibs,/obj/item/reagent_containers/food/snacks/meat/slab/bear,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"k" = (/obj/effect/decal/cleanable/blood/gibs,/obj/effect/decal/cleanable/blood/gibs,/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/fly,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"n" = (/obj/effect/decal/cleanable/blood/gibs/human/torso,/obj/item/organ/tail/lizard,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"o" = (/obj/effect/decal/cleanable/blood/gibs/xeno/torso,/mob/living/simple_animal/cockroach,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"q" = (/turf/closed/wall/material{custom_materials = list(/datum/material/meat = 2000)},/area/ruin/space)
+"s" = (/obj/effect/decal/cleanable/blood/gibs/human/lizard/body,/mob/living/simple_animal/mouse,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"u" = (/obj/effect/decal/cleanable/blood/gibs,/obj/effect/decal/cleanable/blood/gibs,/obj/item/organ/tail/cat,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"x" = (/obj/effect/decal/cleanable/blood/gibs,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"A" = (/obj/effect/decal/cleanable/blood/gibs/ipc/torso,/obj/item/reagent_containers/food/snacks/meat/slab/human,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"B" = (/obj/effect/decal/cleanable/blood/gibs,/obj/effect/decal/cleanable/blood/gibs,/turf/closed/wall/material{custom_materials = list(/datum/material/meat = 2000)},/area/ruin/space)
+"C" = (/obj/effect/decal/cleanable/blood/gibs/human/torso,/mob/living/simple_animal/cockroach,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"D" = (/obj/effect/light_emitter,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"G" = (/turf/open/floor/plating/asteroid/airless,/area/ruin/space)
+"H" = (/obj/effect/decal/cleanable/blood,/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/golem/adamantine,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"I" = (/obj/effect/decal/cleanable/blood/gibs/xeno/core,/obj/item/reagent_containers/food/snacks/meat/slab/gorilla,/obj/effect/decal/cleanable/blood/gibs,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"K" = (/obj/effect/decal/cleanable/blood/gibs/ipc/torso,/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/avian,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"N" = (/obj/effect/decal/cleanable/blood/gibs,/obj/effect/decal/cleanable/blood/gibs,/obj/item/reagent_containers/food/snacks/meat/slab/xeno,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"O" = (/obj/effect/decal/cleanable/blood/gibs/xeno/torso,/obj/item/reagent_containers/food/snacks/meat/slab/chicken,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"P" = (/obj/effect/decal/cleanable/blood/gibs,/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/shadow,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"R" = (/obj/effect/decal/cleanable/blood/gibs,/obj/effect/decal/cleanable/blood/gibs,/obj/item/organ/random,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"S" = (/obj/effect/light_emitter,/mob/living/simple_animal/mouse,/obj/effect/decal/cleanable/blood/gibs,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"V" = (/obj/effect/light_emitter,/obj/effect/decal/cleanable/blood/gibs,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"W" = (/obj/effect/decal/cleanable/blood/gibs/limb,/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/zombie,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"X" = (/obj/effect/decal/cleanable/blood/gibs,/obj/effect/decal/cleanable/blood/gibs,/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/skeleton,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"Y" = (/obj/effect/decal/cleanable/blood/gibs,/obj/effect/decal/cleanable/blood/gibs,/obj/item/reagent_containers/food/snacks/meat/slab/goliath,/obj/effect/light_emitter,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+"Z" = (/obj/effect/decal/cleanable/blood/gibs,/obj/effect/decal/cleanable/blood/gibs,/obj/item/reagent_containers/food/snacks/meat/slab/monkey,/turf/open/floor/material{custom_materials = list(/datum/material/meat = 500)},/area/ruin/space)
+
+(1,1,1) = {"
+aaaGGGGGGGGG
+GGGGGGGqqqqG
+GqBqqqGqVPqG
+GBIZhqBBnVqG
+GqXdVWdjRiqG
+GqqANYOKsbqG
+GGqDPVuoexqG
+GGqqkbCHqqqG
+GGGqqBSKqGGG
+GGGGGBcHqGGG
+aGGGGqqqqGGa
+aaaGGGGGGGGa
+"}

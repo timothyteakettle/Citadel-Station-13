@@ -354,7 +354,7 @@
 	id = "roid4"
 	suffix = "roid4.dmm"
 	name = "Mineable Asteroid 2"
-	description = "Mineral asteroid 2."
+	description = "Mineral asteroid 2. Ft. Lazarus injector and pickaxe"
 
 /datum/map_template/ruin/spacenearstation/roid5
 	id = "roid5"
@@ -391,3 +391,23 @@
 	suffix = "roid10.dmm"
 	name = "Maze Roid"
 	description = "Mineral asteroid. Ft. Brief maze."
+
+/datum/map_template/ruin/spacenearstation/roid11
+	id = "roid11"
+	suffix = "roid11.dmm"
+	name = "Pizza Roid"
+	description = "Pizza asteroid. Ft. Free pizza."
+
+/datum/map_template/ruin/spacenearstation/roid12
+	id = "roid12"
+	suffix = "roid12.dmm"
+	name = "Meat Roid"
+	description = "Meat asteroid. Ft. Meat and blood"
+
+/datum/map_template/ruin/spacenearstation/roid13
+	id = "roid13"
+	suffix = "roid13.dmm"
+	name = "Frozen Roid"
+	description = "Ice asteroid. Ft. Two bears, and a single snow legion, loot is a snowman outfit."
+
+

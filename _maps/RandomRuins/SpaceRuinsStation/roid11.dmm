@@ -1,0 +1,249 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/turf/open/floor/material{
+	custom_materials = list(/datum/material/pizza = 500)
+	},
+/area/ruin/space)
+"e" = (
+/obj/item/reagent_containers/food/snacks/pizzaslice/donkpocket,
+/turf/open/floor/material{
+	custom_materials = list(/datum/material/pizza = 500)
+	},
+/area/ruin/space)
+"l" = (
+/obj/item/reagent_containers/food/snacks/pizza/margherita,
+/turf/open/floor/material{
+	custom_materials = list(/datum/material/pizza = 500)
+	},
+/area/ruin/space)
+"p" = (
+/obj/item/reagent_containers/food/snacks/pizza/vegetable,
+/turf/open/floor/material{
+	custom_materials = list(/datum/material/pizza = 500)
+	},
+/area/ruin/space)
+"s" = (
+/obj/item/reagent_containers/food/snacks/pizzaslice/dank,
+/turf/open/floor/material{
+	custom_materials = list(/datum/material/pizza = 500)
+	},
+/area/ruin/space)
+"v" = (
+/obj/item/reagent_containers/food/snacks/pizzaslice/meat,
+/turf/open/floor/material{
+	custom_materials = list(/datum/material/pizza = 500)
+	},
+/area/ruin/space)
+"z" = (
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/space)
+"E" = (
+/obj/item/reagent_containers/food/snacks/pizzaslice/sassysage,
+/turf/open/floor/material{
+	custom_materials = list(/datum/material/pizza = 500)
+	},
+/area/ruin/space)
+"I" = (
+/turf/closed/wall/material{
+	custom_materials = list(/datum/material/pizza = 2000)
+	},
+/area/ruin/space)
+"J" = (
+/obj/effect/light_emitter,
+/turf/closed/wall/material{
+	custom_materials = list(/datum/material/pizza = 2000)
+	},
+/area/ruin/space)
+"M" = (
+/obj/item/stack/sheet/pizza/five,
+/turf/open/floor/material{
+	custom_materials = list(/datum/material/pizza = 500)
+	},
+/area/ruin/space)
+"N" = (
+/obj/item/reagent_containers/food/snacks/pizzaslice/margherita,
+/turf/open/floor/material{
+	custom_materials = list(/datum/material/pizza = 500)
+	},
+/area/ruin/space)
+"O" = (
+/obj/effect/light_emitter,
+/turf/open/floor/material{
+	custom_materials = list(/datum/material/pizza = 500)
+	},
+/area/ruin/space)
+"Q" = (
+/obj/item/reagent_containers/food/snacks/pizzaslice/mushroom,
+/turf/open/floor/material{
+	custom_materials = list(/datum/material/pizza = 500)
+	},
+/area/ruin/space)
+
+(1,1,1) = {"
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+"}
+(2,1,1) = {"
+z
+I
+I
+I
+z
+z
+I
+I
+I
+z
+z
+z
+"}
+(3,1,1) = {"
+z
+z
+I
+O
+I
+I
+I
+Q
+O
+z
+z
+z
+"}
+(4,1,1) = {"
+z
+z
+I
+E
+N
+E
+v
+E
+I
+I
+z
+z
+"}
+(5,1,1) = {"
+z
+I
+I
+M
+b
+v
+E
+p
+I
+I
+I
+z
+"}
+(6,1,1) = {"
+z
+I
+I
+s
+O
+M
+N
+e
+N
+b
+I
+z
+"}
+(7,1,1) = {"
+z
+I
+l
+E
+s
+b
+Q
+b
+e
+s
+I
+z
+"}
+(8,1,1) = {"
+z
+I
+v
+M
+b
+E
+s
+N
+b
+I
+I
+z
+"}
+(9,1,1) = {"
+z
+I
+N
+Q
+N
+e
+e
+E
+O
+I
+z
+z
+"}
+(10,1,1) = {"
+z
+I
+J
+I
+I
+I
+I
+b
+b
+I
+z
+z
+"}
+(11,1,1) = {"
+z
+I
+I
+z
+z
+z
+z
+I
+I
+I
+I
+z
+"}
+(12,1,1) = {"
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+"}
