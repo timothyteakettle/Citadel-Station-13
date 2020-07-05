@@ -522,6 +522,9 @@
 /obj/item/organ/lungs/slime
 	name = "vacuole"
 	desc = "A large organelle designed to store oxygen and other important gasses."
+	hidden = TRUE
+	organ_flags = "ORGAN_NO_SPOIL" //it can't decay because its health is based off the brain's health
+	redirect_zone = BODY_ZONE_HEAD
 
 	safe_toxins_max = 0 //We breathe this to gain POWER.
 

@@ -48,8 +48,8 @@
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(times_fired)
 	var/next_breath = 4
-	var/obj/item/organ/lungs/L = getorganslot(ORGAN_SLOT_LUNGS)
-	var/obj/item/organ/heart/H = getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/lungs/L = getorganslot(ORGAN_SLOT_LUNGS, FALSE)
+	var/obj/item/organ/heart/H = getorganslot(ORGAN_SLOT_HEART, FALSE)
 	if(L)
 		if(L.damage > L.high_threshold)
 			next_breath--
@@ -70,7 +70,7 @@
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe()
-	var/obj/item/organ/lungs = getorganslot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/lungs = getorganslot(ORGAN_SLOT_LUNGS, FALSE)
 	if(reagents.has_reagent(/datum/reagent/toxin/lexorin))
 		return
 	if(istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
@@ -88,7 +88,7 @@
 
 	var/datum/gas_mixture/breath
 
-	if(!getorganslot(ORGAN_SLOT_BREATHING_TUBE))
+	if(!getorganslot(ORGAN_SLOT_BREATHING_TUBE, FALSE))
 		if(health <= HEALTH_THRESHOLD_FULLCRIT || (pulledby && pulledby.grab_state >= GRAB_KILL) || HAS_TRAIT(src, TRAIT_MAGIC_CHOKE) || (lungs && lungs.organ_flags & ORGAN_FAILING))
 			losebreath++  //You can't breath at all when in critical or when being choked, so you're going to miss a breath
 
@@ -141,7 +141,7 @@
 	if((status_flags & GODMODE))
 		return
 
-	var/obj/item/organ/lungs = getorganslot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/lungs = getorganslot(ORGAN_SLOT_LUNGS, FALSE)
 	if(!lungs)
 		adjustOxyLoss(2)
 
@@ -333,7 +333,7 @@
 		if(internal.loc != src)
 			internal = null
 			update_internals_hud_icon(0)
-		else if (!internals && !getorganslot(ORGAN_SLOT_BREATHING_TUBE))
+		else if (!internals && !getorganslot(ORGAN_SLOT_BREATHING_TUBE, FALSE))
 			internal = null
 			update_internals_hud_icon(0)
 		else
@@ -690,7 +690,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /////////
 
 /mob/living/carbon/proc/handle_liver()
-	var/obj/item/organ/liver/liver = getorganslot(ORGAN_SLOT_LIVER)
+	var/obj/item/organ/liver/liver = getorganslot(ORGAN_SLOT_LIVER, FALSE)
 	if((!dna && !liver) || (NOLIVER in dna.species.species_traits))
 		return
 	if(!liver || liver.organ_flags & ORGAN_FAILING)

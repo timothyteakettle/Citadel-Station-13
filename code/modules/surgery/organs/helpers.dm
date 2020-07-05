@@ -10,7 +10,7 @@
 /mob/living/carbon/getorgan(typepath)
 	return (locate(typepath) in internal_organs)
 
-/mob/living/carbon/getorganszone(zone, subzones = 0)
+/mob/living/carbon/getorganszone(zone, subzones = FALSE, respectHidden = TRUE)
 	var/list/returnorg = list()
 	if(subzones)
 		// Include subzones - groin for chest, eyes and mouth for head
@@ -22,8 +22,10 @@
 	for(var/X in internal_organs)
 		var/obj/item/organ/O = X
 		if(zone == O.zone)
-			returnorg += O
+			if(!respectHidden || !O.hidden) //only add organs when it's either not hidden, or if it's ignoring the hidden status
+				returnorg += O
 	return returnorg
 
-/mob/living/carbon/getorganslot(slot)
+/mob/living/carbon/getorganslot(slot, respectHidden = TRUE)
 	return internal_organs_slot[slot]
+

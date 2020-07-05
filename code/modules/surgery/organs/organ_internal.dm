@@ -30,6 +30,9 @@
 	var/useable = TRUE
 	var/list/food_reagents = list(/datum/reagent/consumable/nutriment = 5)
 
+	var/hidden = FALSE //doesn't drop, is ignored by surgery, deleted if you try to replace it, i.e. it's hidden
+	var/redirect_zone = null //damage is redirected to the organ in this slot, if not null
+
 /obj/item/organ/Initialize()
 	. = ..()
 	if(organ_flags & ORGAN_EDIBLE)
@@ -180,7 +183,11 @@
 	return //so we don't grant the organ's action to mobs who pick up the organ.
 
 ///Adjusts an organ's damage by the amount "d", up to a maximum amount, which is by default max damage
-/obj/item/organ/proc/applyOrganDamage(var/d, var/maximum = maxHealth)	//use for damaging effects
+/obj/item/organ/proc/applyOrganDamage(var/d, var/maximum = maxHealth, var/ignoreRedirect = FALSE)	//use for damaging effects
+	if(redirect_zone && owner && !ignoreRedirect)
+		var/obj/item/organ/redirect_organ = owner.getorganslot(redirect_zone)
+		if(redirect_organ)
+			applyOrganDamage(d, redirect_organ.maxHealth, redirect_organ)
 	if(!d || maximum < damage) //Micro-optimization.
 		return FALSE
 	damage = clamp(damage + d, 0, maximum)
@@ -191,8 +198,12 @@
 	return TRUE
 
 ///SETS an organ's damage to the amount "d", and in doing so clears or sets the failing flag, good for when you have an effect that should fix an organ if broken
-/obj/item/organ/proc/setOrganDamage(var/d)	//use mostly for admin heals
-	applyOrganDamage(d - damage)
+/obj/item/organ/proc/setOrganDamage(var/d, var/ignoreRedirect = FALSE)	//use mostly for admin heals
+	if(redirect_zone && owner && !ignoreRedirect)
+		var/obj/item/redirect_organ = owner.getorganslot(redirect_zone)
+		if(redirect_organ)
+			applyOrganDamage(d - damage, redirect_organ)
+	applyOrganDamage(d - damage, ignoreRedirect)
 
 /** check_damage_thresholds
   * input: M (a mob, the owner of the organ we call the proc on)

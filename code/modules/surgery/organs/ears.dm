@@ -132,3 +132,9 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	damage += 40/severity
+
+/obj/item/organ/ears/slime
+	name = "slime ears"
+	hidden = TRUE
+	organ_flags = "ORGAN_NO_SPOIL" //it can't decay because its health is based off the brain's health
+	redirect_zone = BODY_ZONE_HEAD

@@ -91,3 +91,9 @@
 /obj/item/organ/stomach/ipc
 	name = "ipc stomach"
 	icon_state = "stomach-ipc"
+
+/obj/item/organ/stomach/slime
+	name = "slime stomach"
+	hidden = TRUE
+	organ_flags = "ORGAN_NO_SPOIL" //it can't decay because its health is based off the brain's health
+	redirect_zone = BODY_ZONE_HEAD

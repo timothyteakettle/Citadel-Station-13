@@ -394,6 +394,12 @@
 	name = "ipc eyes"
 	icon_state = "cybernetic_eyeballs"
 
+/obj/item/organ/eyes/slime
+	name = "slime eyes"
+	hidden = TRUE
+	organ_flags = "ORGAN_NO_SPOIL" //it can't decay because its health is based off the brain's health
+	redirect_zone = BODY_ZONE_HEAD
+
 #undef BLURRY_VISION_ONE
 #undef BLURRY_VISION_TWO
 #undef BLIND_VISION_THREE

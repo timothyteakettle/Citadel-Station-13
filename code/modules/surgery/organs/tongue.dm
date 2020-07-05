@@ -312,3 +312,9 @@
 	desc = "A voice synthesizer used by IPCs to smoothly interface with organic lifeforms."
 	electronics_magic = FALSE
 	organ_flags = ORGAN_SYNTHETIC
+
+/obj/item/organ/tongue/slime
+	name = "slime tongue"
+	hidden = TRUE
+	organ_flags = "ORGAN_NO_SPOIL" //it can't decay because its health is based off the brain's health
+	redirect_zone = BODY_ZONE_HEAD

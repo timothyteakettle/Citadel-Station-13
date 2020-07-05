@@ -117,3 +117,9 @@
 			damage+=100
 		if(2)
 			damage+=50
+
+/obj/item/organ/slime
+	name = "slime liver"
+	hidden = TRUE
+	organ_flags = "ORGAN_NO_SPOIL" //it can't decay because its health is based off the brain's health
+	redirect_zone = BODY_ZONE_HEAD

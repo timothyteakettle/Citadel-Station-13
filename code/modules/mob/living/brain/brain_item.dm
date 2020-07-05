@@ -289,6 +289,16 @@
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
 
+/obj/item/organ/brain/slime
+	name = "slime brain"
+
+/obj/item/organ/brain/slime/applyOrganDamage(var/d, var/ignoreRedirect = TRUE)
+	. = ..()
+	if(. && owner)
+		var/percent = (src.maxHealth - src.damage) / src.maxHealth
+		for(var/obj/item/organ/organ in owner.internal_organs_slot)
+			if(organ != src)
+				organ.setOrganDamage(organ.maxHealth - (organ.maxHealth * (percent/100)), ignoreRedirect)
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 

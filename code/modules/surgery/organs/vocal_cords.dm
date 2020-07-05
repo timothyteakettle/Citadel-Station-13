@@ -1461,6 +1461,11 @@
 
 	return
 
+/obj/item/organ/vocal_cords/slime
+	name = "slime vocal cords"
+	hidden = TRUE
+	organ_flags = "ORGAN_NO_SPOIL" //it can't decay because its health is based off the brain's health
+	redirect_zone = BODY_ZONE_HEAD
 
 #undef COOLDOWN_STUN
 #undef COOLDOWN_DAMAGE

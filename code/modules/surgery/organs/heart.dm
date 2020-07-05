@@ -102,6 +102,9 @@ obj/item/organ/heart/slime
 	desc = "It seems we've gotten to the slimy core of the matter."
 	icon_state = "heart-s-on"
 	icon_base = "heart-s"
+	hidden = TRUE
+	organ_flags = "ORGAN_NO_SPOIL" //it can't decay because its health is based off the brain's health
+	redirect_zone = BODY_ZONE_HEAD
 
 /obj/item/organ/heart/cursed
 	name = "cursed heart"
