@@ -183,6 +183,4 @@ datum/atom_hud/alternate_appearance/basic/onePerson
 
 //alternate borg appearance stuff
 /datum/atom_hud/alternate_appearance/basic/borg/mobShouldSee(mob/M)
-	if(ishuman(M))
-		return TRUE
-	return FALSE
+	return TRUE
