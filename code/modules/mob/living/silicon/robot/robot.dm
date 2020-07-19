@@ -14,7 +14,7 @@
 	I.override = TRUE
 	I.pixel_x -= pixel_x
 	I.pixel_y -= pixel_y
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/borg, "alternate_borg", I, AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/borg, "alternate_borg", I)
 
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
