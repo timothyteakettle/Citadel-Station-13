@@ -180,3 +180,9 @@ datum/atom_hud/alternate_appearance/basic/onePerson
 	..(key, I, FALSE)
 	seer = M
 	add_hud_to(seer)
+
+//alternate borg appearance stuff
+/datum/atom_hud/alternate_appearance/basic/borg/mobShouldSee(mob/M)
+	if(ishuman(M))
+		return TRUE
+	return FALSE

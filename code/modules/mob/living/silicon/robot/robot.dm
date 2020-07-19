@@ -9,6 +9,13 @@
 	return cell
 
 /mob/living/silicon/robot/Initialize(mapload)
+	//apply a alt appearance to the borg
+	var/image/I = image(icon = 'icons/mob/robots.dmi', icon_state = "robot", loc = src)
+	I.override = TRUE
+	I.pixel_x -= pixel_x
+	I.pixel_y -= pixel_y
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/borg, "alternate_borg", I, AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS)
+
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
