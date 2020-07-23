@@ -1,0 +1,410 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bu" = (
+/obj/machinery/deepfryer,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"bF" = (
+/turf/open/floor/grass,
+/area/space)
+"bH" = (
+/obj/structure/chair/comfy{
+	dir = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"bX" = (
+/obj/machinery/vending/wardrobe/chef_wardrobe{
+	dir = 4
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"df" = (
+/turf/open/space/basic,
+/area/space)
+"er" = (
+/obj/structure/window/shuttle,
+/turf/open/space/basic,
+/area/space)
+"ez" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = -20
+	},
+/turf/closed/wall/mineral/titanium,
+/area/space)
+"fv" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/beakers,
+/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/item/reagent_containers/food/condiment/enzyme,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"fW" = (
+/obj/machinery/door/airlock/external/glass,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"kg" = (
+/obj/machinery/door/window/eastright,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"lP" = (
+/obj/machinery/chem_dispenser/drinks/beer/fullupgrade,
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"mR" = (
+/obj/structure/reagent_dispensers/cooking_oil,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"uL" = (
+/obj/machinery/smartfridge/food,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"vB" = (
+/obj/structure/chair/stool,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"wf" = (
+/obj/machinery/processor,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"BC" = (
+/obj/machinery/vending/dinnerware,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"Cu" = (
+/obj/machinery/door/window/eastleft,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"HK" = (
+/obj/structure/table/reinforced,
+/obj/machinery/microwave,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"JT" = (
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"OD" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"OL" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+"RY" = (
+/turf/closed/wall/mineral/titanium,
+/area/space)
+"Ve" = (
+/obj/machinery/icecream_vat,
+/turf/open/floor/plasteel/cafeteria,
+/area/space)
+
+(1,1,1) = {"
+df
+RY
+fW
+fW
+RY
+er
+er
+er
+er
+er
+er
+RY
+fW
+fW
+RY
+df
+"}
+(2,1,1) = {"
+df
+RY
+JT
+JT
+RY
+bF
+bF
+bF
+bF
+bF
+bF
+RY
+JT
+JT
+RY
+df
+"}
+(3,1,1) = {"
+df
+RY
+fW
+fW
+RY
+er
+er
+er
+er
+er
+er
+RY
+fW
+fW
+RY
+df
+"}
+(4,1,1) = {"
+df
+er
+JT
+JT
+JT
+JT
+OL
+OL
+OL
+OL
+JT
+JT
+JT
+JT
+er
+df
+"}
+(5,1,1) = {"
+df
+er
+JT
+JT
+JT
+JT
+bH
+bH
+bH
+bH
+JT
+JT
+JT
+JT
+er
+df
+"}
+(6,1,1) = {"
+df
+er
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+er
+df
+"}
+(7,1,1) = {"
+df
+RY
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+RY
+df
+"}
+(8,1,1) = {"
+df
+RY
+RY
+RY
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+RY
+RY
+RY
+RY
+"}
+(9,1,1) = {"
+df
+df
+df
+er
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+er
+bX
+mR
+RY
+"}
+(10,1,1) = {"
+df
+df
+df
+er
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+er
+JT
+JT
+RY
+"}
+(11,1,1) = {"
+df
+df
+df
+er
+JT
+vB
+vB
+vB
+vB
+vB
+vB
+JT
+er
+JT
+JT
+RY
+"}
+(12,1,1) = {"
+RY
+RY
+RY
+RY
+Cu
+OL
+OL
+OL
+OL
+OL
+OL
+kg
+RY
+JT
+JT
+RY
+"}
+(13,1,1) = {"
+er
+BC
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+er
+"}
+(14,1,1) = {"
+er
+HK
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+JT
+er
+"}
+(15,1,1) = {"
+er
+HK
+JT
+JT
+OL
+lP
+uL
+bu
+bu
+wf
+fv
+OD
+Ve
+JT
+JT
+er
+"}
+(16,1,1) = {"
+RY
+RY
+RY
+ez
+RY
+RY
+RY
+RY
+RY
+RY
+RY
+RY
+RY
+RY
+RY
+RY
+"}
+(17,1,1) = {"
+df
+df
+df
+df
+df
+df
+df
+df
+df
+df
+df
+df
+df
+df
+df
+df
+"}

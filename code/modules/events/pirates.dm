@@ -1,44 +1,41 @@
-/datum/round_event_control/pirates
+/datum/round_event_control/ship_event/pirates
 	name = "Space Pirates"
-	typepath = /datum/round_event/pirates
+	typepath = /datum/round_event/ship_event/pirates
 	weight = 8
 	max_occurrences = 1
 	min_players = 10
 	earliest_start = 30 MINUTES
 	gamemode_blacklist = list("nuclear","dynamic")
 
-/datum/round_event_control/pirates/preRunEvent()
+
+/datum/round_event_control/ship_event/pirates/preRunEvent()
 	if (!SSmapping.empty_space)
 		return EVENT_CANT_RUN
 
 	return ..()
 
-/datum/round_event/pirates
+/datum/round_event/ship_event/pirates
 	startWhen = 60 //2 minutes to answer
 	var/datum/comm_message/threat_message
 	var/payoff = 0
 	var/paid_off = FALSE
-	var/ship_name = "Space Privateers Association"
-	var/shuttle_spawned = FALSE
+	ship_name = "Space Privateers Association"
+	ship_names_file = PIRATE_NAMES_FILE
+	crew_name = "pirate crew"
 
-/datum/round_event/pirates/setup()
-	ship_name = pick(strings(PIRATE_NAMES_FILE, "ship_names"))
+/datum/round_event/ship_event/pirates/announce()
+	if(..())
+		threat_message = new
+		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+		if(D)
+			payoff = round(D.account_balance * 0.80)
+			threat_message.title = "Business proposition"
+			threat_message.content = "This is [ship_name]. Pay up [payoff] credits or you'll walk the plank."
+			threat_message.possible_answers = list("We'll pay.","No way.")
+			threat_message.answer_callback = CALLBACK(src,.proc/answered)
+			SScommunications.send_message(threat_message,unique = TRUE)
 
-/datum/round_event/pirates/announce(fake)
-	priority_announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", "commandreport") // CITADEL EDIT metabreak
-	if(fake)
-		return
-	threat_message = new
-	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
-	if(D)
-		payoff = round(D.account_balance * 0.80)
-	threat_message.title = "Business proposition"
-	threat_message.content = "This is [ship_name]. Pay up [payoff] credits or you'll walk the plank."
-	threat_message.possible_answers = list("We'll pay.","No way.")
-	threat_message.answer_callback = CALLBACK(src,.proc/answered)
-	SScommunications.send_message(threat_message,unique = TRUE)
-
-/datum/round_event/pirates/proc/answered()
+/datum/round_event/ship_event/pirates/proc/answered()
 	if(threat_message && threat_message.answered == 1)
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 		if(D)
@@ -51,40 +48,9 @@
 	if(!shuttle_spawned)
 		spawn_shuttle()
 
-/datum/round_event/pirates/start()
+/datum/round_event/ship_event/pirates/can_spawn()
 	if(!paid_off && !shuttle_spawned)
-		spawn_shuttle()
-
-/datum/round_event/pirates/proc/spawn_shuttle()
-	shuttle_spawned = TRUE
-
-	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_TRAITOR)
-	shuffle_inplace(candidates)
-
-	if(!SSmapping.empty_space)
-		SSmapping.empty_space = SSmapping.add_new_zlevel("Empty Area For Pirates", list(ZTRAIT_LINKAGE = SELFLOOPING))
-
-	var/datum/map_template/shuttle/pirate/default/ship = new
-	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
-	var/y = rand(TRANSITIONEDGE,world.maxy - TRANSITIONEDGE - ship.height)
-	var/z = SSmapping.empty_space.z_value
-	var/turf/T = locate(x,y,z)
-	if(!T)
-		CRASH("Pirate event found no turf to load in")
-
-	if(!ship.load(T))
-		CRASH("Loading pirate ship failed!")
-	for(var/turf/A in ship.get_affected_turfs(T))
-		for(var/obj/effect/mob_spawn/human/pirate/spawner in A)
-			if(candidates.len > 0)
-				var/mob/M = candidates[1]
-				spawner.create(M.ckey)
-				candidates -= M
-				announce_to_ghosts(M)
-			else
-				announce_to_ghosts(spawner)
-
-	priority_announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", "commandreport") //CITADEL EDIT also metabreak here too
+		return TRUE
 
 //Shuttle equipment
 
