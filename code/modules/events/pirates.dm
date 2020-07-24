@@ -7,18 +7,12 @@
 	earliest_start = 30 MINUTES
 	gamemode_blacklist = list("nuclear","dynamic")
 
-
-/datum/round_event_control/ship_event/pirates/preRunEvent()
-	if (!SSmapping.empty_space)
-		return EVENT_CANT_RUN
-
-	return ..()
-
 /datum/round_event/ship_event/pirates
 	startWhen = 60 //2 minutes to answer
 	var/datum/comm_message/threat_message
 	var/payoff = 0
 	var/paid_off = FALSE
+	ship_event_ship = /datum/map_template/shuttle/pirate/default
 	ship_name = "Space Privateers Association"
 	ship_names_file = PIRATE_NAMES_FILE
 	crew_name = "pirate crew"

@@ -369,6 +369,26 @@
 		return TRUE
 	return FALSE
 
+//preloaded for the fast food ship
+/obj/machinery/smartfridge/food/fast_food_ship //they have enough to feed the entire universe
+	initial_contents = list(/obj/item/reagent_containers/food/condiment/milk = 20,
+		/obj/item/reagent_containers/food/condiment/soymilk = 20,
+		/obj/item/reagent_containers/food/snacks/meat = 20,
+		/obj/item/reagent_containers/food/snacks/meat/slab/chicken = 20,
+		/obj/item/reagent_containers/food/condiment/flour = 20,
+		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 20,
+		/obj/item/reagent_containers/food/snacks/grown/cocoapod = 20,
+		/obj/item/reagent_containers/food/snacks/grown/strawberry = 20,
+		/obj/item/reagent_containers/food/snacks/grown/carrot = 20,
+		/obj/item/reagent_containers/food/snacks/grown/potato = 20,
+		/obj/item/reagent_containers/food/snacks/grown/berries = 20,
+		/obj/item/reagent_containers/food/snacks/grown/tomato = 20,
+		/obj/item/reagent_containers/food/snacks/grown/banana = 20,
+		/obj/item/reagent_containers/food/snacks/grown/apple = 20,
+		/obj/item/reagent_containers/food/snacks/grown/chili = 20,
+		/obj/item/reagent_containers/food/snacks/grown/corn = 20,
+		/obj/item/reagent_containers/food/snacks/grown/watermelon = 20)
+
 // -------------------------------------
 // Xenobiology Slime-Extract Smartfridge
 // -------------------------------------

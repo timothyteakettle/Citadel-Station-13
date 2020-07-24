@@ -715,3 +715,25 @@
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/clothing/neck/cloak/chameleon(src)
+
+/obj/effect/mob_spawn/human/delivery_person
+	name = "delivery person sleeper"
+	desc = "A cryo sleeper smelling faintly of cooking oil."
+	job_description = "Fast Food Ship Worker"
+	random = TRUE
+	icon = 'icons/obj/machines/sleeper.dmi'
+	icon_state = "sleeper"
+	mob_name = "a fast food worker"
+	outfit = /datum/outfit/job/cook
+	roundstart = FALSE
+	death = FALSE
+	anchored = TRUE
+	density = FALSE
+	show_flavour = FALSE //Flavour only exists for spawners menu
+	short_desc = "You are a fast food worker. In space!"
+	flavour_text = "You work on a fast food ship! Make food!."
+	assignedrole = "Fast Food Worker"
+
+/obj/effect/mob_spawn/human/delivery_person/Initialize()
+	mob_species = pick(GLOB.roundstart_races) //we run a diverse fast food joint
+	return ..()

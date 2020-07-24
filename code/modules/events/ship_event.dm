@@ -5,12 +5,6 @@
 	max_occurrences = 1
 	min_players = 10
 
-/datum/round_event_control/ship_event/preRunEvent()
-	if (!SSmapping.empty_space)
-		return EVENT_CANT_RUN
-
-	return ..()
-
 /datum/round_event/ship_event
 	var/datum/comm_message/sent_message
 	var/ship_name = "Ship"
