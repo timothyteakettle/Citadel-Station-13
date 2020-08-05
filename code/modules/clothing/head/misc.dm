@@ -469,3 +469,47 @@
 	icon_state = "maid"
 	item_state = "maid"
 	dynamic_hair_suffix = ""
+
+//trek stuff
+/obj/item/clothing/head/caphat/formal/fedcover
+	name = "Federation Officer's Cap"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	desc = "An officer's cap that demands discipline from the one who wears it."
+	icon = 'icons/obj/clothing/suit.dmi'
+	icon_state = "fedcapofficer"
+	mob_overlay_icon = 'icons/mob/clothing/suit.dmi'
+	item_state = "fedcapofficer"
+
+/obj/item/clothing/head/caphat/formal/fedcover/medsci
+		icon_state = "fedcapsci"
+		item_state = "fedcapsci"
+
+/obj/item/clothing/head/caphat/formal/fedcover/eng
+		icon_state = "fedcapeng"
+		item_state = "fedcapeng"
+
+/obj/item/clothing/head/caphat/formal/fedcover/sec
+		icon_state = "fedcapsec"
+		item_state = "fedcapsec"
+
+/obj/item/clothing/head/caphat/formal/fedcover/black
+		icon_state = "fedcapblack"
+		item_state = "fedcapblack"
+
+//orvilike caps
+/obj/item/clothing/head/kepi/orvi
+	name = "\improper Federation kepi"
+	desc = "A visored cap worn by all officers since 2550s."
+	icon_state = "kepi_ass"
+
+/obj/item/clothing/head/kepi/orvi/command
+	icon_state = "kepi_com"
+
+/obj/item/clothing/head/kepi/orvi/engsec
+	icon_state = "kepi_ops"
+
+/obj/item/clothing/head/kepi/orvi/medsci
+	icon_state = "kepi_medsci"
+
+/obj/item/clothing/head/kepi/orvi/service
+	icon_state = "kepi_srv"

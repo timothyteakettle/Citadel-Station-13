@@ -1,3 +1,4 @@
+//all fermichem pH items
 /obj/item/fermichem/pHbooklet
 	name = "pH indicator booklet"
 	desc = "A booklet containing paper soaked in universal indicator."

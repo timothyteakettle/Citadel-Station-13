@@ -171,6 +171,7 @@
 		C.DefaultCombatKnockdown(60)
 
 /obj/item/pneumatic_cannon/proc/fire_items(turf/target, mob/user)
+	shake_camera(user, (pressureSetting * 0.75 + 1), (pressureSetting * 0.75))
 	if(fire_mode == PCANNON_FIREALL)
 		for(var/obj/item/ITD in loadedItems) //Item To Discharge
 			if(!throw_item(target, ITD, user))
@@ -186,6 +187,7 @@
 				I = loadedItems[1]
 			if(!throw_item(target, I, user))
 				break
+
 
 /obj/item/pneumatic_cannon/proc/throw_item(turf/target, obj/item/I, mob/user)
 	if(!istype(I))

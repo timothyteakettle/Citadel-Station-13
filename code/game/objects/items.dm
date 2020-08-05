@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	name = "item"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
-	
+
 	attack_hand_speed = 0
 	attack_hand_is_action = FALSE
 	attack_hand_unwieldlyness = 0
@@ -990,105 +990,30 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 		return TRUE
 
 /**
-
-
-
   * tryEmbed() is for when you want to try embedding something without dealing with the damage + hit messages of calling hitby() on the item while targetting the target.
-
-
-
   *
-
-
-
   * Really, this is used mostly with projectiles with shrapnel payloads, from [/datum/element/embed/proc/checkEmbedProjectile], and called on said shrapnel. Mostly acts as an intermediate between different embed elements.
-
-
-
   *
-
-
-
   * Arguments:
-
-
-
   * * target- Either a body part, a carbon, or a closed turf. What are we hitting?
-
-
-
   * * forced- Do we want this to go through 100%?
-
-
-
   */
-
-
-
 /obj/item/proc/tryEmbed(atom/target, forced=FALSE, silent=FALSE)
-
-
-
 	if(!isbodypart(target) && !iscarbon(target) && !isclosedturf(target))
-
-
-
 		return
-
-
-
 	if(!forced && !LAZYLEN(embedding))
-
-
-
 		return
-
-
-
-
-
-
 
 	if(SEND_SIGNAL(src, COMSIG_EMBED_TRY_FORCE, target, forced, silent))
-
-
-
 		return TRUE
-
-
-
 	failedEmbed()
 
-
-
-
-
-
-
 ///For when you want to disable an item's embedding capabilities (like transforming weapons and such), this proc will detach any active embed elements from it.
-
-
-
 /obj/item/proc/disableEmbedding()
-
-
-
 	SEND_SIGNAL(src, COMSIG_ITEM_DISABLE_EMBED)
-
-
-
 	return
 
-
-
-
-
-
-
 ///For when you want to add/update the embedding on an item. Uses the vars in [/obj/item/embedding], and defaults to config values for values that aren't set. Will automatically detach previous embed elements on this item.
-
-
-
 /obj/item/proc/updateEmbedding()
 	if(!LAZYLEN(embedding))
 		return
@@ -1107,3 +1032,8 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 		pain_stam_pct = (!isnull(embedding["pain_stam_pct"]) ? embedding["pain_stam_pct"] : EMBEDDED_PAIN_STAM_PCT),\
 		embed_chance_turf_mod = (!isnull(embedding["embed_chance_turf_mod"]) ? embedding["embed_chance_turf_mod"] : EMBED_CHANCE_TURF_MOD))
 	return TRUE
+
+/obj/item/attack_obj(obj/O, mob/living/user)
+	. = ..()
+	if(force >= 20)
+		shake_camera(user, ((force - 15) * 0.01 + 1), ((force - 15) * 0.01))
