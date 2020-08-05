@@ -143,3 +143,55 @@
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_MEDIUM
+
+/obj/item/gun/energy/pumpaction/toy
+	icon_state = "blastertoy"
+	name = "pump-action plastic blaster"
+	desc = "A fearsome toy of terrible power. It has the ability to fire beams of pure light in either dispersal mode or overdrive mode. Requires the operation of a 40KW power shunt between every shot to prepare the beam focusing chamber."
+	item_state = "particleblaster"
+	lefthand_file = 'modular_citadel/icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'modular_citadel/icons/mob/inhands/guns_righthand.dmi'
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/dispersal, /obj/item/ammo_casing/energy/laser/wavemotion)
+	ammo_x_offset = 2
+	modifystate = 1
+	selfcharge = EGUN_SELFCHARGE
+	item_flags = NONE
+	clumsy_check = FALSE
+
+/obj/item/toy/gun/justicar
+	name = "\improper replica F3 Justicar"
+	desc = "An authentic cap-firing reproduction of a F3 Justicar big-bore revolver! Pretend to blow your friend's brains out with this 100% safe toy! Satisfaction guaranteed!"
+	icon_state = "justicar"
+	icon = 'modular_citadel/icons/obj/guns/toys.dmi'
+	custom_materials = list(/datum/material/iron=2000, /datum/material/glass=250)
+
+/obj/item/toy/gun/m41
+	name = "Toy M41A Pulse Rifle"
+	desc = "A toy replica of the Corporate Mercenaries' standard issue rifle. For Avtomat is inscribed on the side."
+	icon_state = "toym41"
+	icon = 'icons/obj/guns/toys.dmi'
+	custom_materials = list(/datum/material/iron=2000, /datum/material/glass=250)
+
+/obj/item/gun/ballistic/automatic/toy/pistol/stealth
+	name = "foam force stealth pistol"
+	desc = "A small, easily concealable toy bullpup handgun. Ages 8 and up."
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "foamsp"
+	w_class = WEIGHT_CLASS_SMALL
+	mag_type = /obj/item/ammo_box/magazine/toy/pistol
+	can_suppress = FALSE
+	fire_sound = 'sound/weapons/gunshot_silenced.ogg'
+	suppressed = TRUE
+	burst_size = 1
+	fire_delay = 0
+	spread = 20
+	actions_types = list()
+
+/obj/item/gun/ballistic/automatic/toy/pistol/stealth/update_icon()
+	..()
+	if(magazine)
+		cut_overlays()
+		add_overlay("foamsp-magazine")
+	else
+		cut_overlays()
+	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"

@@ -241,3 +241,26 @@
 	if(isopenturf(target) || istype(target, /turf/closed/indestructible))//shrunk floors wouldnt do anything except look weird, i-walls shouldnt be bypassable
 		return
 	target.AddComponent(/datum/component/shrink, shrink_time)
+
+/obj/item/projectile/beam/disabler/weak
+	name = "particle blast"
+	damage = 13
+	icon_state = "disablerpellet"
+
+/obj/item/projectile/beam/disabler/slug
+	name = "positron blast"
+	damage = 80
+	range = 14
+	pixels_per_second = TILES_TO_PIXELS(16.667)
+	icon_state = "disablerslug"
+
+/obj/item/projectile/beam/pump
+	damage = 9
+	range = 6
+
+/obj/item/projectile/energy/disabler/pump
+	name = "disabling blast"
+	icon_state = "disablerslug"
+	color = null
+	stamina = 13
+	range = 6

@@ -337,3 +337,12 @@
 	icon_state = "decloner"
 	no_pin_required = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/pickle)
+
+//practise gun
+/obj/item/gun/energy/laser/practice/raygun
+	name = "toy ray gun"
+	icon = 'modular_citadel/icons/obj/guns/cit_guns.dmi'
+	icon_state = "raygun"
+	desc = "A toy laser with a classic, retro feel and look. Compatible with existing laser tag systems."
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/raytag)
+	selfcharge = EGUN_SELFCHARGE

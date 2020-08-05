@@ -84,3 +84,39 @@
 	projectile_type = /obj/item/projectile/beam/mindflayer
 	select_name = "MINDFUCK"
 	fire_sound = 'sound/weapons/laser.ogg'
+
+/obj/item/ammo_casing/energy/laser/scatter/disabler/pump
+	projectile_type = /obj/item/projectile/beam/disabler/weak
+	e_cost = 150
+	pellets = 4
+	variance = 30
+	fire_sound = 'sound/weapons/ParticleBlaster.ogg'
+	select_name  = "disable"
+
+/obj/item/ammo_casing/energy/disabler/slug
+	projectile_type = /obj/item/projectile/beam/disabler/slug
+	select_name  = "overdrive"
+	e_cost = 200
+	fire_sound = 'sound/weapons/LaserSlugv3.ogg'
+
+/obj/item/ammo_casing/energy/laser/pump
+	projectile_type = /obj/item/projectile/beam/pump
+	e_cost = 350
+	select_name = "kill"
+	pellets = 6
+	variance = 15
+	fire_sound = 'sound/weapons/ParticleBlaster.ogg'
+
+/obj/item/ammo_casing/energy/disabler/pump
+	projectile_type = /obj/item/projectile/energy/disabler/pump
+	select_name = "disable"
+	fire_sound = 'sound/weapons/LaserSlugv3.ogg'
+	e_cost = 150
+	pellets = 6
+	variance = 20
+
+//practise gun
+/obj/item/ammo_casing/energy/laser/raytag
+	projectile_type = /obj/item/projectile/beam/lasertag/ray
+	select_name = "raytag"
+	fire_sound = 'sound/weapons/raygun.ogg'

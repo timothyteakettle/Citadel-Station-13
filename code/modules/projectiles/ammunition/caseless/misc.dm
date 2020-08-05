@@ -20,3 +20,17 @@
 	projectile_type = /obj/item/projectile/beam/weak/penetrator
 	variance = 0.8
 	click_cooldown_override = 1
+
+/obj/item/ammo_casing/energy/laser/wavemotion
+	projectile_type = /obj/item/projectile/beam/lasertag/wavemotion
+	select_name = "overdrive"
+	e_cost = 300
+	fire_sound = 'sound/weapons/LaserSlugv3.ogg'
+
+/obj/item/ammo_casing/energy/laser/dispersal
+	projectile_type = /obj/item/projectile/beam/lasertag/dispersal
+	select_name = "dispersal"
+	pellets = 5
+	variance = 25
+	e_cost = 200
+	fire_sound = 'sound/weapons/ParticleBlaster.ogg'

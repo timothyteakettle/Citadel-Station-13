@@ -23,3 +23,10 @@
 	if(isliving(target))
 		var/mob/living/living_target = target
 		living_target.turn_into_pickle() //yes this is a real proc
+
+//practise gun projectile
+/obj/item/projectile/beam/lasertag/ray		//the projectile, compatible with regular laser tag armor
+	icon = 'icons/obj/guns/energy.dmi'
+	icon_state = "ray"
+	name = "ray bolt"
+	eyeblur = 0
