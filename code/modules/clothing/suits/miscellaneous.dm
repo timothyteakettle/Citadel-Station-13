@@ -1061,7 +1061,7 @@
 /obj/item/clothing/suit/storage/trek/ds9
 	name = "Padded Overcoat"
 	desc = "The overcoat worn by all officers of the 2380s."
-	icon = 'icons/obj/clothing/suit.dmi'
+	icon = 'icons/obj/clothing/suits.dmi'
 	icon_state = "trek_ds9_coat"
 	mob_overlay_icon = 'icons/mob/clothing/suit.dmi'
 	item_state = "trek_ds9_coat"
@@ -1091,7 +1091,7 @@
 /obj/item/clothing/suit/storage/fluff/fedcoat
 	name = "Federation Uniform Jacket"
 	desc = "A uniform jacket from the United Federation. Set phasers to awesome."
-	icon = 'icons/obj/clothing/suit.dmi'
+	icon = 'icons/obj/clothing/suits.dmi'
 	mob_overlay_icon = 'icons/mob/clothing/suit.dmi'
 	icon_state = "fedcoat"
 	item_state = "fedcoat"
@@ -1157,7 +1157,7 @@
 /obj/item/clothing/suit/storage/fluff/modernfedcoat
 	name = "Modern Federation Uniform Jacket"
 	desc = "A modern uniform jacket from the United Federation."
-	icon = 'icons/obj/clothing/suit.dmi'
+	icon = 'icons/obj/clothing/suits.dmi'
 	mob_overlay_icon = 'icons/mob/clothing/suit.dmi'
 	icon_state = "fedmodern"
 	item_state = "fedmodern"
