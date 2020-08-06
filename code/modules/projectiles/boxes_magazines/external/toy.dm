@@ -66,6 +66,14 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/mag
 	custom_materials = list(/datum/material/iron = 200)
 
+/obj/item/ammo_box/magazine/toy/x9
+	name = "foam force X9 magazine"
+	icon = 'icons/obj/ammo.dmi'
+	icon_state = "toy9magazine"
+	max_ammo = 30
+	multiple_sprites = 2
+	custom_materials = list(/datum/material/iron = 200)
+
 //tag
 /obj/item/ammo_box/foambox/tag
 	name = "ammo box (Lastag Foam Darts)"

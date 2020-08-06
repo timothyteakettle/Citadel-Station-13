@@ -115,8 +115,22 @@
 	pellets = 6
 	variance = 20
 
-//practise gun
+//practice guns
 /obj/item/ammo_casing/energy/laser/raytag
 	projectile_type = /obj/item/projectile/beam/lasertag/ray
 	select_name = "raytag"
 	fire_sound = 'sound/weapons/raygun.ogg'
+
+/obj/item/ammo_casing/energy/laser/wavemotion
+	projectile_type = /obj/item/projectile/beam/lasertag/wavemotion
+	select_name = "overdrive"
+	e_cost = 300
+	fire_sound = 'sound/weapons/LaserSlugv3.ogg'
+
+/obj/item/ammo_casing/energy/laser/dispersal
+	projectile_type = /obj/item/projectile/beam/lasertag/dispersal
+	select_name = "dispersal"
+	pellets = 5
+	variance = 25
+	e_cost = 200
+	fire_sound = 'sound/weapons/ParticleBlaster.ogg'

@@ -17,3 +17,9 @@
 	name = "enchanted 7.62 bullet"
 	damage = 5
 	stamina = 80
+
+//4.6x30mm
+/obj/item/projectile/bullet/c46x30mm/rubber
+	name = "4.6x30mm bullet"
+	damage = 5
+	stamina = 30

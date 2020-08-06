@@ -199,6 +199,18 @@
 /obj/item/projectile/beam/lasertag/bluetag/hitscan
 	hitscan = TRUE
 
+/obj/item/projectile/beam/lasertag/wavemotion
+	tracer_type = /obj/effect/projectile/tracer/laser/wavemotion
+	muzzle_type = /obj/effect/projectile/muzzle/laser/wavemotion
+	impact_type = /obj/effect/projectile/impact/laser/wavemotion
+	hitscan = TRUE
+
+/obj/item/projectile/beam/lasertag/dispersal
+	tracer_type = /obj/effect/projectile/tracer/laser/blue
+	muzzle_type = /obj/effect/projectile/muzzle/laser/blue
+	impact_type = /obj/effect/projectile/impact/laser/blue
+	hitscan = TRUE
+
 /obj/item/projectile/beam/instakill
 	name = "instagib laser"
 	icon_state = "purple_laser"
