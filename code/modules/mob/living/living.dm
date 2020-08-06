@@ -1292,3 +1292,19 @@
 			STAMINA:<font size='1'><a href='?_src_=vars;[HrefToken()];mobToDamage=[refid];adjustDamage=stamina' id='stamina'>[getStaminaLoss()]</a>
 		</font>
 	"}
+
+//screams
+/mob/living/proc/add_screams(var/list/screams)
+	LAZYINITLIST(alternate_screams)
+	if(!screams || screams.len == 0)
+		return
+	for(var/S in screams)
+		LAZYADD(alternate_screams, S)
+
+/mob/living/proc/clear_screams()
+	LAZYINITLIST(alternate_screams)
+	LAZYCLEARLIST(alternate_screams)
+
+//embeds
+/mob/living/proc/resist_embedded()
+	return

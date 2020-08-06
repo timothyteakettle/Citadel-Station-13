@@ -73,6 +73,8 @@
 	///Mobs that are currently do_after'ing this atom, to be cleared from on Destroy()
 	var/list/targeted_by
 
+	var/pseudo_z_axis
+
 /atom/New(loc, ...)
 	//atom creation method that preloads variables at creation
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
@@ -1120,3 +1122,6 @@ Proc for attack log creation, because really why not
 				max_grav = max(G.setting,max_grav)
 			return max_grav
 	return SSmapping.level_trait(T.z, ZTRAIT_GRAVITY)
+
+/atom/proc/get_fake_z()
+	return pseudo_z_axis

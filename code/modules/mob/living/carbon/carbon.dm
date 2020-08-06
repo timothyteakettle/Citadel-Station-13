@@ -592,6 +592,7 @@
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/carbon_softcrit)
 
+/* old proc
 /mob/living/carbon/update_stamina()
 	var/stam = getStaminaLoss()
 	if(stam > DAMAGE_PRECISION)
@@ -601,6 +602,30 @@
 				to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
 			KnockToFloor(TRUE)
 			update_health_hud()
+*/
+
+/mob/living/carbon/update_stamina()
+	var/total_health = getStaminaLoss()
+	if(total_health >= STAMINA_SOFTCRIT)
+		if(!(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT))
+			ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_SOFT_STAMCRIT)
+	else
+		if(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT)
+			DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_SOFT_STAMCRIT)
+	if(total_health)
+		if(!(combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && total_health >= STAMINA_CRIT && !stat)
+			to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
+			set_resting(TRUE, FALSE, FALSE)
+			SEND_SIGNAL(src, COMSIG_DISABLE_COMBAT_MODE)
+			ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT)
+			filters += CIT_FILTER_STAMINACRIT
+			update_mobility()
+	if((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && total_health <= STAMINA_SOFTCRIT)
+		to_chat(src, "<span class='notice'>You don't feel nearly as exhausted anymore.</span>")
+		DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT | COMBAT_FLAG_SOFT_STAMCRIT)
+		filters -= CIT_FILTER_STAMINACRIT
+		update_mobility()
+	update_health_hud()
 
 /mob/living/carbon/update_sight()
 	if(!client)
@@ -1232,3 +1257,27 @@
   */
 /mob/living/carbon/proc/get_biological_state()
 	return BIO_FLESH_BONE
+
+//vore mode (the cursed part of the code)
+/mob/living/carbon/proc/toggle_vore_mode()
+	if(SEND_SIGNAL(src, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_TOGGLED))
+		return FALSE //let's not override the main draw of the game these days
+	voremode = !voremode
+	var/obj/screen/voretoggle/T = locate() in hud_used?.static_inventory
+	T?.update_icon_state()
+	return TRUE
+
+/mob/living/carbon/proc/disable_vore_mode()
+	voremode = FALSE
+	var/obj/screen/voretoggle/T = locate() in hud_used?.static_inventory
+	T?.update_icon_state()
+
+//scream stuff
+/mob/living/carbon/proc/reindex_screams()
+	clear_screams()
+	if(head)
+		add_screams(head.alternate_screams)
+	if(wear_mask)
+		add_screams(wear_mask.alternate_screams)
+	if(back)
+		add_screams(back.alternate_screams)

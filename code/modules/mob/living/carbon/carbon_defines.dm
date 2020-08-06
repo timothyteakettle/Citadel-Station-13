@@ -78,3 +78,5 @@
 	/// Timer id of any transformation
 	var/transformation_timer
 
+	//are you in voremode or not
+	var/voremode = FALSE

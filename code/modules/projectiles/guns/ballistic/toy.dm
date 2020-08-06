@@ -169,7 +169,7 @@
 	name = "Toy M41A Pulse Rifle"
 	desc = "A toy replica of the Corporate Mercenaries' standard issue rifle. For Avtomat is inscribed on the side."
 	icon_state = "toym41"
-	icon = 'icons/obj/guns/toys.dmi'
+	icon = 'icons/obj/guns/toy.dmi'
 	custom_materials = list(/datum/material/iron=2000, /datum/material/glass=250)
 
 /obj/item/gun/ballistic/automatic/toy/pistol/stealth

@@ -29,7 +29,7 @@
 //spinfusor
 /obj/item/projectile/bullet/spinfusor
 	name ="spinfusor disk"
-	icon = 'icons/obj/projectile.dmi'
+	icon = 'icons/obj/projectiles.dmi'
 	icon_state= "spinner"
 	damage = 30
 

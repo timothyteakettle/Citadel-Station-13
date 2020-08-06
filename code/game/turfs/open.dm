@@ -309,3 +309,13 @@
 		air.set_moles(/datum/gas/carbon_dioxide, max(air.get_moles(/datum/gas/carbon_dioxide)-(pulse_strength/1000),0))
 		air.set_moles(/datum/gas/oxygen, max(air.get_moles(/datum/gas/oxygen)-(pulse_strength/2000),0))
 		air.adjust_moles(/datum/gas/pluoxium, pulse_strength/4000)
+
+/turf/open/get_fake_z()
+	var/objschecked
+	for(var/obj/structure/structurestocheck in contents)
+		objschecked++
+		if(structurestocheck.pseudo_z_axis)
+			return structurestocheck.pseudo_z_axis
+		if(objschecked >= 25)
+			break
+	return pseudo_z_axis

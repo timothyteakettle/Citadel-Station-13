@@ -25,6 +25,7 @@
 	pass_flags = LETPASSTHROW //You can throw objects over this, despite it's density.")
 	attack_hand_speed = CLICK_CD_MELEE
 	attack_hand_is_action = TRUE
+	pseudo_z_axis = 8
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/buildstack = /obj/item/stack/sheet/metal

@@ -141,6 +141,8 @@
 	/// Next world.time when we can get the "you can't move while buckled to [thing]" message.
 	var/buckle_message_cooldown = 0
 
+	var/list/alternate_screams
+
 	//// CITADEL STATION COMBAT ////
 	/// See __DEFINES/combat.dm
 	var/combat_flags = COMBAT_FLAGS_SPRINT_EXEMPT

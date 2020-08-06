@@ -1,3 +1,9 @@
+/mob/living/Move(atom/newloc, direct)
+	. = ..()
+	if(.)
+		pseudo_z_axis = newloc.get_fake_z()
+		pixel_z = pseudo_z_axis
+
 /mob/living/Moved()
 	. = ..()
 	update_turf_movespeed(loc)

@@ -27,6 +27,10 @@
 	..()
 	icon_state = "46x30mmtI-[round(20*(ammo_count()/max_ammo),4)]"
 
+/obj/item/ammo_box/magazine/wt550m9/wttx
+	name = "wt550 magazine (Toxin Tipped 4.6x30mm)"
+	ammo_type = /obj/item/ammo_casing/c46x30mm/tx
+
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
 	icon_state = "uzi9mm-32"
