@@ -78,7 +78,7 @@
 	speech_args[SPEECH_MESSAGE] = lowertext(message)
 	return speech_args
 
-/datum/accent/bone
+/datum/accent/span
 	var/span_flag
 
 /datum/accent/span/modify_speech(list/speech_args)
