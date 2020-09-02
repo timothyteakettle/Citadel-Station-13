@@ -654,6 +654,12 @@ obj/item/storage/backpack/duffelbag/syndie/shredderbundle
 
 /obj/item/storage/backpack/snail
 	name = "snail shell"
-	desc = "Worn by snails as armor and storage compartment."
+	desc = "Worn by snails as armor and as a storage compartment."
 	icon_state = "snailshell"
 	item_state = "snailshell"
+
+/obj/item/storage/backpack/turtle
+	name = "turtle shell"
+	desc = "Worn by turtles as armor and as a storage compartment."
+	icon_state = "turtleshell"
+	item_state = "turtleshell"
