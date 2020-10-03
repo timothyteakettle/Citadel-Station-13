@@ -646,6 +646,7 @@
 	value = REAGENT_VALUE_RARE
 	var/datum/species/race = /datum/species/human
 	var/mutationtext = "<span class='danger'>The pain subsides. You feel... human.</span>"
+	can_synth = FALSE
 
 /datum/reagent/mutationtoxin/on_mob_life(mob/living/carbon/human/H)
 	..()
@@ -841,6 +842,7 @@
 	metabolization_rate = INFINITY
 	taste_description = "slime"
 	value = REAGENT_VALUE_RARE
+	can_synth = FALSE
 
 /datum/reagent/mulligan/on_mob_life(mob/living/carbon/human/H)
 	..()
@@ -856,6 +858,7 @@
 	color = "#13BC5E" // rgb: 19, 188, 94
 	taste_description = "slime"
 	value = REAGENT_VALUE_VERY_RARE
+	can_synth = FALSE
 
 /datum/reagent/aslimetoxin/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
 	if(method != TOUCH)
