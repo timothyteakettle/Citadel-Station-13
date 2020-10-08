@@ -47,10 +47,9 @@
 	var/species_color = ""
 	var/mutation_color = ""
 	var/no_update = 0
-	var/body_markings = ""	//for bodypart markings
-	var/body_markings_icon = 'modular_citadel/icons/mob/mam_markings.dmi'
+	var/list/body_markings = list()	//for bodypart markings
 	var/list/markings_color = list()
-	var/aux_marking
+	var/list/aux_markings = list()
 	var/digitigrade_type
 
 	var/animal_origin = null //for nonhuman bodypart (e.g. monkey)
@@ -571,6 +570,8 @@
 //we inform the bodypart of the changes that happened to the owner, or give it the informations from a source mob.
 /obj/item/bodypart/proc/update_limb(dropping_limb, mob/living/carbon/source)
 	var/mob/living/carbon/C
+	body_markings = list()
+	aux_markings = list()
 	if(source)
 		C = source
 		if(!original_owner)
@@ -588,8 +589,8 @@
 		color_src = FALSE
 		base_bp_icon = DEFAULT_BODYPART_ICON
 		no_update = TRUE
-		body_markings = "husk" // reeee
-		aux_marking = "husk"
+		body_markings = list(list("husk", 'modular_citadel/icons/mob/mam_markings.dmi'))
+		aux_markings = list(list("husk", 'modular_citadel/icons/mob/mam_markings.dmi'))
 
 	if(no_update)
 		return
@@ -643,18 +644,20 @@
 		if(S.mutant_bodyparts["mam_body_markings"])
 			var/datum/sprite_accessory/Smark
 			Smark = GLOB.mam_body_markings_list[H.dna.features["mam_body_markings"]]
+			var/body_marking_icon = 'modular_citadel/icons/mob/mam_markings.dmi'
 			if(Smark)
-				body_markings_icon = Smark.icon
+				body_marking_icon = Smark.icon
 			if(H.dna.features["mam_body_markings"] != "None")
-				body_markings = Smark?.icon_state || lowertext(H.dna.features["mam_body_markings"])
-				aux_marking = Smark?.icon_state || lowertext(H.dna.features["mam_body_markings"])
+				var/mutant_body_marking = Smark?.icon_state || lowertext(H.dna.features["mam_body_markings"])
+				body_markings += list(mutant_body_marking, body_marking_icon)
+				aux_markings += list(mutant_body_marking, body_marking_icon)
 			else
-				body_markings = "plain"
-				aux_marking = "plain"
+				body_markings = list("plain", body_marking_icon)
+				aux_markings = list("plain", body_marking_icon)
 			markings_color = list(colorlist)
 		else
-			body_markings = null
-			aux_marking = null
+			body_markings = list()
+			aux_markings = list()
 
 		if(species_id in GLOB.greyscale_limb_types) //should they have greyscales?
 			base_bp_icon = DEFAULT_BODYPART_ICON_ORGANIC
@@ -675,8 +678,8 @@
 	if(status == BODYPART_ROBOTIC)
 		dmg_overlay_type = "robotic"
 		if(!render_like_organic)
-			body_markings = null
-			aux_marking = null
+			body_markings = list()
+			aux_markings = list()
 
 	if(dropping_limb)
 		no_update = TRUE //when attached, the limb won't be affected by the appearance changes of its mob owner.
@@ -711,18 +714,21 @@
 			if(burnstate)
 				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_0[burnstate]", -DAMAGE_LAYER, image_dir)
 
-		if(!isnull(body_markings) && status == BODYPART_ORGANIC)
-			if(!use_digitigrade)
-				if(body_zone == BODY_ZONE_CHEST)
-					. += image(body_markings_icon, "[body_markings]_[body_zone]_[icon_gender]", -MARKING_LAYER, image_dir)
+		if(length(body_markings) && status == BODYPART_ORGANIC)
+			for(var/list/body_marking in body_markings)
+				var/body_marking_state = body_marking[1]
+				var/body_marking_icon = body_marking[2]
+				if(!use_digitigrade)
+					if(body_zone == BODY_ZONE_CHEST)
+						. += image(body_marking_icon, "[body_marking_state]_[body_zone]_[icon_gender]", -MARKING_LAYER, image_dir)
+					else
+						. += image(body_marking_icon, "[body_marking_state]_[body_zone]", -MARKING_LAYER, image_dir)
 				else
-					. += image(body_markings_icon, "[body_markings]_[body_zone]", -MARKING_LAYER, image_dir)
-			else
-				. += image(body_markings_icon, "[body_markings]_[digitigrade_type]_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
+					. += image(body_marking_icon, "[body_marking_state]_[digitigrade_type]_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
 
 	var/image/limb = image(layer = -BODYPARTS_LAYER, dir = image_dir)
 	var/list/aux = list()
-	var/image/marking
+	var/list/markings = list()
 	var/list/auxmarking = list()
 
 	. += limb
@@ -755,21 +761,25 @@
 			limb.icon_state = "[species_id]_[body_zone]"
 
 		// Body markings
-		if(!isnull(body_markings))
+		if(length(body_markings))
 			if(species_id == "husk")
-				marking = image('modular_citadel/icons/mob/markings_notmammals.dmi', "husk_[body_zone]", -MARKING_LAYER, image_dir)
+				markings += image('modular_citadel/icons/mob/markings_notmammals.dmi', "husk_[body_zone]", -MARKING_LAYER, image_dir)
+				. += markings
 			else if(species_id == "husk" && use_digitigrade)
-				marking = image('modular_citadel/icons/mob/markings_notmammals.dmi', "husk_[digitigrade_type]_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
-
-			else if(!use_digitigrade)
-				if(body_zone == BODY_ZONE_CHEST)
-					marking = image(body_markings_icon, "[body_markings]_[body_zone]_[icon_gender]", -MARKING_LAYER, image_dir)
-				else
-					marking = image(body_markings_icon, "[body_markings]_[body_zone]", -MARKING_LAYER, image_dir)
+				markings += image('modular_citadel/icons/mob/markings_notmammals.dmi', "husk_[digitigrade_type]_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
+				. += markings
 			else
-				marking = image(body_markings_icon, "[body_markings]_[digitigrade_type]_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
-
-			. += marking
+				for(var/list/body_marking in body_markings)
+					var/body_marking_state = body_marking[1]
+					var/body_marking_icon = body_marking[2]
+					if(!use_digitigrade)
+						if(body_zone == BODY_ZONE_CHEST)
+							markings += image(body_marking_icon, "[body_marking_state]_[body_zone]_[icon_gender]", -MARKING_LAYER, image_dir)
+						else
+							markings += image(body_marking_icon, "[body_marking_state]_[body_zone]", -MARKING_LAYER, image_dir)
+					else
+						markings = image(body_marking_icon, "[body_marking_state]_[digitigrade_type]_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
+					. += markings
 
 		// Citadel End
 
@@ -777,11 +787,14 @@
 			for(var/I in aux_icons)
 				var/aux_layer = aux_icons[I]
 				aux += image(limb.icon, "[species_id]_[I]", -aux_layer, image_dir)
-				if(!isnull(aux_marking))
+				if(length(aux_markings))
 					if(species_id == "husk")
 						auxmarking += image('modular_citadel/icons/mob/markings_notmammals.dmi', "husk_[I]", -aux_layer, image_dir)
 					else
-						auxmarking += image(body_markings_icon, "[body_markings]_[I]", -aux_layer, image_dir)
+						for(var/list/body_marking in body_markings)
+							var/body_marking_state = body_marking[1]
+							var/body_marking_icon = body_marking[2]
+							auxmarking += image(body_marking_icon, "[body_marking_state]_[I]", -aux_layer, image_dir)
 			. += aux
 			. += auxmarking
 
@@ -796,28 +809,38 @@
 			for(var/I in aux_icons)
 				var/aux_layer = aux_icons[I]
 				aux += image(limb.icon, "[I]", -aux_layer, image_dir)
-				if(!isnull(aux_marking))
+				if(length(aux_markings))
 					if(species_id == "husk")
 						auxmarking += image('modular_citadel/icons/mob/markings_notmammals.dmi', "husk_[I]", -aux_layer, image_dir)
 					else
-						auxmarking += image(body_markings_icon, "[body_markings]_[I]", -aux_layer, image_dir)
+						for(var/list/body_marking in body_markings)
+							var/body_marking_state = body_marking[1]
+							var/body_marking_icon = body_marking[2]
+							auxmarking += image(body_marking_icon, "[body_marking_state]_[I]", -aux_layer, image_dir)
 			. += auxmarking
 			. += aux
 
-		if(!isnull(body_markings))
+		if(length(body_markings))
 			if(species_id == "husk")
-				marking = image('modular_citadel/icons/mob/markings_notmammals.dmi', "husk_[body_zone]", -MARKING_LAYER, image_dir)
+				markings += image('modular_citadel/icons/mob/markings_notmammals.dmi', "husk_[body_zone]", -MARKING_LAYER, image_dir)
+				. += markings
 			else if(species_id == "husk" && use_digitigrade)
-				marking = image('modular_citadel/icons/mob/markings_notmammals.dmi', "husk_digitigrade_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
+				markings += image('modular_citadel/icons/mob/markings_notmammals.dmi', "husk_digitigrade_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
+				. += markings
 
-			else if(!use_digitigrade)
-				if(body_zone == BODY_ZONE_CHEST)
-					marking = image(body_markings_icon, "[body_markings]_[body_zone]_[icon_gender]", -MARKING_LAYER, image_dir)
-				else
-					marking = image(body_markings_icon, "[body_markings]_[body_zone]", -MARKING_LAYER, image_dir)
 			else
-				marking = image(body_markings_icon, "[body_markings]_[digitigrade_type]_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
-			. += marking
+				for(var/list/body_marking in body_markings)
+					var/body_marking_state = body_marking[1]
+					var/body_marking_icon = body_marking[2]
+					if(!use_digitigrade)
+						if(body_zone == BODY_ZONE_CHEST)
+							markings += image(body_marking_icon, "[body_marking_state]_[body_zone]_[icon_gender]", -MARKING_LAYER, image_dir)
+						else
+							markings += image(body_marking_icon, "[body_marking_state]_[body_zone]", -MARKING_LAYER, image_dir)
+					else
+						markings += image(body_marking_icon, "[body_marking_state]_[digitigrade_type]_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
+					. += markings
+
 		return
 
 	if(color_src) //TODO - add color matrix support for base species limbs
@@ -838,7 +861,7 @@
 					if(grayscale)
 						I.icon_state += "_g"
 					I.color = draw_color
-				if(!isnull(aux_marking))
+				if(length(aux_markings))
 					for(var/a in auxmarking)
 						var/image/I = a
 						if(species_id == "husk")
@@ -846,11 +869,12 @@
 						else
 							I.color = list(markings_color)
 
-			if(!isnull(body_markings))
+			if(length(markings))
+				var/marking_color = list(markings_color)
 				if(species_id == "husk")
-					marking.color = "#141414"
-				else
-					marking.color = list(markings_color)
+					marking_color = "#141414"
+				for(var/image/marking in markings)
+					marking.color = marking_color
 
 
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
