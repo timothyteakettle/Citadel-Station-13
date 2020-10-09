@@ -652,8 +652,8 @@
 				body_markings += list(mutant_body_marking, body_marking_icon)
 				aux_markings += list(mutant_body_marking, body_marking_icon)
 			else
-				body_markings = list("plain", body_marking_icon)
-				aux_markings = list("plain", body_marking_icon)
+				body_markings = list(list("plain", body_marking_icon))
+				aux_markings = list(list("plain", body_marking_icon))
 			markings_color = list(colorlist)
 		else
 			body_markings = list()
@@ -778,8 +778,8 @@
 						else
 							markings += image(body_marking_icon, "[body_marking_state]_[body_zone]", -MARKING_LAYER, image_dir)
 					else
-						markings = image(body_marking_icon, "[body_marking_state]_[digitigrade_type]_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
-					. += markings
+						markings += image(body_marking_icon, "[body_marking_state]_[digitigrade_type]_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
+				. += markings
 
 		// Citadel End
 
@@ -839,7 +839,7 @@
 							markings += image(body_marking_icon, "[body_marking_state]_[body_zone]", -MARKING_LAYER, image_dir)
 					else
 						markings += image(body_marking_icon, "[body_marking_state]_[digitigrade_type]_[use_digitigrade]_[body_zone]", -MARKING_LAYER, image_dir)
-					. += markings
+				. += markings
 
 		return
 
