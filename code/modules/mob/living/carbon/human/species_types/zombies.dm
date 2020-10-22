@@ -47,7 +47,7 @@
 
 /datum/species/zombie/notspaceproof/proc/zombie_eat_tick(mob/living/carbon/human/eater, mob/living/carbon/human/body)
 	if(eater && body)
-		if(eater.grab_state >= GRAB_AGGRESSIVE && ishuman(eater.pulling))
+		if(eater.grab_state >= GRAB_AGGRESSIVE && eater.pulling == body)
 			return TRUE
 	return FALSE
 
