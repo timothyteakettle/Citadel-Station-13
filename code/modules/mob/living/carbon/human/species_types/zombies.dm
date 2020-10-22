@@ -17,17 +17,46 @@
 	liked_food = GROSS | MEAT | RAW
 	species_category = SPECIES_CATEGORY_UNDEAD
 
+//halloween zombies
 /datum/species/zombie/notspaceproof
 	id = "notspaceproofzombie"
 	limbs_id = SPECIES_ZOMBIE
 	blacklisted = 0
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_RADIMMUNE,TRAIT_EASYDISMEMBER,TRAIT_LIMBATTACHMENT,TRAIT_NOBREATH,TRAIT_NODEATH,TRAIT_FAKEDEATH)
+	inherent_traits = list(TRAIT_EASYDISMEMBER,TRAIT_LIMBATTACHMENT,TRAIT_NOBREATH,TRAIT_NODEATH,TRAIT_FAKEDEATH)
+	//they are inherently extremely weak, however eating brains can make them strong by learning abilities
+	brutemod = 1.5
+	burnmod = 1.5
+	coldmod = 1.5
+	heatmod = 1.5
+	stunmod = 1.5
+
+	var/list/eaten_bodies //being picky eaters, they won't learn stuff from biting into the same person
+	var/eating_body = FALSE
+	var/eating_duration = 10 SECONDS
+
+/datum/species/zombie/notspaceproof/proc/eat_body(mob/living/carbon/human/eater,mob/living/carbon/human/body)
+	if(istype(body))
+		eater.visible_message("[eater] begins tearing into [body]'s flesh!", "<span class='notice'>You begin tearing into [body]'s flesh!</span>")
+		if(do_after_advanced(eater, eating_duration. extra_checks = CALLBACK(src, .proc/zombie_eat_tick, eater, body))
+			if(learn_from_body(body))
+				to_chat(eater, "<span class='warning'>You feel like you gained something from eating [body]'s flesh, though you aren't quite sure what.</span>")
+			else
+				to_chat(eater, "<span class='warning'>You didn't learn anything from eating [body]'s flesh.</span>")
+		else
+			eater.visible_message("[eater] stops tearing into [body]'s flesh.", "<span class='notice'>You stop tearing into [body]'s flesh.</span>")
+
+/datum/species/zombie/notspaceproof/proc/zombie_eat_tick(mob/living/carbon/human/eater, mob/living/carbon/human/body)
+	if(eater && body)
+		if(eater.grab_state >= GRAB_AGGRESSIVE && ishuman(eater.pulling))
+			return TRUE
+	return FALSE
 
 /datum/species/zombie/notspaceproof/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
 	return ..()
 
+//romerol/infectious zombies
 /datum/species/zombie/infectious
 	name = "Infectious Zombie"
 	id = "memezombies"
@@ -80,7 +109,6 @@
 
 /datum/species/zombie/infectious/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-
 	// Deal with the source of this zombie corruption
 	//  Infection organ needs to be handled separately from mutant_organs
 	//  because it persists through species transitions
@@ -96,7 +124,7 @@
 		part.incoming_stam_mult = incoming_stam_mult
 		//todo: add negative wound resistance to all parts when wounds is merged (zombies are physically weak in terms of limbs)
 
-// Your skin falls off
+// fake zombies from getting addicted to krokodil and your skin falling off
 /datum/species/krokodil_addict
 	name = SPECIES_HUMAN
 	id = "goofzombies"
