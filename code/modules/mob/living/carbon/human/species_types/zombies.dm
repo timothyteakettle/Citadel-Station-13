@@ -37,7 +37,7 @@
 /datum/species/zombie/notspaceproof/proc/eat_body(mob/living/carbon/human/eater,mob/living/carbon/human/body)
 	if(istype(body))
 		eater.visible_message("[eater] begins tearing into [body]'s flesh!", "<span class='notice'>You begin tearing into [body]'s flesh!</span>")
-		if(do_after_advanced(eater, eating_duration. extra_checks = CALLBACK(src, .proc/zombie_eat_tick, eater, body))
+		if(do_after_advanced(eater, eating_duration. extra_checks = CALLBACK(src, .proc/zombie_eat_tick, eater, body)))
 			if(learn_from_body(body))
 				to_chat(eater, "<span class='warning'>You feel like you gained something from eating [body]'s flesh, though you aren't quite sure what.</span>")
 			else
