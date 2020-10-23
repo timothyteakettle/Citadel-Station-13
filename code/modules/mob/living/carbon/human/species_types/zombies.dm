@@ -33,15 +33,32 @@
 	var/list/eaten_bodies //being picky eaters, they won't learn stuff from biting into the same person
 	var/eating_body = FALSE
 	var/eating_duration = 10 SECONDS
+	var/eat_damage = 25
+	var/eat_wound_bonus = 10
 
-/datum/species/zombie/notspaceproof/proc/eat_body(mob/living/carbon/human/eater,mob/living/carbon/human/body)
-	if(istype(body))
+/datum/species/zombie/notspaceproof/proc/eat_body(mob/living/carbon/human/eater, mob/living/carbon/human/body)
+	if(eating_body)
+		to_chat(eater, "<span class='warning'>You're too busy eating to do that!</span>")
+		return
+	if(eater.nutrition >= NUTRITION_LEVEL_FULL)
+		to_chat(eater, "<span class='warning'>You are too full to eat [body]'s flesh!</span>")
+		return
+	if(istype(body) && !eating_body)
+		eating_body = TRUE
 		eater.visible_message("[eater] begins tearing into [body]'s flesh!", "<span class='notice'>You begin tearing into [body]'s flesh!</span>")
-		if(do_after_advanced(eater, eating_duration. extra_checks = CALLBACK(src, .proc/zombie_eat_tick, eater, body)))
+		if(do_after_advanced(eater, eating_duration, DO_AFTER_DISALLOW_MOVING_ABSOLUTE_USER, CALLBACK(src, .proc/zombie_eat_tick)))
+			body.apply_damage(eat_damage, BRUTE, BODY_ZONE_CHEST, wound_bonus = eat_wound_bonus)
 			if(learn_from_body(body))
 				to_chat(eater, "<span class='warning'>You feel like you gained something from eating [body]'s flesh, though you aren't quite sure what.</span>")
+				listclearnulls(eaten_bodies) //when updating the list remove any stale references if any
+				eaten_bodies += body
+				eating_body = FALSE
 			else
-				to_chat(eater, "<span class='warning'>You didn't learn anything from eating [body]'s flesh.</span>")
+				if(body in eaten_bodies)
+					to_chat(eater, "<span class='warning'>This flesh tastes familiar, you gain nothing from it.</span>")
+				else
+					to_chat(eater, "<span class='warning'>You didn't learn anything from eating [body]'s flesh.</span>")
+				eating_body = FALSE
 		else
 			eater.visible_message("[eater] stops tearing into [body]'s flesh.", "<span class='notice'>You stop tearing into [body]'s flesh.</span>")
 
@@ -50,6 +67,18 @@
 		if(eater.grab_state >= GRAB_AGGRESSIVE && eater.pulling == body)
 			return TRUE
 	return FALSE
+
+/datum/species/zombie/notspaceproof/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style, attackchain_flags = NONE)
+	if(user.grab_state < GRAB_AGGRESSIVE && user.pulling == target)
+		to_chat(user, "<span class='warning'>You need a stronger grip to do that!</span>")
+	else
+		if(user.grab_state >= GRAB_AGGRESSIVE && user.pulling == target)
+			eat_body(user, target)
+		else
+			..()
+
+/datum/species/zombie/notspaceproof/proc/learn_from_body(mob/living/carbon/human/eater,mob/living/carbon/human/body)
+	var/list/things_to_learn = list("")
 
 /datum/species/zombie/notspaceproof/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
