@@ -298,14 +298,23 @@
 		var/list/dat = list("<center>")
 		dat += "<b>[name]</b>"
 		dat += "</center><BR>"
-		dat += "<b>Item prefix</b>: [prefix_string]"
-		dat += "<b>Item suffix:</b> [suffix_string]"
-		dat +=  "<b>Item quality:</b> [item_quality]"
-		var/processed_prefix_string = (prefix_string == "N/A") ? "" : ["prefix_string "]
-		var/processed_suffix_string = (suffix_string == "N/A") ? "" : ["suffix_string "]
-		dat += "<b>New name:</b> [processed_prefix_string][name][processed_suffix_string]"
 
-		var/datum/browser/popup = new(user, "fantasy_panel", "<div align='center'>Fantasy Panel</div>", 640, 770)
+		dat += "<b>Item prefix</b>: [prefix_string]   "
+		dat += "<a href='?src=[REF(src)];button=prefix'>Change</a><BR>"
+
+		dat += "<b>Item suffix:</b> [suffix_string]   "
+		dat += "<a href='?src=[REF(src)];button=suffix'>Change</a><BR>"
+
+		dat +=  "<b>Item quality:</b> [item_quality]   "
+		dat += "<a href='?src=[REF(src)];button=quality'>Change</a><BR>"
+
+		var/processed_prefix_string = (prefix_string == "N/A") ? "" : "[prefix_string] "
+		var/processed_suffix_string = (suffix_string == "N/A") ? "" : "[suffix_string] "
+		dat += "<b>New name:</b> [processed_prefix_string][name][processed_suffix_string]<BR>"
+
+		dat += "<BR><a href='?src=[REF(src)];button=random'>Randomise</a>          <a href='?src=[REF(src)];button=apply'>Apply</a>"
+
+		var/datum/browser/popup = new(usr, "fantasy_panel", "<div align='center'>Fantasy Panel</div>", 640, 300)
 		popup.set_content(dat.Join())
 		popup.open(FALSE)
 
