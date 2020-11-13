@@ -219,6 +219,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_MASS_DEL_TYPE, "Delete all of type")
 	VV_DROPDOWN_OPTION(VV_HK_OSAY, "Object Say")
 	VV_DROPDOWN_OPTION(VV_HK_ARMOR_MOD, "Modify armor values")
+	VV_DROPDOWN_OPTION(VV_HK_FANTASY_PANEL, "Modify fantasy values")
 
 /obj/vv_do_topic(list/href_list)
 	if(!(. = ..()))
@@ -287,6 +288,26 @@
 						return
 					log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) ")
 					message_admins("<span class='notice'>[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) </span>")
+	if(href_list[VV_HK_FANTASY_PANEL])
+		var/item_quality = 0
+		var/datum/fantasy_affix/item_prefix
+		var/prefix_string = "N/A"
+		var/datum/fantasy_affix/item_suffix
+		var/suffix_string = "N/A"
+
+		var/list/dat = list("<center>")
+		dat += "<b>[name]</b>"
+		dat += "</center><BR>"
+		dat += "<b>Item prefix</b>: [prefix_string]"
+		dat += "<b>Item suffix:</b> [suffix_string]"
+		dat +=  "<b>Item quality:</b> [item_quality]"
+		var/processed_prefix_string = (prefix_string == "N/A") ? "" : ["prefix_string "]
+		var/processed_suffix_string = (suffix_string == "N/A") ? "" : ["suffix_string "]
+		dat += "<b>New name:</b> [processed_prefix_string][name][processed_suffix_string]"
+
+		var/datum/browser/popup = new(user, "fantasy_panel", "<div align='center'>Fantasy Panel</div>", 640, 770)
+		popup.set_content(dat.Join())
+		popup.open(FALSE)
 
 /obj/examine(mob/user)
 	. = ..()

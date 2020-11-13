@@ -95,6 +95,7 @@
 #define VV_HK_OSAY "osay"
 #define VV_HK_MASS_DEL_TYPE "mass_delete_type"
 #define VV_HK_ARMOR_MOD "mod_obj_armor"
+#define VV_HK_FANTASY_PANEL "mod_obj_fantasy"
 
 // /mob
 #define VV_HK_GIB "gib"
