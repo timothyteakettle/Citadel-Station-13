@@ -222,6 +222,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_FANTASY_PANEL, "Modify fantasy values")
 
 /obj/vv_do_topic(list/href_list)
+	message_admins(href_list)
 	if(!(. = ..()))
 		return
 	if(href_list[VV_HK_OSAY])
@@ -289,34 +290,70 @@
 					log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) ")
 					message_admins("<span class='notice'>[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) </span>")
 	if(href_list[VV_HK_FANTASY_PANEL])
-		var/item_quality = 0
-		var/datum/fantasy_affix/item_prefix
-		var/prefix_string = "N/A"
-		var/datum/fantasy_affix/item_suffix
-		var/suffix_string = "N/A"
+		var/item_quality = href_list["item_quality"] || 0
+		var/prefix_string = href_list["prefix"] || "N/A"
+		var/datum/fantasy_affix/item_prefix = text2path("/datum/fantasy_affix/[prefix_string]")
+		var/custom_prefix
 
-		var/list/dat = list("<center>")
-		dat += "<b>[name]</b>"
-		dat += "</center><BR>"
+		var/suffix_string = href_list["suffix"] || "N/A"
+		var/datum/fantasy_affix/item_suffix = text2path("/datum/fantasy_affix/[prefix_string]")
+		var/custom_suffix
+		var/close = FALSE
 
-		dat += "<b>Item prefix</b>: [prefix_string]   "
-		dat += "<a href='?src=[REF(src)];button=prefix'>Change</a><BR>"
+		if(href_list["button"])
+			switch(href_list["button"])
+				if("quality")
+					var/new_quality = input(usr, "Enter a quality. Normal values are -15 to 15") as num|null
+					if(new_quality)
+						item_quality = new_quality
+				if("prefix")
+					var/new_prefix = input(usr, "Select a prefix:") as null|anything in list("Cosmetic", "Tactical", "Pyromantic", "Vampric", "N/A")
+					if(new_prefix)
+						if(new_prefix == "Cosmetic")
+							var/cosmetic_prefix = input(usr, "Select a cosmetic prefix: ") as null|anything in (GLOB.goodPrefixes + GLOB.badPrefixes)
+							if(cosmetic_prefix)
+								prefix_string = "cosmetic_prefixes"
+								custom_prefix = cosmetic_prefix
+						else
+							prefix_string = lowertext(new_prefix)
+							custom_prefix = null
+				if("suffix")
+					var/new_suffix = input(usr, "Select a suffix:") as null|anything in list("Cosmetic", "Bane", "Summoning", "Shrapnel", "Strength", "Fool", "N/A")
+					if(new_suffix)
+						if(new_suffix == "Cosmetic")
+							var/cosmetic_suffix = input(usr, "Select a cosmetic suffix: ") as null|anything in (GLOB.goodSuffixes + GLOB.badSuffixes)
+							if(cosmetic_suffix)
+								suffix_string = "cosmetic_suffixes"
+								custom_suffix = cosmetic_suffix
+						else
+							suffix_string = lowertext(new_suffix)
+							custom_suffix = null
+				if("apply")
+					AddComponent(/datum/component/fantasy, quality = item_quality, affixes = list(new item_prefix, new item_suffix))
+					close = TRUE
+		if(!close)
+			var/list/dat = list("<center>")
+			dat += "<b>[name]</b>"
+			dat += "</center><BR>"
 
-		dat += "<b>Item suffix:</b> [suffix_string]   "
-		dat += "<a href='?src=[REF(src)];button=suffix'>Change</a><BR>"
+			dat += "<b>Item prefix</b>: [prefix_string]   "
+			dat += "<a href='?_src_=vars;[HrefToken()];target=[REF(src)];[VV_HK_FANTASY_PANEL]=1;button=prefix;item_quality=[item_quality];prefix=[prefix_string];suffix=[suffix_string];custom_prefix=[custom_prefix];custom_suffix=[custom_suffix];'>Change</a><BR>"
 
-		dat +=  "<b>Item quality:</b> [item_quality]   "
-		dat += "<a href='?src=[REF(src)];button=quality'>Change</a><BR>"
+			dat += "<b>Item suffix:</b> [suffix_string]   "
+			dat += "<a href='?_src_=vars;[HrefToken()];target=[REF(src)];[VV_HK_FANTASY_PANEL]=1;button=suffix;item_quality=[item_quality];prefix=[prefix_string];suffix=[suffix_string];custom_prefix=[custom_prefix];custom_suffix=[custom_suffix];'>Change</a><BR>"
 
-		var/processed_prefix_string = (prefix_string == "N/A") ? "" : "[prefix_string] "
-		var/processed_suffix_string = (suffix_string == "N/A") ? "" : "[suffix_string] "
-		dat += "<b>New name:</b> [processed_prefix_string][name][processed_suffix_string]<BR>"
+			dat +=  "<b>Item quality:</b> [item_quality]   "
+			dat += "<a href='?_src_=vars;[HrefToken()];target=[REF(src)];[VV_HK_FANTASY_PANEL]=1;button=quality;item_quality=[item_quality];prefix=[prefix_string];suffix=[suffix_string];custom_prefix=[custom_prefix];custom_suffix=[custom_suffix];'>Change</a><BR>"
 
-		dat += "<BR><a href='?src=[REF(src)];button=random'>Randomise</a>          <a href='?src=[REF(src)];button=apply'>Apply</a>"
+			dat += "<BR><a href='?_src_=vars;[HrefToken()];target=[REF(src)];[VV_HK_FANTASY_PANEL]=1;button=apply;item_quality=[item_quality];prefix=[prefix_string];suffix=[suffix_string];custom_prefix=[custom_prefix];custom_suffix=[custom_suffix];>Apply</a>"
 
-		var/datum/browser/popup = new(usr, "fantasy_panel", "<div align='center'>Fantasy Panel</div>", 640, 300)
-		popup.set_content(dat.Join())
-		popup.open(FALSE)
+			var/datum/browser/popup = new(usr, "fantasy_panel", "<div align='center'>Fantasy Panel</div>", 640, 300)
+			popup.set_content(dat.Join())
+			popup.open(FALSE)
+		else
+			//dumb but effective way to close the panel if its still up
+			var/datum/browser/popup = new(usr, "fantasy_panel", "<div align='center'>Fantasy Panel</div>", 640, 300)
+			popup.close()
 
 /obj/examine(mob/user)
 	. = ..()

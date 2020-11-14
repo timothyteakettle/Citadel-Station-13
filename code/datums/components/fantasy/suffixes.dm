@@ -2,48 +2,14 @@
 	placement = AFFIX_SUFFIX
 	alignment = AFFIX_GOOD | AFFIX_EVIL
 
-	var/list/goodSuffixes
-	var/list/badSuffixes
-
 /datum/fantasy_affix/cosmetic_suffixes/New()
-	goodSuffixes = list(
-		"dexterity",
-		"constitution",
-		"intelligence",
-		"wisdom",
-		"charisma",
-		"the forest",
-		"the hills",
-		"the plains",
-		"the sea",
-		"the sun",
-		"the moon",
-		"the void",
-		"the world",
-		"many secrets",
-		"many tales",
-		"many colors",
-		"rending",
-		"sundering",
-		"the night",
-		"the day",
-		)
-	badSuffixes = list(
-		"draining",
-		"burden",
-		"discomfort",
-		"awkwardness",
-		"poor hygiene",
-		"timidity",
-		)
-
-	weight = (length(goodSuffixes) + length(badSuffixes)) * 10
+	weight = (length(GLOB.goodSuffixes) + length(GLOB.badSuffixes)) * 10
 
 /datum/fantasy_affix/cosmetic_suffixes/apply(datum/component/fantasy/comp, newName)
 	if(comp.quality > 0 || (comp.quality == 0 && prob(50)))
-		return "[newName] of [pick(goodSuffixes)]"
+		return "[newName] of [pick(GLOB.goodSuffixes)]"
 	else
-		return "[newName] of [pick(badSuffixes)]"
+		return "[newName] of [pick(GLOB.badSuffixes)]"
 
 //////////// Good suffixes
 /datum/fantasy_affix/bane

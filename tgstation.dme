@@ -210,6 +210,7 @@
 #include "code\_globalvars\regexes.dm"
 #include "code\_globalvars\traits.dm"
 #include "code\_globalvars\lists\client.dm"
+#include "code\_globalvars\lists\fantasy.dm"
 #include "code\_globalvars\lists\flavor_misc.dm"
 #include "code\_globalvars\lists\keybindings.dm"
 #include "code\_globalvars\lists\loadout_categories.dm"
