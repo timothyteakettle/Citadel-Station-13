@@ -345,7 +345,7 @@
 			dat +=  "<b>Item quality:</b> [item_quality]   "
 			dat += "<a href='?_src_=vars;[HrefToken()];target=[REF(src)];[VV_HK_FANTASY_PANEL]=1;button=quality;item_quality=[item_quality];prefix=[prefix_string];suffix=[suffix_string];custom_prefix=[custom_prefix];custom_suffix=[custom_suffix];'>Change</a><BR>"
 
-			dat += "<BR><a href='?_src_=vars;[HrefToken()];target=[REF(src)];[VV_HK_FANTASY_PANEL]=1;button=apply;item_quality=[item_quality];prefix=[prefix_string];suffix=[suffix_string];custom_prefix=[custom_prefix];custom_suffix=[custom_suffix];>Apply</a>"
+			dat += "<BR><a href='?_src_=vars;[HrefToken()];target=[REF(src)];[VV_HK_FANTASY_PANEL]=1;button=apply;item_quality=[item_quality];prefix=[prefix_string];suffix=[suffix_string];custom_prefix=[custom_prefix];custom_suffix=[custom_suffix];'>Apply</a>"
 
 			var/datum/browser/popup = new(usr, "fantasy_panel", "<div align='center'>Fantasy Panel</div>", 640, 300)
 			popup.set_content(dat.Join())
