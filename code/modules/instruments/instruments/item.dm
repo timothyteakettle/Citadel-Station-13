@@ -10,6 +10,7 @@
 	var/datum/song/handheld/song
 	var/list/allowed_instrument_ids
 	var/tune_time_left = 0
+	var/magical_power = 0
 
 /obj/item/instrument/Initialize(mapload)
 	. = ..()
@@ -26,8 +27,11 @@
 	return !user.CanReach(src) || !user.canUseTopic(src, FALSE, TRUE, FALSE, FALSE)
 
 /obj/item/instrument/process(wait)
-	if(is_tuned())
-		if (song.playing)
+	if(!song.playing) // why would we continue from this
+		STOP_PROCESSING(SSprocessing, src)
+		return
+	if(!magical_power && is_tuned())
+		if(song.playing)
 			for (var/mob/living/M in song.hearing_mobs)
 				M.dizziness = max(0,M.dizziness-2)
 				M.jitteriness = max(0,M.jitteriness-2)
@@ -35,10 +39,55 @@
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "goodmusic", /datum/mood_event/goodmusic)
 		tune_time_left -= wait
 	else
-		tune_time_left = 0
-		if (song.playing)
-			loc.visible_message("<span class='warning'>[src] starts sounding a little off...</span>")
-		STOP_PROCESSING(SSprocessing, src)
+		if(!magical_power)
+			tune_time_left = 0
+			if(song.playing)
+				loc.visible_message("<span class='warning'>[src] starts sounding a little off...</span>")
+			STOP_PROCESSING(SSprocessing, src)
+		else
+			//magical adminspawn only instrument that changes effects based on the holder's intent
+			if(magical_power && song.playing)
+				if(iscarbon(loc)) //its being held by a carbon while being played
+					var/mob/user = loc
+					switch(user.a_intent)
+						if(INTENT_HELP) // the song of recovery
+							for(var/mob/living/carbon/M in song.hearing_mobs)
+								// heal brute/burn/tox by 1
+								M.heal_bodypart_damage(magical_power, magical_power, only_organic = FALSE)
+								M.adjustToxLoss(-magical_power, 0, TRUE)
+
+								//reduce dizzy/jitter/confusion/hallucination/drowsyness/sleeping
+								M.dizziness = max(0,M.dizziness-(10 * magical_power))
+								M.jitteriness = max(0,M.jitteriness-(10 * magical_power))
+								M.confused = max(M.confused-(10 * magical_power))
+								M.hallucination = max(0, M.hallucination - (10 * magical_power))
+								M.drowsyness = max(0, M.hallucination - (10 * magical_power))
+								if(M.IsSleeping())
+									M.AdjustSleeping(-10 * magical_power)
+
+						if(INTENT_DISARM) // the song of energy
+							for(var/mob/living/carbon/M in song.hearing_mobs)
+								// reduce stamina loss
+								M.adjustStaminaLoss(-5 * magical_power)
+								// keep giving them 2u of muscle stimulant until they have 5u or more
+								if(!M.reagents.has_reagent(/datum/reagent/medicine/muscle_stimulant, 5))
+									M.reagents.add_reagent(/datum/reagent/medicine/muscle_stimulant, 2)
+
+						if(INTENT_GRAB) // the song of chaos
+							for(var/mob/living/carbon/M in song.hearing_mobs)
+								if(prob(25))
+									// RANGE_TURFS is a define and thus we need to define our turf first before using it
+									var/turf/user_turf = get_turf(M)
+									var/list/turfs = RANGE_TURFS(5 * magical_power, user_turf)
+									if(length(turfs))
+										M.throw_at(pick(turfs), 5 * magical_power, 2 * magical_power)
+
+						if(INTENT_HARM) // the song of chaos
+							for(var/mob/living/carbon/M in song.hearing_mobs)
+								if(prob(25))
+									to_chat(M, "The music from the [src] burns your very soul!")
+									M.adjustFireLoss(5 * magical_power) // this works out to ~ 1.25 per cycle on a regular one but considering it's a huge aoe that's enough
+
 
 /obj/item/instrument/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -53,8 +102,8 @@
 /obj/item/instrument/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/musicaltuner))
 		var/mob/living/carbon/human/H = user
-		if (HAS_TRAIT(H, TRAIT_MUSICIAN))
-			if (!is_tuned())
+		if(HAS_TRAIT(H, TRAIT_MUSICIAN) && !magical_power)
+			if(!is_tuned())
 				H.visible_message("[H] tunes the [src] to perfection!", "<span class='notice'>You tune the [src] to perfection!</span>")
 				tune_time_left = 600 SECONDS
 				START_PROCESSING(SSprocessing, src)
