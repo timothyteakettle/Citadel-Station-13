@@ -722,7 +722,8 @@
 	set waitfor = FALSE
 	if(!istype(loc, /turf))
 		return
-	var/image/I = image(icon = src, loc = loc, layer = layer + 0.1)
+	var/obj/effect/abstract/holder = new(loc)
+	var/image/I = image(icon = src, loc = holder, layer = layer + 0.1)
 	I.plane = GAME_PLANE
 	I.transform *= 0.75
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
@@ -749,3 +750,4 @@
 	animate(I, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = M, easing = CUBIC_EASING)
 	sleep(1)
 	animate(I, alpha = 0, transform = matrix(), time = 1)
+	qdel(holder)
