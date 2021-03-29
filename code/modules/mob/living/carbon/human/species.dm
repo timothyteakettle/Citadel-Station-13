@@ -713,6 +713,11 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 							hair_overlay.color = "#" + hair_color
 					else
 						hair_overlay.color = "#" + H.hair_color
+					if(H.gradient_style != "None")
+						var/icon/grad_s = new/icon("icon" = 'icons/mob/hair_gradients.dmi', "icon_state" = GLOB.hair_gradients[H.gradient_style])
+						grad_s.Blend(hair_overlay, ICON_AND)
+						grad_s.Blend(hex2num(H.hair_gradient, TRUE), ICON_MULTIPLY)
+						hair_overlay.Blend(grad_s, ICON_OVERLAY)
 				else
 					hair_overlay.color = forced_colour
 				hair_overlay.alpha = hair_alpha

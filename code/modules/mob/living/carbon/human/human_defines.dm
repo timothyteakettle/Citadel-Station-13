@@ -20,6 +20,8 @@
 	//Hair colour and style
 	var/hair_color = "000"
 	var/hair_style = "Bald"
+	var/gradient_style = "None"
+	var/hair_gradient = "000000"
 
 	//Facial hair colour and style
 	var/facial_hair_color = "000"
