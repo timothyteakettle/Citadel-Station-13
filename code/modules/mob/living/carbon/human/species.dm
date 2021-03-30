@@ -697,7 +697,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 				//Is hair+dynamic_hair_suffix a valid iconstate?
 				var/hair_state = S.icon_state
-				var/hair_file = S.icon
+				var/icon/hair_file = S.icon
 				if(extensions[hair_state+dynamic_hair_suffix])
 					hair_state += dynamic_hair_suffix
 					hair_file = 'icons/mob/hair_extensions.dmi'
@@ -717,7 +717,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 						var/icon/grad_s = new/icon("icon" = 'icons/mob/hair_gradients.dmi', "icon_state" = GLOB.hair_gradients[H.gradient_style])
 						grad_s.Blend(hair_overlay, ICON_AND)
 						grad_s.Blend(hex2num(H.hair_gradient, TRUE), ICON_MULTIPLY)
-						hair_overlay.Blend(grad_s, ICON_OVERLAY)
+						hair_file.Blend(grad_s, ICON_OVERLAY)
 				else
 					hair_overlay.color = forced_colour
 				hair_overlay.alpha = hair_alpha
