@@ -9,3 +9,5 @@
 
 	brutemod = 1.35
 	burnmod =  1.35
+	speedmod = -1
+	max_health = 50
