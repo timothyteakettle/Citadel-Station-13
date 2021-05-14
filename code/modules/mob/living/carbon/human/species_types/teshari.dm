@@ -6,8 +6,10 @@
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	mutantlungs = /obj/item/organ/lungs/teshari
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS,HORNCOLOR,WINGCOLOR,CAN_SCAR,HAS_FLESH,HAS_BONE)
+	mutant_bodyparts = list("mcolor" = "FFFFFF","mcolor2" = "FFFFFF","mcolor3" = "FFFFFF", "mam_tail" = "Teshari", "mam_ears" = "Teshari")
 
 	brutemod = 1.35
 	burnmod =  1.35
 	speedmod = -1
 	max_health = 50
+	eye_type = "teshari"
