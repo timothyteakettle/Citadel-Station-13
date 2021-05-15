@@ -13,3 +13,12 @@
 	speedmod = -1
 	max_health = 50
 	eye_type = "teshari"
+
+/datum/species/teshari/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
+	var/datum/outfit/teshari/O = new /datum/outfit/teshari
+	if(J)
+		if(J.tesh_outfit)
+			O = new J.tesh_outfit
+
+	H.equipOutfit(O, visualsOnly)
+	return 0
