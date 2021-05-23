@@ -14,10 +14,7 @@
 	//initialize limbs first
 	create_bodyparts()
 
-	//initialize dna. for spawned humans; overwritten by other code
-	create_dna(src)
-	randomize_human(src)
-	dna.initialize_dna()
+	setup_human_dna()
 
 	if(dna.species)
 		set_species(dna.species.type)
@@ -36,6 +33,11 @@
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, /atom.proc/clean_blood)
 	GLOB.human_list += src
 
+/mob/living/carbon/human/proc/setup_human_dna()
+	//initialize dna. for spawned humans; overwritten by other code
+	create_dna(src)
+	randomize_human(src)
+	dna.initialize_dna()
 
 /mob/living/carbon/human/ComponentInitialize()
 	. = ..()
@@ -1080,6 +1082,17 @@
 /mob/living/carbon/human/species/Initialize()
 	. = ..()
 	set_species(race)
+
+/mob/living/carbon/human/get_tooltip_data()
+	var/t_He = p_they(TRUE)
+	var/t_is = p_are()
+	. = list()
+	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
+	if(skipface || get_visible_name() == "Unknown")
+		. += "You can't make out what species they are."
+	else
+		. += "[t_He] [t_is] a [dna.custom_species ? dna.custom_species : dna.species.name]"
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, usr, .)
 
 /mob/living/carbon/human/species/abductor
 	race = /datum/species/abductor

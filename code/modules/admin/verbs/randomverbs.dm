@@ -571,6 +571,26 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(src)] has created a command report")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Create Command Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/cmd_admin_make_priority_announcement()
+	set category = "Admin.Events"
+	set name = "Make Priority Announcement"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/input = input(usr, "Enter a priority announcement. Ensure it makes sense IC.", "What?", "") as message|null
+	if(!input)
+		return
+
+	var/title = input(src, "What should the title be?", "What?","") as text|null
+
+	var/special_name = input(src, "Who is making the announcement?", "Who?", "") as text|null
+	priority_announce(input, title, sender_override = special_name)
+
+	log_admin("[key_name(src)] has sent a priority announcement: [input]")
+	message_admins("[key_name_admin(src)] has made a priority announcement")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Priority Announcement") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/proc/cmd_change_command_name()
 	set category = "Admin.Events"
 	set name = "Change Command Name"
@@ -878,8 +898,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(usr)] [N.timing ? "activated" : "deactivated"] a nuke at [AREACOORD(N)].")
 	message_admins("[ADMIN_LOOKUPFLW(usr)] [N.timing ? "activated" : "deactivated"] a nuke at [ADMIN_VERBOSEJMP(N)].")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Nuke", "[N.timing]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 
 /client/proc/create_outfits()
 	set category = "Debug"
