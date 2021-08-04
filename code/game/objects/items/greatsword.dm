@@ -71,6 +71,6 @@
 	wound_bonus = 20
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "greatsword"
-	inhand_icon_state = "greatsword"
+	item_state = "greatsword"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
