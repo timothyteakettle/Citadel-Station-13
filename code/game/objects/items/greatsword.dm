@@ -9,6 +9,7 @@
 	var/wielded_force // damage when wielding with both hands
 	var/unwielded_force = 0 // damage when wielding with one hand
 	var/slowdown_wielded = 2 // keep this at 0 for no slowdown, it needs to be positive to slowdown
+	var/last_direction // the last direction the sword was swung in
 
 /obj/item/greatsword/Initialize()
 	wielded_component = AddComponent(/datum/component/two_handed, force_unwielded=unwielded_force, force_wielded=wielded_force, icon_wielded="")
@@ -28,14 +29,17 @@
 	if(wielded_required && !wielded_component.wielded)
 		to_chat(user, "[src] is far too heavy to swing with just one hand.")
 		return TRUE
+	// calculate direction from you to the target
+	last_direction = get_dir(user, target)
 	return ..()
 
 /obj/item/greatsword/afterattack(atom/target, mob/user)
-	do_cleave_effect(user, user.dir)
+	do_cleave_effect(user)
 	return ..()
 
 // stolen from the shield bashing effect
-/obj/item/greatsword/proc/do_cleave_effect(mob/living/user, dir)
+/obj/item/greatsword/proc/do_cleave_effect(mob/living/user)
+	var/dir = last_direction
 	var/px = 0
 	var/py = 0
 	switch(dir)
@@ -61,7 +65,12 @@
 	duration = 3
 
 /obj/item/greatsword/debug
-	name = "debug greatsword"
-	desc = "the blade of coders"
-	wielded_force = 5
-	wound_bonus = 500
+	name = "steel greatsword"
+	desc = "This is far too big to be called a sword."
+	force = 40
+	wound_bonus = 20
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "greatsword"
+	inhand_icon_state = "greatsword"
+	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
