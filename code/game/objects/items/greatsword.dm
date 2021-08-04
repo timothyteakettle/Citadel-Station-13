@@ -8,20 +8,31 @@
 	var/wielded_required = TRUE // if it requires to be wielded with both hands to be used
 	var/wielded_force // damage when wielding with both hands
 	var/unwielded_force = 0 // damage when wielding with one hand
+	var/slowdown_wielded = 2 // keep this at 0 for no slowdown, it needs to be positive to slowdown
 
 /obj/item/greatsword/Initialize()
 	wielded_component = AddComponent(/datum/component/two_handed, force_unwielded=unwielded_force, force_wielded=wielded_force, icon_wielded="")
+	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
+	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
 	. = ..()
+
+/obj/item/greatsword/proc/on_wield()
+	START_PROCESSING(SSobj, src)
+	slowdown += slowdown_wielded
+
+/obj/item/greatsword/proc/on_unwield()
+	slowdown -= slowdown_wielded
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/greatsword/pre_attack(atom/target, mob/user)
 	if(wielded_required && !wielded_component.wielded)
 		to_chat(user, "[src] is far too heavy to swing with just one hand.")
-		return FALSE
+		return TRUE
 	return ..()
 
 /obj/item/greatsword/afterattack(atom/target, mob/user)
-	if(..())
-		do_cleave_effect(user, user.dir)
+	do_cleave_effect(user, user.dir)
+	return ..()
 
 // stolen from the shield bashing effect
 /obj/item/greatsword/proc/do_cleave_effect(mob/living/user, dir)
