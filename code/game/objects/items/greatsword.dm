@@ -1,3 +1,9 @@
+// file for the greatsword
+// a slow cleaving weapon that has a large click delay and movement debuff on the user
+// it requires being wielded with both hands
+// high damage, armour penetration, and can hit adjacent targets to where you swing
+// extremely high stamina usage to swing
+
 /obj/item/greatsword
 	name = "default greatsword"
 	desc = "default description"
@@ -31,38 +37,52 @@
 		return TRUE
 	// calculate direction from you to the target
 	last_direction = get_dir(user, target)
-	return ..()
+	. = ..()
+	if(!.) // it returns false if the attack can go ahead
+		do_cleave_effect(user)
 
-/obj/item/greatsword/afterattack(atom/target, mob/user)
-	do_cleave_effect(user)
-	return ..()
+// took the icon from the rp server
+/obj/effect/temp_visual/cleave_attack
+	name = "cleaving attack"
+	desc = "Something swinging really wide."
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "cleave"
+	layer = ABOVE_MOB_LAYER
+	duration = 6
 
-// stolen from the shield bashing effect
+	mouse_opacity = 0
+	pixel_x = -32
+	pixel_y = -32
+
 /obj/item/greatsword/proc/do_cleave_effect(mob/living/user)
-	var/dir = last_direction
 	var/px = 0
 	var/py = 0
-	switch(dir)
+	switch(last_direction)
 		if(NORTH)
-			py = 12
+			py = 32
 		if(SOUTH)
-			py = -12
+			py = -32
 		if(EAST)
-			px = 12
+			px = 32
 		if(WEST)
 			px = -12
-	var/obj/effect/temp_visual/dir_setting/cleave/effect = new(user.loc, dir)
-	effect.pixel_x = user.pixel_x - 32		//96x96 effect, -32.
-	effect.pixel_y = user.pixel_y - 32
-	user.visible_message("<span class='warning'>[user] cleaves forwards with [src]!</span>")
-	animate(user, pixel_x = px, pixel_y = py, time = 3, easing = SINE_EASING | EASE_OUT, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
-	animate(user, pixel_x = -px, pixel_y = -py, time = 3, flags = ANIMATION_RELATIVE)
-	animate(effect, alpha = 0, pixel_x = px * 1.5, pixel_y = py * 1.5, time = 3, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
-
-/obj/effect/temp_visual/dir_setting/cleave
-	icon = 'icons/effects/96x96_attack_sweep.dmi'
-	icon_state = "cleave"
-	duration = 3
+		if(NORTHEAST)
+			py = 32
+			px = 32
+		if(NORTHWEST)
+			py = 32
+			px = -32
+		if(SOUTHEAST)
+			py = -32
+			px = 32
+		if(SOUTHWEST)
+			py = -32
+			px = -32
+	px = px - 32
+	py = py - 32
+	var/obj/effect/temp_visual/cleave_attack/effect = new(get_turf(user))
+	effect.dir = last_direction
+	animate(effect, alpha = 0.25, pixel_x = px, pixel_y = py, time = 6)
 
 /obj/item/greatsword/debug
 	name = "steel greatsword"
