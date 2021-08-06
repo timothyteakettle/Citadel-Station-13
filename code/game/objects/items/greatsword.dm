@@ -48,7 +48,7 @@
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "cleave"
 	layer = ABOVE_MOB_LAYER
-	duration = 6
+	duration = 3
 
 	mouse_opacity = 0
 	pixel_x = -32
@@ -82,15 +82,17 @@
 	py = py - 32
 	var/obj/effect/temp_visual/cleave_attack/effect = new(get_turf(user))
 	effect.dir = last_direction
-	animate(effect, alpha = 0.25, pixel_x = px, pixel_y = py, time = 6)
+	animate(effect, alpha = 0, pixel_x = px, pixel_y = py, time = 3)
 
-/obj/item/greatsword/debug
+/obj/item/greatsword/steel
 	name = "steel greatsword"
 	desc = "This is far too big to be called a sword."
 	force = 40
 	wound_bonus = 20
+	slot_flags = ITEM_SLOT_BACK
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "greatsword"
 	item_state = "greatsword"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+
