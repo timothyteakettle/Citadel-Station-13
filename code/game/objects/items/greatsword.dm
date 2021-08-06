@@ -9,27 +9,17 @@
 	desc = "default description"
 	w_class = WEIGHT_CLASS_BULKY // it was too big to be called a sword
 	sharpness = SHARP_EDGED
+	item_flags = SLOWS_WHILE_IN_HAND
+	slowdown = 2
 
 	var/datum/component/two_handed/wielded_component
 	var/wielded_required = TRUE // if it requires to be wielded with both hands to be used
 	var/wielded_force // damage when wielding with both hands
 	var/unwielded_force = 0 // damage when wielding with one hand
-	var/slowdown_wielded = 2 // keep this at 0 for no slowdown, it needs to be positive to slowdown
 	var/last_direction // the last direction the sword was swung in
 
 /obj/item/greatsword/Initialize()
 	wielded_component = AddComponent(/datum/component/two_handed, force_unwielded=unwielded_force, force_wielded=wielded_force, icon_wielded="")
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
-	. = ..()
-
-/obj/item/greatsword/proc/on_wield()
-	START_PROCESSING(SSobj, src)
-	slowdown += slowdown_wielded
-
-/obj/item/greatsword/proc/on_unwield()
-	slowdown -= slowdown_wielded
-	STOP_PROCESSING(SSobj, src)
 
 /obj/item/greatsword/pre_attack(atom/target, mob/user)
 	if(wielded_required && !wielded_component.wielded)
