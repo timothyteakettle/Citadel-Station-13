@@ -10,26 +10,32 @@
 	w_class = WEIGHT_CLASS_BULKY // it was too big to be called a sword
 	sharpness = SHARP_EDGED
 	item_flags = SLOWS_WHILE_IN_HAND
-	slowdown = 2
+	slowdown = 1 // it's HUGE
 
 	var/datum/component/two_handed/wielded_component
 	var/wielded_required = TRUE // if it requires to be wielded with both hands to be used
 	var/wielded_force // damage when wielding with both hands
 	var/unwielded_force = 0 // damage when wielding with one hand
 	var/last_direction // the last direction the sword was swung in
+	var/click_delay_multiplier = 2 // double the normal cooldown on swinging this thing by default
+	var/stamina_usage = 40
 
 /obj/item/greatsword/Initialize()
 	wielded_component = AddComponent(/datum/component/two_handed, force_unwielded=unwielded_force, force_wielded=wielded_force, icon_wielded="")
+	..()
 
-/obj/item/greatsword/pre_attack(atom/target, mob/user)
+/obj/item/greatsword/pre_attack(atom/target, mob/living/user)
 	if(wielded_required && !wielded_component.wielded)
 		to_chat(user, "[src] is far too heavy to swing with just one hand.")
+		return TRUE
+	if(!user.UseStaminaBuffer(stamina_usage, warn = TRUE))
 		return TRUE
 	// calculate direction from you to the target
 	last_direction = get_dir(user, target)
 	. = ..()
 	if(!.) // it returns false if the attack can go ahead
 		do_cleave_effect(user)
+		user.DelayNextAction(CLICK_CD_MELEE * click_delay_multiplier)
 
 // took the icon from the rp server
 /obj/effect/temp_visual/cleave_attack
@@ -78,7 +84,7 @@
 	name = "steel greatsword"
 	desc = "This is far too big to be called a sword."
 	force = 40
-	wound_bonus = 20
+	armour_penetration = 75
 	slot_flags = ITEM_SLOT_BACK
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "greatsword"
