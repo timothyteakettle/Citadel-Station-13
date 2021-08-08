@@ -18,13 +18,15 @@
 	var/unwielded_force = 0 // damage when wielding with one hand
 	var/last_direction // the last direction the sword was swung in
 	var/click_delay_multiplier = 2 // double the normal cooldown on swinging this thing by default
-	var/stamina_usage = 40
+	var/stamina_usage = 10 // this is ontop of the normal stam usage
 
 /obj/item/greatsword/Initialize()
 	wielded_component = AddComponent(/datum/component/two_handed, force_unwielded=unwielded_force, force_wielded=wielded_force, icon_wielded="")
 	..()
 
 /obj/item/greatsword/pre_attack(atom/target, mob/living/user)
+	if(isturf(target))
+		return ..()
 	if(wielded_required && !wielded_component.wielded)
 		to_chat(user, "[src] is far too heavy to swing with just one hand.")
 		return TRUE
