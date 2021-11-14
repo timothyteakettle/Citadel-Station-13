@@ -1,12 +1,12 @@
 /mob/living/carbon
-	var/list/overlays_standing[TOTAL_LAYERS]
+	var/list/overlays_standing
 
 /mob/living/carbon/proc/apply_overlay(cache_index)
-	if((. = overlays_standing[cache_index]))
+	if((. = LAZYACCESS(overlays_standing, cache_index)))
 		add_overlay(.)
 
 /mob/living/carbon/proc/remove_overlay(cache_index)
-	var/I = overlays_standing[cache_index]
+	var/I = LAZYACCESS(overlays_standing, cache_index)
 	if(I)
 		cut_overlay(I)
 		overlays_standing[cache_index] = null
