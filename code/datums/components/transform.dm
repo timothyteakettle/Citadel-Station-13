@@ -13,6 +13,7 @@
 	delete_new_mob_on_death = delete_on_death
 
 /datum/component/mob_transform/death_revert/proc/revert()
+	UnregisterSignal(old_mob)
 	if(new_mob.mind)
 		new_mob.mind.transfer_to(old_mob)
 	old_mob.forceMove(get_turf(new_mob))
