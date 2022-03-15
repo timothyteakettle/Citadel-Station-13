@@ -143,44 +143,31 @@
 			if(!M.dropItemToGround(W))
 				qdel(W)
 
-	var/mob/living/new_mob
+	var/new_mob_path
 
 	var/randomize = pick("monkey","robot","slime","xeno","humanoid","animal")
 	switch(randomize)
 		if("monkey")
-			new_mob = new /mob/living/carbon/monkey(M.loc)
+			new_mob_path = /mob/living/carbon/monkey
 
 		if("robot")
-			var/robot = pick(200;/mob/living/silicon/robot,
+			new_mob_path = pick(200;/mob/living/silicon/robot,
 							/mob/living/silicon/robot/modules/syndicate,
 							/mob/living/silicon/robot/modules/syndicate/medical,
 							/mob/living/silicon/robot/modules/syndicate/saboteur,
 							200;/mob/living/simple_animal/drone/polymorphed)
-			new_mob = new robot(M.loc)
-			if(issilicon(new_mob))
-				new_mob.gender = M.gender
-				new_mob.invisibility = 0
-				new_mob.job = "Cyborg"
-				var/mob/living/silicon/robot/Robot = new_mob
-				Robot.lawupdate = FALSE
-				Robot.connected_ai = null
-				Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
-				Robot.clear_inherent_laws(0)
-				Robot.clear_zeroth_law(0)
 
 		if("slime")
-			new_mob = new /mob/living/simple_animal/slime/random(M.loc)
+			new_mob_path = new /mob/living/simple_animal/slime/random
 
 		if("xeno")
-			var/Xe
 			if(M.ckey)
-				Xe = pick(/mob/living/carbon/alien/humanoid/hunter,/mob/living/carbon/alien/humanoid/sentinel)
+				new_mob_path = pick(/mob/living/carbon/alien/humanoid/hunter,/mob/living/carbon/alien/humanoid/sentinel)
 			else
-				Xe = pick(/mob/living/carbon/alien/humanoid/hunter,/mob/living/simple_animal/hostile/alien/sentinel)
-			new_mob = new Xe(M.loc)
+				new_mob_path = pick(/mob/living/carbon/alien/humanoid/hunter,/mob/living/simple_animal/hostile/alien/sentinel)
 
 		if("animal")
-			var/path = pick(/mob/living/simple_animal/hostile/carp,
+			new_mob_path = pick(/mob/living/simple_animal/hostile/carp,
 							/mob/living/simple_animal/hostile/bear,
 							/mob/living/simple_animal/hostile/mushroom,
 							/mob/living/simple_animal/hostile/retaliate/bat,
@@ -210,23 +197,36 @@
 							/mob/living/simple_animal/pet/cat/cak,
 							/mob/living/simple_animal/chick,
 							/mob/living/simple_animal/pickle)
-			new_mob = new path(M.loc)
 
 		if("humanoid")
 			if(prob(50))
-				new_mob = new /mob/living/carbon/human(M.loc)
+				new_mob_path = /mob/living/carbon/human
 			else
-				var/hooman = pick(subtypesof(/mob/living/carbon/human/species))
-				new_mob =new hooman(M.loc)
+				new_mob_path = pick(subtypesof(/mob/living/carbon/human/species))
 
-			var/datum/preferences/A = new()	//Randomize appearance for the human
-			A.copy_to(new_mob, FALSE)
+	var/mob/new_mob = M.change_mob_type(new_mob_path)
 
-			var/mob/living/carbon/human/H = new_mob
-			H.update_body()
-			H.update_hair()
-			H.update_body_parts()
-			H.dna.update_dna_identity()
+	if(randomize == "humanoid")
+		var/datum/preferences/A = new()	//Randomize appearance for the human
+		A.copy_to(new_mob, FALSE)
+
+		var/mob/living/carbon/human/H = new_mob
+		H.update_body()
+		H.update_hair()
+		H.update_body_parts()
+		H.dna.update_dna_identity()
+
+	if(issilicon(new_mob))
+		var/mob/living/silicon/robot/Robot = new_mob
+		Robot.gender = M.gender
+		Robot.invisibility = 0
+		Robot.job = "Cyborg"
+		Robot.lawupdate = FALSE
+		Robot.connected_ai = null
+		Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
+		Robot.clear_inherent_laws(0)
+		Robot.clear_zeroth_law(0)
+
 
 	if(!new_mob)
 		return

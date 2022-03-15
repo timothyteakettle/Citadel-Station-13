@@ -2,7 +2,7 @@
 //This proc is the most basic of the procs. All it does is make a new mob on the same tile and transfer over a few variables.
 //Returns the new mob
 //Note that this proc does NOT do MMI related stuff!
-/mob/proc/change_mob_type(new_type = null, turf/location = null, new_name = null as text, delete_old_mob = 0 as num)
+/mob/proc/change_mob_type(new_type = null, turf/location = null, new_name = null as text, delete_old_mob = 1 as num)
 
 	if(isnewplayer(src))
 		to_chat(usr, "<span class='danger'>Cannot convert players who have not entered yet.</span>")
@@ -58,3 +58,6 @@
 	if(delete_old_mob)
 		QDEL_IN(src, 1)
 	return M
+
+/mob/proc/change_mob_type_death_revert(new_type = null, turf/location = null, new_name = null as text, delete_on_death = FALSE)
+	AddComponent(/datum/component/mob_transform/death_revert, new_type, location, new_name, delete_on_death)
