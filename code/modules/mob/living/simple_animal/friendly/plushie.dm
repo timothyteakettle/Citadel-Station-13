@@ -50,16 +50,16 @@
 			return
 		to_chat(user, "<span class='userdanger'>You hug the strange plushie. You fool.</span>")
 
+		//take care of the user's old body and the old shell
+		drop_items(user)
+
 		//setup the mob
-		var/mob/living/simple_animal/pet/plushie/new_plushie = new /mob/living/simple_animal/pet/plushie/(user.loc)
+		var/mob/living/simple_animal/pet/plushie/new_plushie = user.change_mob_type(/mob/living/simple_animal/pet/plushie)
 		new_plushie.icon = src.icon
 		new_plushie.icon_living = src.icon_state
 		new_plushie.icon_dead = src.icon_state
 		new_plushie.icon_state = src.icon_state
 		new_plushie.name = src.name
-
-		//make the mob sentient
-		user.mind.transfer_to(new_plushie)
 
 		//add sounds to mob
 		new_plushie.AddComponent(/datum/component/squeak, stored_plush.squeak_override)
@@ -67,8 +67,6 @@
 			new_plushie.attack_sound = stored_plush.squeak_override[1]
 			new_plushie.attacked_sound = stored_plush.squeak_override[1]
 
-		//take care of the user's old body and the old shell
-		user.dust(drop_items = TRUE)
 		qdel(src)
 
 //low regen over time
