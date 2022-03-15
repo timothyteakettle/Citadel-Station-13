@@ -51,7 +51,8 @@
 		to_chat(user, "<span class='userdanger'>You hug the strange plushie. You fool.</span>")
 
 		//take care of the user's old body and the old shell
-		drop_items(user)
+		var/mob/living/L = user
+		L.unequip_everything()
 
 		//setup the mob
 		var/mob/living/simple_animal/pet/plushie/new_plushie = user.change_mob_type(/mob/living/simple_animal/pet/plushie)
