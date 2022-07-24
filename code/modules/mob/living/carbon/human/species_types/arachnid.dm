@@ -6,7 +6,8 @@
 	default_color = "00FF00"
 	species_traits = list(LIPS, NOEYES, NO_UNDERWEAR, HAS_FLESH, HAS_BONE)
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_BUG
-	mutant_bodyparts = list("arachnid_legs" = "Plain", "arachnid_spinneret" = "Plain", "arachnid_mandibles" = "Plain")
+	mutant_bodyparts = list("arachnid_legs" = "Plain", "arachnid_spinneret" = "Plain", "arachnid_mandibles" = "Plain",
+	"mam_tail" = "None", "mam_ears" = "None", "insect_wings" = "None", "insect_fluff" = "None", "mam_snouts" = "None", "taur" = "None", "insect_markings" = "None", "mam_body_markings" = list())
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -22,6 +23,9 @@
 	var/web_ready = TRUE
 	var/spinner_rate = 25
 	wings_icons = SPECIES_WINGS_MOTH //Arachnids' phylum is arthropods, which include butterflies. Might as well hit them with moth wings.
+
+	allowed_limb_ids = list(SPECIES_ARACHNID, SPECIES_INSECT, "moth","moth_not_greyscale")
+
 
 /datum/species/arachnid/random_name(gender,unique,lastname)
 	if(unique)
